@@ -4,7 +4,6 @@
 
 // Endpoint (URL) for Beacon backend implementing a query API to access data
 const ARRAYMAP = "http://arraymap.org/beaconresponse";
-
 $( "#beacon-form" ).submit(function( event ) {
 
     event.preventDefault();
@@ -61,10 +60,10 @@ function buildQuery(params) {
     var paramName2Url = {
         "referenceName": "variants.reference_name",
         "variantType": "variants.variant_type",
-        "start1": "variants.start",
-        "start2": "variants.start",
-        "end1": "variants.end",
-        "end2": "variants.end"
+        "start1": "variants.start_max",
+        "start2": "variants.start_min",
+        "end1": "variants.end_min",
+        "end2": "variants.end_max"
     };
 
     var paramName, paramValue = null;
