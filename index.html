@@ -61,6 +61,14 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="datasets" class="col-sm-2 control-label">Datasets</label>
+                    <div class="col-sm-4">
+                        <select id="datasets" name="datasets" class="form-control" multiple>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <label for="variantType" class="col-sm-2 control-label">Variant type <span class="compulsory">*</span></label>
                     <div class="col-sm-4">
                         <select id="variantType" name="variantType" class="form-control">
@@ -101,6 +109,16 @@
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="js/query.js"></script>
+<script src="js/datasets.js"></script>
+
+<script type='text/javascript'>
+
+    $( document ).ready(function() {
+        console.log("Loading page");
+        loadDatasets();
+    });
+
+</script>
 
 </body>
 </html>
