@@ -1,9 +1,13 @@
 /**
  * Created by sduvaud on 12/05/17.
- */
+ * Last modification by Michael Baudis 2017-07-14
+*/
 
 // Endpoint (URL) for Beacon backend implementing a query API to access data
-const ARRAYMAP = "http://arraymap.org/beaconresponse";
+
+var host = window.location.hostname;
+const ARRAYMAP = "http://" + host + "/beaconresponse";
+
 $( "#beacon-form" ).submit(function( event ) {
 
     event.preventDefault();
@@ -28,20 +32,26 @@ $( "#beacon-form" ).submit(function( event ) {
                 $("#spinner").hide();
                 $("#noResult").hide();
                 $("#result").show();
+                
+                // this already implements the responses for multiple datasets
+                var dataset_no = data.dataset_allele_responses.length;
+				for (var i = 0; i < dataset_no; i++) {
 
-                var result = '';
-                $.each(formParam, function (i, val) {
-                    result += '<td>'+ val.value +'</td>';
-                });
-                result += '<td>'+ data.callCount +'</td>';
+					var result = '<td>'+ data.dataset_allele_responses[i].dataset_id +'</td>';
+					$.each(formParam, function (i, val) {
+						result += '<td>'+ val.value +'</td>';
+					});
+					result += '<td>'+ data.dataset_allele_responses[i].call_count +'</td>';
 
-                $("#resultTable").append('<tr>' + result + '</tr>');
+					$("#resultTable").append('<tr>' + result + '</tr>');
+					
+                }
             })
             .fail(function (jqXHR, textStatus, error) {
                 $("#spinner").hide();
                 $('#message').remove();
                 $('#error').show();
-                $('#error').append('<span id="message" class="compulsory">Server error</span>');
+                $('#error').append('<span id="message" class="compulsory">Error on '+ query +'</span>');
             });
     }
     else {
