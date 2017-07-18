@@ -1,6 +1,6 @@
 /**
  * Created by sduvaud on 12/05/17.
- * Last modification by Michael Baudis 2017-07-14
+ * Last modification by Michael Baudis 2017-07-18
 */
 
 // Endpoint (URL) for Beacon backend implementing a query API to access data
