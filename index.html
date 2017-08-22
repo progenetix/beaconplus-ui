@@ -18,53 +18,59 @@
         <p>Beacon CNV request (<a target="_blank" href="https://github.com/ga4gh/beacon-team/pull/94">PR #94</a>)</p>
     </div>
 
-    <div class="alert alert-info">This very experimental Beacon only implements <span style="font-weight: bold">BeaconCNVRequest</span> and not BeaconAlleleRequest.</div>
+    <div class="alert alert-info">This experimental Beacon interface currently implements only <span style="font-weight: bold">structural variant requests</span> (i.e. DUP, DEL).<br/>
+      The code for this project can be found in a <a href="https://github.com/progenetix/beaconplus-ui" target="_blank">Progenetix Github repository</a>.
+    </div>
 
     <div class="panel panel-default">
         <div class="panel-heading">Query</div>
         <div class="panel-body">
             <form class="form-horizontal" id="beacon-form" action="" method="post">
+                <div class="form-group">
+                  <label for="datasetId" class="col-sm-2 control-label">Dataset</span></label>
+                    <div class="col-sm-4">
+                        <select id="datasetId" name="datasetId" class="form-control">
+                            <option value="arraymap" selected="selected">arrayMap</option>
+                            <option value="dipg">DIPG</option>
+                        </select>
+                    </div>
+                </div>
 
                 <div class="form-group">
+
+                    <img src="./img/beacon_structural_matches.png" style="float: right; border:0px; height: 220px; margin:  0px 10px -200px 10px;" onclick="window.open(this.src)" />
+
                     <label for="referenceName" class="col-sm-2 control-label">Reference name <span class="compulsory">*</span></label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" name="referenceName" id="referenceName" placeholder="corresponds to chromosome name, e.g: 9" required>
+                        <input type="text" class="form-control" name="referenceName" id="referenceName" placeholder="chromosome name, e.g: 9" required>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="start1" class="col-sm-2 control-label">Start1 <span class="compulsory">*</span></label>
+                    <label for="start1" class="col-sm-2 control-label">Start <i>min</i> Position<span class="compulsory">*</span></label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" name="start1" id="start1" placeholder="start position, e.g: 20000000" required>
+                        <input type="text" class="form-control" name="start1" id="start1" placeholder="begin of match start interval, e.g: 20000000" required>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="start2" class="col-sm-2 control-label">Start2</label>
+                    <label for="start2" class="col-sm-2 control-label">Start <i>max</i> Position</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" name="start2" id="start2" placeholder="start position, e.g: 21984490">
+                        <input type="text" class="form-control" name="start2" id="start2" placeholder="end of match start interval, e.g: 21984490">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="end1" class="col-sm-2 control-label">End1</label>
+                    <label for="end1" class="col-sm-2 control-label">End <i>min</i> Position</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="end1" name="end1" placeholder="end position, e.g: 21984490">
+                        <input type="text" class="form-control" id="end1" name="end1" placeholder="begin of match end interval, e.g: 21984490">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="end2" class="col-sm-2 control-label">End2</label>
+                    <label for="end2" class="col-sm-2 control-label">End <i>max</i> Position</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="end2" name="end2" placeholder="end position, e.g: 25000000">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="datasets" class="col-sm-2 control-label">Datasets</label>
-                    <div class="col-sm-4">
-                        <select id="datasets" name="datasets" class="form-control" multiple>
-                        </select>
+                        <input type="text" class="form-control" id="end2" name="end2" placeholder="end of match end interval, e.g: 25000000">
                     </div>
                 </div>
 
@@ -97,7 +103,7 @@
             <div style="display: none;" id="result">
                 <table class="table table-responsive" id="resultTable">
                     <thead>
-                    <tr><th>Dataset</th><th>Reference name</th><th>Start1</th><th>Start2</th><th>End1</th><th>End2</th><th>Variant type</th><th>Call counts</th></tr>
+                    <tr><th>Dataset</th><th>Reference name</th><th>Start Min</th><th>Start Max</th><th>End Min</th><th>End Max</th><th>Variant Type</th><th>Call Count</th></tr>
                     </thead>
                     <tbody></tbody>
                 </table>

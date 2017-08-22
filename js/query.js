@@ -1,6 +1,6 @@
 /**
  * Created by sduvaud on 12/05/17.
- * Last modification by Michael Baudis 2017-07-14
+ * Last modification by Michael Baudis 2017-07-18
 */
 
 // Endpoint (URL) for Beacon backend implementing a query API to access data
@@ -32,19 +32,19 @@ $( "#beacon-form" ).submit(function( event ) {
                 $("#spinner").hide();
                 $("#noResult").hide();
                 $("#result").show();
-                
+
                 // this already implements the responses for multiple datasets
                 var dataset_no = data.dataset_allele_responses.length;
 				for (var i = 0; i < dataset_no; i++) {
 
-					var result = '<td>'+ data.dataset_allele_responses[i].dataset_id +'</td>';
+					var result = '';
 					$.each(formParam, function (i, val) {
 						result += '<td>'+ val.value +'</td>';
 					});
-					result += '<td>'+ data.dataset_allele_responses[i].call_count +'</td>';
+          result += '<td>'+ data.dataset_allele_responses[i].call_count +'</td>';
 
 					$("#resultTable").append('<tr>' + result + '</tr>');
-					
+
                 }
             })
             .fail(function (jqXHR, textStatus, error) {
@@ -68,6 +68,7 @@ function buildQuery(params) {
 
     var query = '';
     var paramName2Url = {
+        "datasetId": "dataset_id",
         "referenceName": "variants.reference_name",
         "variantType": "variants.variant_type",
         "start1": "variants.start_max",

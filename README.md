@@ -1,6 +1,6 @@
 ### Introduction
 
-This arrayMap Beacon **web-based user interface** implements the **BeaconCNVRequest** as described in [https://github.com/ga4gh/beacon-team/pull/94](https://github.com/ga4gh/beacon-team/pull/94)
+This [arrayMap Beacon](http://beacon.arraymap.org) **web-based user interface** implements the **BeaconCNVRequest** as described in [https://github.com/ga4gh/beacon-team/pull/94](https://github.com/ga4gh/beacon-team/pull/94)
 
 The UI uses arrayMap-API to AJAX send queries to the arraymap server.
 
