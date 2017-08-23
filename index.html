@@ -58,7 +58,7 @@ TODO: Smarter image size/positioning
                 <div class="form-group">
                     <label for="start1" class="col-sm-2 control-label">Start <i>min</i> Position<span class="compulsory">*</span></label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" name="start1" id="start1" placeholder="begin of match start interval, e.g: 20000000" required>
+                        <input type="text" class="form-control" name="start1" id="start1" placeholder="begin of match start interval, e.g: 20000000">
                     </div>
                 </div>
 
@@ -101,11 +101,18 @@ TODO: This may be better served with a standard G>A syntax, or general open text
 -->
 
                 <div class="form-group">
+                    <label for="start" class="col-sm-2 control-label">Position<span class="compulsory">*</span></label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" name="start" id="start" placeholder="position for exact allelic variant, e.g. 7577121">
+                    </div>
+                </div>
+
+                <div class="form-group">
                   <label for="referenceBases" class="col-sm-2 control-label">Ref. Base(s)<span class="compulsory">*</span></label>
                   <div class="col-sm-4">
                       <input type="text" class="form-control" name="referenceBases" id="referenceBases" placeholder="the reference base for the allele, e.g. G">
                   </div>
-              </div>
+                </div>
 
               <div class="form-group">
                   <label for="alternateBases" class="col-sm-2 control-label">Alt. Base(s)<span class="compulsory">*</span></label>
@@ -133,7 +140,7 @@ TODO: This may be better served with a standard G>A syntax, or general open text
             <div style="display: none;" id="result">
                 <table class="table table-responsive" id="resultTable">
                     <thead>
-                    <tr><th>Dataset</th><th>Reference name</th><th>Start Min</th><th>Start Max</th><th>End Min</th><th>End Max</th><th>Variant Type</th><th>Ref Bases</th><th>Alt Bases</th><th>Call Count</th></tr>
+                    <tr><th>Dataset</th><th>Reference name</th><th>Start Min</th><th>Start Max</th><th>End Min</th><th>End Max</th><th>Variant Type</th><th>Position</th><th>Ref Bases</th><th>Alt Bases</th><th>Call Count</th><th>Query</th></tr>
                     </thead>
                     <tbody></tbody>
                 </table>

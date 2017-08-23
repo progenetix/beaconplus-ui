@@ -42,6 +42,7 @@ $( "#beacon-form" ).submit(function( event ) {
 						result += '<td>'+ val.value +'</td>';
 					});
           result += '<td>'+ data.dataset_allele_responses[i].call_count +'</td>';
+          result += '<td>?'+ data.info.query_string +'</td>';
 
 					$("#resultTable").append('<tr>' + result + '</tr>');
 
@@ -73,6 +74,7 @@ function buildQuery(params) {
         "referenceBases": "variants.reference_bases",
         "alternateBases": "variants.alternate_bases",
         "variantType": "variants.variant_type",
+        "start": "variants.start",
         "start1": "variants.start_max",
         "start2": "variants.start_min",
         "end1": "variants.end_min",
@@ -104,12 +106,16 @@ function buildQuery(params) {
 
 function checkParameters(params) {
 
-    var referenceName, start1, variantType, referenceBases, alternateBases = null;
+    var referenceName, start, start1, variantType, referenceBases, alternateBases = null;
     var start2 = end1 = end2 = -1;
 
     $.each(params, function (i, val) {
         if (val.name == 'referenceName') {
             referenceName = val.value;
+        }
+
+        if (val.name == 'start') {
+            start1 = Math.abs(parseInt(val.value));
         }
 
         if (val.name == 'start1') {
@@ -147,12 +153,13 @@ function checkParameters(params) {
     // ###############################################################
     // Rule #2: All positions are integers:
     // ###############################################################
-    if (isNaN(start1) ||
-        isNaN(start2) ||
-        isNaN(end1)   ||
-        isNaN(end2)) {
-            return "All positions must be integers!";
-    }
+// TODO: re-implement checks for both types of queries
+    // if (isNaN(start1) ||
+    //     isNaN(start2) ||
+    //     isNaN(end1)   ||
+    //     isNaN(end2)) {
+    //         return "All positions must be integers!";
+    // }
 
     // ###############################################################
     // Rule #3: Ordering of the params
