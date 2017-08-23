@@ -70,6 +70,8 @@ function buildQuery(params) {
     var paramName2Url = {
         "datasetId": "dataset_id",
         "referenceName": "variants.reference_name",
+        "referenceBases": "variants.reference_bases",
+        "alternateBases": "variants.alternate_bases",
         "variantType": "variants.variant_type",
         "start1": "variants.start_max",
         "start2": "variants.start_min",
@@ -86,7 +88,12 @@ function buildQuery(params) {
         if (paramName == 'referenceName') {
             paramValue = 'chr' + paramValue;
         }
-
+// TODO
+// The evaluation of "param" doesn't work for derived/post-processed values.
+// Separate params in the form for referenceBases & alternateBases would work,
+// but be a bit cumbersome.
+// Also, params may be modified depending on the value of others (e.g. bases vs.
+// structural), which doesn't work in the current loop.
         if (paramValue != '') {
             query += paramName2Url[paramName] + '=' + paramValue + '&';
         }
@@ -97,7 +104,7 @@ function buildQuery(params) {
 
 function checkParameters(params) {
 
-    var referenceName, start1, variantType = null;
+    var referenceName, start1, variantType, referenceBases, alternateBases = null;
     var start2 = end1 = end2 = -1;
 
     $.each(params, function (i, val) {
@@ -122,7 +129,11 @@ function checkParameters(params) {
         }
 
         if (val.name == 'variantType') {
+          if (val.value == 'DEL' || val.value == 'DUP') {
             variantType = val.value;
+            referenceBases = null;
+            alternateBases = null;
+          }
         }
     });
 
@@ -168,9 +179,10 @@ function checkParameters(params) {
     // ###############################################################
     // Rule #5: Variant type (DEL or DUP)
     // ###############################################################
-    if (variantType != 'DEL' && variantType != 'DUP') {
-        return "variant type must be either DEL or DUP";
-    }
+// TODO: modify this for bases OR structural test
+    // if (variantType != 'DEL' && variantType != 'DUP') {
+    //     return "variant type must be either DEL or DUP";
+    // }
 
     return "OK";
 }
