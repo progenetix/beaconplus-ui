@@ -1,6 +1,6 @@
 /**
  * Created by sduvaud on 12/05/17.
- * Last modification by Michael Baudis 2017-07-18
+ * Last modification by Michael Baudis 2017-08-24
 */
 
 // Endpoint (URL) for Beacon backend implementing a query API to access data
@@ -19,46 +19,46 @@ $( "#beacon-form" ).submit(function( event ) {
 
     if (message == 'OK') {
 
-        $('#error').hide();
+      $('#error').hide();
 
-        var query = buildQuery(formParam);
-        var params = {
-            type: 'GET',
-            url: ARRAYMAP + '/?' + query
-        };
+      var query = buildQuery(formParam);
+      var params = {
+        type: 'GET',
+        url: ARRAYMAP + '/?' + query
+      };
 
-        $.ajax(params)
-            .done(function (data) {
-                $("#spinner").hide();
-                $("#noResult").hide();
-                $("#result").show();
+      $.ajax(params)
+        .done(function (data) {
+          $("#spinner").hide();
+          $("#noResult").hide();
+          $("#result").show();
 
-                // this already implements the responses for multiple datasets
-                var dataset_no = data.dataset_allele_responses.length;
-				for (var i = 0; i < dataset_no; i++) {
+          // this already implements the responses for multiple datasets
+          var dataset_no = data.dataset_allele_responses.length;
+    			for (var i = 0; i < dataset_no; i++) {
 
-					var result = '';
-					$.each(formParam, function (i, val) {
-						result += '<td>'+ val.value +'</td>';
-					});
-          result += '<td>'+ data.dataset_allele_responses[i].call_count +'</td>';
-          result += '<td>?'+ data.info.query_string +'</td>';
+    				var result = '';
+    				$.each(formParam, function (i, val) {
+    					result += '<td>'+ val.value +'</td>';
+    				});
+            result += '<td>'+ data.dataset_allele_responses[i].call_count +'</td>';
+            result += '<td><a href="' + ARRAYMAP + '/?' + data.info.query_string +'" title="' + data.info.query_string + '" target="_BLANK">show JSON</a></td>';
+//             result += '<td><a href="' + params[url] + '" alt="'+ query +'" target="_BLANK>show json</a></td>';
 
-					$("#resultTable").append('<tr>' + result + '</tr>');
+    				$("#resultTable").append('<tr>' + result + '</tr>');
 
-                }
-            })
-            .fail(function (jqXHR, textStatus, error) {
-                $("#spinner").hide();
-                $('#message').remove();
-                $('#error').show();
-                $('#error').append('<span id="message" class="compulsory">Error on '+ query +'</span>');
-            });
+          }
+        })
+        .fail(function (jqXHR, textStatus, error) {
+          $("#spinner").hide();
+          $('#message').remove();
+          $('#error').show();
+          $('#error').append('<span id="message" class="compulsory">Error on '+ query +'</span>');
+        });
     }
     else {
 
         $("#spinner").hide();
-
         $('#message').remove();
         $('#error').show();
         $('#error').append('<span id="message" class="compulsory">' + message + '</span>');
@@ -68,7 +68,7 @@ $( "#beacon-form" ).submit(function( event ) {
 
 function buildQuery(params) {
 
-// TODO: Query paramters should be submitted depending on vatriantType...
+// TODO: Query paramters should be submitted depending on variantType...
 
   var query = '';
   var paramName2Url = {
@@ -81,7 +81,7 @@ function buildQuery(params) {
       "endMax": "variants.end_max",
       "referenceBases": "variants.reference_bases",
       "alternateBases": "variants.alternate_bases",
-      "start": "variants.start",
+      "start": "variants.start"
   };
 
   var paramName, paramValue = null;
@@ -134,8 +134,6 @@ function checkParameters(params) {
         if (val.name == 'variantType') {
           if (val.value == 'DEL' || val.value == 'DUP') {
             variantType = val.value;
-            referenceBases = null;
-            alternateBases = null;
           }
         }
     });
