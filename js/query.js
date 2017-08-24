@@ -75,10 +75,10 @@ function buildQuery(params) {
         "alternateBases": "variants.alternate_bases",
         "variantType": "variants.variant_type",
         "start": "variants.start",
-        "start1": "variants.start_max",
-        "start2": "variants.start_min",
-        "end1": "variants.end_min",
-        "end2": "variants.end_max"
+        "startMin": "variants.start_max",
+        "startMax": "variants.start_min",
+        "endMin": "variants.end_min",
+        "endMax": "variants.end_max"
     };
 
     var paramName, paramValue = null;
@@ -106,8 +106,8 @@ function buildQuery(params) {
 
 function checkParameters(params) {
 
-    var referenceName, start, start1, variantType, referenceBases, alternateBases = null;
-    var start2 = end1 = end2 = -1;
+    var referenceName, start, startMin, variantType, referenceBases, alternateBases = null;
+    var startMax = endMin = endMax = -1;
 
     $.each(params, function (i, val) {
         if (val.name == 'referenceName') {
@@ -115,23 +115,23 @@ function checkParameters(params) {
         }
 
         if (val.name == 'start') {
-            start1 = Math.abs(parseInt(val.value));
+            startMin = Math.abs(parseInt(val.value));
         }
 
-        if (val.name == 'start1') {
-            start1 = Math.abs(parseInt(val.value));
+        if (val.name == 'startMin') {
+            startMin = Math.abs(parseInt(val.value));
         }
 
-        if (val.name == 'start2' && val.value != '') {
-            start2 = Math.abs(parseInt(val.value));
+        if (val.name == 'startMax' && val.value != '') {
+            startMax = Math.abs(parseInt(val.value));
         }
 
-        if (val.name == 'end1' && val.value != '') {
-            end1 = Math.abs(parseInt(val.value));
+        if (val.name == 'endMin' && val.value != '') {
+            endMin = Math.abs(parseInt(val.value));
         }
 
-        if (val.name == 'end2' && val.value != '') {
-            end2 = Math.abs(parseInt(val.value));
+        if (val.name == 'endMax' && val.value != '') {
+            endMax = Math.abs(parseInt(val.value));
         }
 
         if (val.name == 'variantType') {
@@ -146,7 +146,7 @@ function checkParameters(params) {
     // ###############################################################
     // Rule #1: Compulsory fields:
     // ###############################################################
-    if (referenceName == '' || start1 == '' || variantType == '') {
+    if (referenceName == '' || startMin == '' || variantType == '') {
         return "One or more compulsory fields are missing!";
     }
 
@@ -154,24 +154,24 @@ function checkParameters(params) {
     // Rule #2: All positions are integers:
     // ###############################################################
 // TODO: re-implement checks for both types of queries
-    // if (isNaN(start1) ||
-    //     isNaN(start2) ||
-    //     isNaN(end1)   ||
-    //     isNaN(end2)) {
+    // if (isNaN(startMin) ||
+    //     isNaN(startMax) ||
+    //     isNaN(endMin)   ||
+    //     isNaN(endMax)) {
     //         return "All positions must be integers!";
     // }
 
     // ###############################################################
     // Rule #3: Ordering of the params
     // ###############################################################
-    if (start2 > -1 && start2 < start1) {
-        return "start2 must be greater than start1!";
+    if (startMax > -1 && startMax < startMin) {
+        return "startMax must be greater than startMin!";
     }
-    if (end2 > -1 && end1 > -1 && end2 < end1) {
-        return "end2 must be greater than end1!";
+    if (endMax > -1 && endMin > -1 && endMax < endMin) {
+        return "endMax must be greater than endMin!";
     }
-    var maxEnd = Math.max(end1, end2);
-    if (maxEnd > -1 && Math.max(start1, start2) > maxEnd) {
+    var maxEnd = Math.max(endMin, endMax);
+    if (maxEnd > -1 && Math.max(startMin, startMax) > maxEnd) {
         return "end positions must be greater than start positions";
     }
 
