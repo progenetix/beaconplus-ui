@@ -42,6 +42,7 @@ $( "#beacon-form" ).submit(function( event ) {
     					result += '<td>'+ val.value +'</td>';
     				});
             result += '<td>'+ data.dataset_allele_responses[i].call_count +'</td>';
+            result += '<td>'+ data.dataset_allele_responses[i].frequency +'</td>';
             result += '<td><a href="' + ARRAYMAP + '/?' + data.info.query_string +'" title="' + data.info.query_string + '" target="_BLANK">show JSON</a></td>';
 //             result += '<td><a href="' + params[url] + '" alt="'+ query +'" target="_BLANK>show json</a></td>';
 
