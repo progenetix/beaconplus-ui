@@ -2,152 +2,162 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Beacon - arrayMap endpoint</title>
-    <link rel="stylesheet" href="css/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <title>Beacon - arrayMap endpoint</title>
+  <link rel="stylesheet" href="css/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
 <div class="container">
 
-    <div class="jumbotron">
-        <h1>Beacon arrayMap</h1>
-        <p>Beacon CNV request (<a target="_blank" href="https://github.com/ga4gh/beacon-team/pull/94">PR #94</a>)</p>
-    </div>
+  <div class="jumbotron">
+    <h1>Beacon arrayMap</h1>
+    <p>Beacon CNV request (<a target="_blank" href="https://github.com/ga4gh/beacon-team/pull/94">PR #94</a>)</p>
+  </div>
 
-    <div class="alert alert-info">This experimental Beacon interface currently implements only <span style="font-weight: bold">structural variant requests</span> (i.e. DUP, DEL).<br/>
-      The code for this project can be found in a <a href="https://github.com/progenetix/beaconplus-ui" target="_blank">Progenetix Github repository</a>.
-    </div>
+  <div class="alert alert-info">This experimental Beacon interface currently implements only <span style="font-weight: bold">structural variant requests</span> (i.e. DUP, DEL).<br/>
+    The code for this project can be found in a <a href="https://github.com/progenetix/beaconplus-ui" target="_blank">Progenetix Github repository</a>.
+  </div>
 
-    <div class="panel panel-default">
-        <div class="panel-heading">Query</div>
-        <div class="panel-body">
-            <form class="form-horizontal" id="beacon-form" action="" method="post">
+  <div class="panel panel-default">
+    <div class="panel-heading">Query</div>
+    <div class="panel-body">
+
+      <form class="form-horizontal" id="beacon-form" action="" method="post">
 
 <!--
 TODO: It would be great to have help buttons for auto-filling example queries for both structural and alternateBases examples!
 -->
 
-                <div class="form-group">
-                  <label for="datasetId" class="col-sm-2 control-label">Dataset</span></label>
-                    <div class="col-sm-4">
-                        <select id="datasetId" name="datasetId" class="form-control">
-                            <option value="arraymap" selected="selected">arrayMap</option>
-                            <option value="dipg">DIPG</option>
-                        </select>
-                    </div>
-                </div>
+        <div class="form-group">
+          <label for="datasetId" class="col-sm-2 control-label">Dataset</span></label>
+            <div class="col-sm-4">
+              <select id="datasetId" name="datasetId" class="form-control">
+                <option value="arraymap" selected="selected">arrayMap</option>
+                <option value="dipg">DIPG</option>
+              </select>
+            </div>
+        </div>
 
-                <div class="form-group">
-
+        <div class="form-group">
 <!--
 TODO: Smarter image size/positioning
 -->
+          <img src="./img/beacon_structural_matches.png" style="float: right; border:0px; height: 220px; margin:  0px 10px -200px 10px;" onclick="window.open(this.src)" />
 
-                    <img src="./img/beacon_structural_matches.png" style="float: right; border:0px; height: 220px; margin:  0px 10px -200px 10px;" onclick="window.open(this.src)" />
-
-                    <label for="referenceName" class="col-sm-2 control-label">Reference name<span class="compulsory">*</span></label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" name="referenceName" id="referenceName" placeholder="chromosome name, e.g: 9" required>
-                    </div>
-                </div>
+          <label for="referenceName" class="col-sm-2 control-label">Reference name<span class="compulsory">*</span></label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" name="referenceName" id="referenceName" placeholder="chromosome name, e.g: 9" required>
+          </div>
+        </div>
 
 <!--
 TODO: Dynamic changes in the interface, depending on the selection structural vs. bases (e.g. if DUP or DEL, then no "Ref./Alt. Base(s)"").
 -->
-                <div class="form-group">
-                    <label for="variantType" class="col-sm-2 control-label">Variant type<span class="compulsory">*</span></label>
-                    <div class="col-sm-4">
-                        <select id="variantType" name="variantType" class="form-control">
-                          <option value="SNV">SNV / indel</option>
-                          <option value="DEL">DEL (Deletion)</option>
-                          <option value="DUP">DUP (Duplication)</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="start1" class="col-sm-2 control-label">Start <i>min</i> Position<span class="compulsory">*</span></label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" name="start1" id="start1" placeholder="begin of match start interval, e.g: 20000000">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="start2" class="col-sm-2 control-label">Start <i>max</i> Position</label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" name="start2" id="start2" placeholder="end of match start interval, e.g: 21984490">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="end1" class="col-sm-2 control-label">End <i>min</i> Position</label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" id="end1" name="end1" placeholder="begin of match end interval, e.g: 21984490">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="end2" class="col-sm-2 control-label">End <i>max</i> Position</label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" id="end2" name="end2" placeholder="end of match end interval, e.g: 25000000">
-                    </div>
-                </div>
-
-<!--
-TODO: This may be better served with a standard G>A syntax, or general open text field for e.g. "chr17:7577121 G>A" and post-processing.
--->
-
-                <div class="form-group">
-                    <label for="start" class="col-sm-2 control-label">Position<span class="compulsory">*</span></label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" name="start" id="start" placeholder="position for exact allelic variant, e.g. 7577121">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                  <label for="referenceBases" class="col-sm-2 control-label">Ref. Base(s)<span class="compulsory">*</span></label>
-                  <div class="col-sm-4">
-                      <input type="text" class="form-control" name="referenceBases" id="referenceBases" placeholder="the reference base for the allele, e.g. G">
-                  </div>
-                </div>
-
-              <div class="form-group">
-                  <label for="alternateBases" class="col-sm-2 control-label">Alt. Base(s)<span class="compulsory">*</span></label>
-                  <div class="col-sm-4">
-                      <input type="text" class="form-control" name="alternateBases" id="alternateBases" placeholder="the SNV variant for the allele, e.g. A">
-                  </div>
-              </div>
-
-              <div class="form-group">
-                    <div class="col-sm-offset-2">
-                        <div class="col-sm-2">
-                            <button class="btn btn-info">Beacon Query <i class="fa fa-spinner fa-spin" id="spinner" style="display: none"></i></button>
-                        </div>
-                        <div class="col-sm-4" id="error" style="display: none;"></div>
-                    </div>
-                </div>
-            </form>
+        <div class="form-group">
+          <label for="variantType" class="col-sm-2 control-label">Variant type<span class="compulsory">*</span></label>
+          <div class="col-sm-4">
+            <select id="variantType" name="variantType" class="form-control">
+              <option value="SNV">SNV / indel</option>
+              <option value="DEL">DEL (Deletion)</option>
+              <option value="DUP">DUP (Duplication)</option>
+            </select>
+          </div>
         </div>
-    </div>
 
-    <div class="panel panel-default">
-        <div class="panel-heading">Response</div>
-        <div class="panel-body">
-            <div id="noResult" class="alert alert-warning">There were no previous searches yet. Please, perform a query by using the form above.</div>
-            <div style="display: none;" id="result">
-                <table class="table table-responsive" id="resultTable">
-                    <thead>
-                    <tr><th>Dataset</th><th>Reference name</th><th>Start Min</th><th>Start Max</th><th>End Min</th><th>End Max</th><th>Variant Type</th><th>Position</th><th>Ref Bases</th><th>Alt Bases</th><th>Call Count</th><th>Query</th></tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
+        <div class="form-group">
+          <label for="start1" class="col-sm-2 control-label">Start <i>min</i> Position<span class="compulsory">*</span></label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" name="start1" id="start1" placeholder="begin of match start interval, e.g: 20000000">
+          </div>
+        </div>
+
+        <div class="form-group">
+            <label for="start2" class="col-sm-2 control-label">Start <i>max</i> Position</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="start2" id="start2" placeholder="end of match start interval, e.g: 21984490">
             </div>
         </div>
+
+        <div class="form-group">
+          <label for="end1" class="col-sm-2 control-label">End <i>min</i> Position</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="end1" name="end1" placeholder="begin of match end interval, e.g: 21984490">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="end2" class="col-sm-2 control-label">End <i>max</i> Position</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="end2" name="end2" placeholder="end of match end interval, e.g: 25000000">
+          </div>
+        </div>
+
+<!--
+Start of SNV fields
+TODO: This may be better served with a standard G>A syntax, or general open text field for e.g. "chr17:7577121 G>A" and post-processing.
+-->
+        <div class="form-group">
+            <label for="start" class="col-sm-2 control-label">Position<span class="compulsory">*</span></label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="start" id="start" placeholder="position for exact allelic variant, e.g. 7577121">
+            </div>
+        </div>
+
+        <div class="form-group">
+          <label for="referenceBases" class="col-sm-2 control-label">Ref. Base(s)<span class="compulsory">*</span></label>
+          <div class="col-sm-4">
+              <input type="text" class="form-control" name="referenceBases" id="referenceBases" placeholder="the reference base for the allele, e.g. G">
+          </div>
+        </div>
+
+        <div class="form-group">
+            <label for="alternateBases" class="col-sm-2 control-label">Alt. Base(s)<span class="compulsory">*</span></label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="alternateBases" id="alternateBases" placeholder="the SNV variant for the allele, e.g. A">
+            </div>
+        </div>
+
+<!--
+End of SNV fields
+-->
+
+<!--
+Submission/error
+TODO: A second submit should open a new page with the raw return from the server.
+-->
+        <div class="form-group">
+            <div class="col-sm-offset-2">
+                <div class="col-sm-2">
+                    <button class="btn btn-info">Beacon Query <i class="fa fa-spinner fa-spin" id="spinner" style="display: none"></i></button>
+                </div>
+                <div class="col-sm-4" id="error" style="display: none;"></div>
+            </div>
+        </div>
+
+      </form>
+
     </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">Response</div>
+    <div class="panel-body">
+      <div id="noResult" class="alert alert-warning">There were no previous searches yet. Please, perform a query by using the form above.</div>
+      <div style="display: none;" id="result">
+        <table class="table table-responsive" id="resultTable">
+          <thead>
+          <tr><th>Dataset</th><th>Reference name</th><th>Start Min</th><th>Start Max</th><th>End Min</th><th>End Max</th><th>Variant Type</th><th>Position</th><th>Ref Bases</th><th>Alt Bases</th><th>Call Count</th><th>Query</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
 </div>
 
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
