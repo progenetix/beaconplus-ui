@@ -65,43 +65,40 @@ $( "#beacon-form" ).submit(function( event ) {
     }
 });
 
+
 function buildQuery(params) {
 
-    var query = '';
-    var paramName2Url = {
-        "datasetId": "dataset_id",
-        "referenceName": "variants.reference_name",
-        "referenceBases": "variants.reference_bases",
-        "alternateBases": "variants.alternate_bases",
-        "variantType": "variants.variant_type",
-        "start": "variants.start",
-        "startMin": "variants.start_max",
-        "startMax": "variants.start_min",
-        "endMin": "variants.end_min",
-        "endMax": "variants.end_max"
-    };
+// TODO: Query paramters should be submitted depending on vatriantType...
 
-    var paramName, paramValue = null;
-    $.each(params, function (i, val) {
+  var query = '';
+  var paramName2Url = {
+      "datasetId": "dataset_id",
+      "referenceName": "variants.reference_name",
+      "variantType": "variants.variant_type",
+      "startMin": "variants.start_max",
+      "startMax": "variants.start_min",
+      "endMin": "variants.end_min",
+      "endMax": "variants.end_max",
+      "referenceBases": "variants.reference_bases",
+      "alternateBases": "variants.alternate_bases",
+      "start": "variants.start",
+  };
 
-        paramName = val.name;
-        paramValue = val.value;
+  var paramName, paramValue = null;
+  $.each(params, function (i, val) {
 
-        if (paramName == 'referenceName') {
-            paramValue = 'chr' + paramValue;
-        }
-// TODO
-// The evaluation of "param" doesn't work for derived/post-processed values.
-// Separate params in the form for referenceBases & alternateBases would work,
-// but be a bit cumbersome.
-// Also, params may be modified depending on the value of others (e.g. bases vs.
-// structural), which doesn't work in the current loop.
-        if (paramValue != '') {
-            query += paramName2Url[paramName] + '=' + paramValue + '&';
-        }
-    });
+      paramName = val.name;
+      paramValue = val.value;
 
-    return query;
+      if (paramName == 'referenceName') {
+          paramValue = 'chr' + paramValue;
+      }
+      if (paramValue != '' && paramName != '') {
+          query += paramName2Url[paramName] + '=' + paramValue + '&';
+      }
+  });
+
+  return query;
 }
 
 function checkParameters(params) {
