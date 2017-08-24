@@ -54,13 +54,11 @@ TODO: Smarter image size/positioning
           </div>
         </div>
 
-<!--
-TODO: Dynamic changes in the interface, depending on the selection structural vs. bases (e.g. if DUP or DEL, then no "Ref./Alt. Base(s)"").
--->
         <div class="form-group">
           <label for="variantType" class="col-sm-2 control-label">Variant type<span class="compulsory">*</span></label>
           <div class="col-sm-4">
             <select id="variantType" name="variantType" class="form-control">
+              <option value="">Please Select Variant Type</option>
               <option value="SNV">SNV / indel</option>
               <option value="DEL">DEL (Deletion)</option>
               <option value="DUP">DUP (Duplication)</option>
@@ -68,57 +66,63 @@ TODO: Dynamic changes in the interface, depending on the selection structural vs
           </div>
         </div>
 
-        <div class="form-group">
-          <label for="startMin" class="col-sm-2 control-label">Start <i>min</i> Position<span class="compulsory">*</span></label>
-          <div class="col-sm-4">
-            <input type="text" class="form-control" name="startMin" id="startMin" placeholder="begin of match start interval, e.g: 20000000">
-          </div>
-        </div>
+        <div  class="isDEL isDUP">
 
-        <div class="form-group">
-            <label for="startMax" class="col-sm-2 control-label">Start <i>max</i> Position</label>
+          <div class="form-group">
+            <label for="startMin" class="col-sm-2 control-label">Start <i>min</i> Position<span class="compulsory">*</span></label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" name="startMax" id="startMax" placeholder="end of match start interval, e.g: 21984490">
+              <input type="text" class="form-control" name="startMin" id="startMin" placeholder="begin of match start interval, e.g: 20000000">
             </div>
-        </div>
-
-        <div class="form-group">
-          <label for="endMin" class="col-sm-2 control-label">End <i>min</i> Position</label>
-          <div class="col-sm-4">
-            <input type="text" class="form-control" id="endMin" name="endMin" placeholder="begin of match end interval, e.g: 21984490">
           </div>
-        </div>
 
-        <div class="form-group">
-          <label for="endMax" class="col-sm-2 control-label">End <i>max</i> Position</label>
-          <div class="col-sm-4">
-            <input type="text" class="form-control" id="endMax" name="endMax" placeholder="end of match end interval, e.g: 25000000">
+          <div class="form-group">
+              <label for="startMax" class="col-sm-2 control-label">Start <i>max</i> Position</label>
+              <div class="col-sm-4">
+                  <input type="text" class="form-control" name="startMax" id="startMax" placeholder="end of match start interval, e.g: 21984490">
+              </div>
           </div>
+
+          <div class="form-group">
+            <label for="endMin" class="col-sm-2 control-label">End <i>min</i> Position</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" id="endMin" name="endMin" placeholder="begin of match end interval, e.g: 21984490">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="endMax" class="col-sm-2 control-label">End <i>max</i> Position</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" id="endMax" name="endMax" placeholder="end of match end interval, e.g: 25000000">
+            </div>
+          </div>
+
         </div>
 
 <!--
 Start of SNV fields
 TODO: This may be better served with a standard G>A syntax, or general open text field for e.g. "chr17:7577121 G>A" and post-processing.
 -->
-        <div class="form-group">
-            <label for="start" class="col-sm-2 control-label">Position<span class="compulsory">*</span></label>
-            <div class="col-sm-4">
-                <input type="text" class="form-control" name="start" id="start" placeholder="position for exact allelic variant, e.g. 7577121">
-            </div>
-        </div>
-
-        <div class="form-group">
-          <label for="referenceBases" class="col-sm-2 control-label">Ref. Base(s)<span class="compulsory">*</span></label>
-          <div class="col-sm-4">
-              <input type="text" class="form-control" name="referenceBases" id="referenceBases" placeholder="the reference base for the allele, e.g. G">
+        <div  class="isSNV">
+          <div class="form-group">
+              <label for="start" class="col-sm-2 control-label">Position<span class="compulsory">*</span></label>
+              <div class="col-sm-4">
+                  <input type="text" class="form-control" name="start" id="start" placeholder="position for exact allelic variant, e.g. 7577121">
+              </div>
           </div>
-        </div>
 
-        <div class="form-group">
-            <label for="alternateBases" class="col-sm-2 control-label">Alt. Base(s)<span class="compulsory">*</span></label>
+          <div class="form-group">
+            <label for="referenceBases" class="col-sm-2 control-label">Ref. Base(s)<span class="compulsory">*</span></label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" name="alternateBases" id="alternateBases" placeholder="the SNV variant for the allele, e.g. A">
+                <input type="text" class="form-control" name="referenceBases" id="referenceBases" placeholder="the reference base for the allele, e.g. G">
             </div>
+          </div>
+
+          <div class="form-group">
+              <label for="alternateBases" class="col-sm-2 control-label">Alt. Base(s)<span class="compulsory">*</span></label>
+              <div class="col-sm-4">
+                  <input type="text" class="form-control" name="alternateBases" id="alternateBases" placeholder="the SNV variant for the allele, e.g. A">
+              </div>
+          </div>
         </div>
 
 <!--
@@ -163,6 +167,21 @@ TODO: A second submit should open a new page with the raw return from the server
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="js/query.js"></script>
+
+<script type='text/javascript'>
+
+  $('[class^=is]').hide();
+
+  $("#variantType").change(function(){
+      var value = $("#variantType option:selected").val();
+      var theDiv = $(".is" + value);
+
+      theDiv.slideDown();
+      theDiv.siblings('[class^=is]').slideUp();
+  });
+
+</script>
+
 <script src="js/datasets.js"></script>
 
 <script type='text/javascript'>
