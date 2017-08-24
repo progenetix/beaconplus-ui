@@ -55,6 +55,20 @@ TODO: Smarter image size/positioning
                     </div>
                 </div>
 
+<!--
+TODO: Dynamic changes in the interface, depending on the selection structural vs. bases (e.g. if DUP or DEL, then no "Ref./Alt. Base(s)"").
+-->
+                <div class="form-group">
+                    <label for="variantType" class="col-sm-2 control-label">Variant type<span class="compulsory">*</span></label>
+                    <div class="col-sm-4">
+                        <select id="variantType" name="variantType" class="form-control">
+                          <option value="SNV">SNV / indel</option>
+                          <option value="DEL">DEL (Deletion)</option>
+                          <option value="DUP">DUP (Duplication)</option>
+                        </select>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label for="start1" class="col-sm-2 control-label">Start <i>min</i> Position<span class="compulsory">*</span></label>
                     <div class="col-sm-4">
@@ -80,19 +94,6 @@ TODO: Smarter image size/positioning
                     <label for="end2" class="col-sm-2 control-label">End <i>max</i> Position</label>
                     <div class="col-sm-4">
                         <input type="text" class="form-control" id="end2" name="end2" placeholder="end of match end interval, e.g: 25000000">
-                    </div>
-                </div>
-<!--
-TODO: Dynamic changes in the interface, depending on the selection structural vs. bases (e.g. if DUP or DEL, then no "Ref./Alt. Base(s)"").
--->
-                <div class="form-group">
-                    <label for="variantType" class="col-sm-2 control-label">Variant type<span class="compulsory">*</span></label>
-                    <div class="col-sm-4">
-                        <select id="variantType" name="variantType" class="form-control">
-                          <option value="">(no structural variant)</option>
-                          <option value="DEL">DEL (Deletion)</option>
-                          <option value="DUP">DUP (Duplication)</option>
-                        </select>
                     </div>
                 </div>
 
