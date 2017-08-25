@@ -167,7 +167,7 @@ TODO: A second submit should open a new page with the raw return from the server
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="js/query.js"></script>
 
-<!-- <script type='text/javascript'>
+<script type='text/javascript'>
 
   $('[class^=is]').hide();
 
@@ -177,24 +177,6 @@ TODO: A second submit should open a new page with the raw return from the server
 
       theDiv.slideDown();
       theDiv.siblings('[class^=is]').slideUp();
-  });
-
-</script> -->
-
-<script type='text/javascript'>
-
-  $('select[name=variantType]').change(function () {
-    if ($(this).val() == 'SNV') {
-      $('#startMin').show();
-      $('#startMin').prop('required',true);
-      $('#startMax').show();
-      $('#startMax').prop('required',true);
-    } else {
-      $('#startMin').prop('required',false);
-      $('#startMin').hide();
-      $('#startMax').prop('required',false);
-      $('#startMax').hide();
-    }
   });
 
 </script>

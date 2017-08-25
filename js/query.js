@@ -160,16 +160,16 @@ function checkParameters(params) {
     // ###############################################################
     // Rule #3: Ordering of the params
     // ###############################################################
-    if (startMax > -1 && startMax < startMin) {
-        return "startMax must be greater than startMin!";
-    }
-    if (endMax > -1 && endMin > -1 && endMax < endMin) {
-        return "endMax must be greater than endMin!";
-    }
-    var maxEnd = Math.max(endMin, endMax);
-    if (maxEnd > -1 && Math.max(startMin, startMax) > maxEnd) {
-        return "end positions must be greater than start positions";
-    }
+    // if (startMax > -1 && startMax < startMin) {
+    //     return "startMax must be greater than startMin!";
+    // }
+    // if (endMax > -1 && endMin > -1 && endMax < endMin) {
+    //     return "endMax must be greater than endMin!";
+    // }
+    // var maxEnd = Math.max(endMin, endMax);
+    // if (maxEnd > -1 && Math.max(startMin, startMax) > maxEnd) {
+    //     return "end positions must be greater than start positions";
+    // }
 
     // ###############################################################
     // Rule #4: Chromosome name (1-23 or X or Y)
