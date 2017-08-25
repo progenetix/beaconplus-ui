@@ -44,7 +44,6 @@ $( "#beacon-form" ).submit(function( event ) {
             result += '<td>'+ data.dataset_allele_responses[i].call_count +'</td>';
             result += '<td>'+ data.dataset_allele_responses[i].frequency +'</td>';
             result += '<td><a href="' + ARRAYMAP + '/?' + data.info.query_string +'" title="' + data.info.query_string + '" target="_BLANK">show JSON</a></td>';
-//             result += '<td><a href="' + params[url] + '" alt="'+ query +'" target="_BLANK>show json</a></td>';
 
     				$("#resultTable").append('<tr>' + result + '</tr>');
 
@@ -139,17 +138,21 @@ function checkParameters(params) {
         }
     });
 
+    // TODO: re-implement checks for both types of queries.
+    // This needs a different approach, since many requirements are context
+    // sensitiv. E.g. separate checks depending on SNV vs. structural; auto
+    // replacement of missing values ...
+
     // ###############################################################
     // Rule #1: Compulsory fields:
     // ###############################################################
-    if (referenceName == '' || startMin == '' || variantType == '') {
+    if (referenceName == '' || variantType == '') {
         return "One or more compulsory fields are missing!";
     }
 
     // ###############################################################
     // Rule #2: All positions are integers:
     // ###############################################################
-// TODO: re-implement checks for both types of queries
     // if (isNaN(startMin) ||
     //     isNaN(startMax) ||
     //     isNaN(endMin)   ||

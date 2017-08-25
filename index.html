@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="css/style.css">
 
   <style>
+    body { font-family: "HelveticaNeue-Light", "Helvetica", "sans-serif"}
     .hide_on_load { display: none; }
   </style>
 
@@ -18,16 +19,24 @@
 
 <div class="container">
 
-  <div class="jumbotron">
-    <h1>Beacon arrayMap</h1>
-    <p>Beacon CNV request (<a target="_blank" href="https://github.com/ga4gh/beacon-team/pull/94">PR #94</a>)</p>
+  <div class="jumbotron" style="margin-bottom: 10px; padding:  20px 20px 30px 20px;">
+    <h2 style="margin: 0px;">arrayMap Beacon<span style="vertical-align: super; color: red; font-weight: 800;">+</span></h2>
   </div>
 
-  <div class="alert alert-info">This experimental Beacon interface currently implements only <span style="font-weight: bold">structural variant requests</span> (i.e. DUP, DEL).<br/>
-    The code for this project can be found in a <a href="https://github.com/progenetix/beaconplus-ui" target="_blank">Progenetix Github repository</a>.
+  <div class="alert alert-info" style="margin-bottom: 10px;">
+    <p>This experimental <a target="_blank" href="https://github.com/ga4gh/beacon-team/">Beacon interface</a> currently implements <span style="font-weight: bold">structural variant requests</span> (i.e. DUP, DEL; see <a target="_blank" href="https://github.com/ga4gh/beacon-team/pull/94">Beacon Github PR #94</a>), in addition to standard Beacon SNV calls.</p>
+    <p>Code for the project is accessible through the <a href="https://github.com/progenetix/" target="_blank">Progenetix Github repository</a>:</p>
+    <ul>
+      <li>
+        <a href="https://github.com/progenetix/beaconplus-ui" target="_blank">frontend</a> (JS &amp; HTML) and <a href="https://github.com/progenetix/beaconplus-server" target="_blank">server code</a> (Perl CGI)
+      </li>
+      <li>
+        <a href="https://github.com/progenetix/arraymap2ga4gh" target="_blank">example datasets</a> (<a target="_blank" href="http://mongodb.org">MongoDB</a> variant, biosample ... collections)
+      </li>
+    </ul>
   </div>
 
-  <div class="panel panel-default">
+  <div class="panel panel-default" style="margin-bottom: 10px; min-height: 260px; padding-bottom: 20px;">
     <div class="panel-heading">Query</div>
     <div class="panel-body">
 
@@ -45,8 +54,8 @@ TODO: Smarter image size/positioning
           <label for="datasetId" class="col-sm-2 control-label">Dataset</span></label>
             <div class="col-sm-4">
               <select id="datasetId" name="datasetId" class="form-control">
-                <option value="arraymap" selected="selected">arrayMap</option>
-                <option value="dipg">DIPG</option>
+                <option value="arraymap" selected="selected">arrayMap (CNV only)</option>
+                <option value="dipg">DIPG (CNV + selected SNV)</option>
               </select>
             </div>
         </div>
@@ -135,7 +144,7 @@ End of SNV fields
 
 <!--
 Submission/error
-TODO: A second submit should open a new page with the raw return from the server.
+TODO: A second submit should open a new page with the raw return from the server (currently solved through a link in the table).
 -->
         <div class="form-group">
             <div class="col-sm-offset-2">
@@ -202,6 +211,17 @@ TODO: A second submit should open a new page with the raw return from the server
       $('#snvdiv').hide();
       $('#structdiv').hide();
     }
+  });
+
+</script>
+
+<script type='text/javascript'>
+
+  $('#startMin').keyup(function () {
+    $('#startMax').val(this.value);
+  });
+  $('#endMin').keyup(function () {
+    $('#endMax').val(this.value);
   });
 
 </script>
