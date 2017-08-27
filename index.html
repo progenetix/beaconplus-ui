@@ -48,7 +48,7 @@ TODO: It would be great to have help buttons for auto-filling example queries fo
 <!--
 TODO: Smarter image size/positioning
 -->
-        <img src="./img/beacon_structural_matches.png" style="float: right; border:0px; height: 220px; margin:  0px 10px -200px 10px;" onclick="window.open(this.src)" />
+        <img id="cnvrangeimg" src="./img/beacon_structural_matches.png" style="float: right; border:0px; height: 220px; margin:  0px 10px -200px 10px;" onclick="window.open(this.src)" />
 
         <div class="form-group">
           <label for="datasetId" class="col-sm-2 control-label">Dataset</span></label>
@@ -206,8 +206,10 @@ TODO: A second submit should open a new page with the raw return from the server
       $('#endMin').val('');
       $('#endMax').val('');
       $('#structdiv').hide();
+      $('#cnvrangeimg').hide();
     } else if ($(this).val() == 'DEL' || $(this).val() == 'DUP') {
       $('#structdiv').show();
+      $('#cnvrangeimg').show();
       $('#startMin').prop('required',true);
       $('#endMin').prop('required',true);
       $('#start').prop('required',false);
@@ -220,6 +222,7 @@ TODO: A second submit should open a new page with the raw return from the server
     } else {
       $('#snvdiv').hide();
       $('#structdiv').hide();
+      $('#cnvrangeimg').hide();
     }
   });
 
