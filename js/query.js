@@ -74,6 +74,7 @@ function buildQuery(params) {
   var paramName2Url = {
       "datasetId": "dataset_id",
       "referenceName": "variants.reference_name",
+      "assemblyID": "assembly_id",
       "variantType": "variants.variant_type",
       "startMin": "variants.start_max",
       "startMax": "variants.start_min",

@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Beacon - arrayMap endpoint</title>
+  <title>Beacon+ - Feature evaluation for the GA4GH Beacon project</title>
   <link rel="stylesheet" href="css/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="css/style.css">
@@ -11,6 +11,9 @@
   <style>
     body { font-family: "HelveticaNeue-Light", "Helvetica", "sans-serif"}
     .hide_on_load { display: none; }
+    .panel {margin-bottom: 5px;}
+    .panel-body {margin-bottom: 0px; padding: 5px;}
+    .alert {margin-bottom: 0px; padding: 5px;}
   </style>
 
 </head>
@@ -20,23 +23,27 @@
 <div class="container">
 
   <div class="jumbotron" style="margin-bottom: 10px; padding:  20px 20px 30px 20px;">
-    <h2 style="margin: 0px;">arrayMap Beacon<span style="vertical-align: super; color: red; font-weight: 800;">+</span></h2>
+    <h2 style="margin: 0px;">Beacon<span style="vertical-align: super; color: red; font-weight: 800;">+</span></h2>
   </div>
 
-  <div class="alert alert-info" style="margin-bottom: 10px;">
-    <p>This experimental <a target="_blank" href="https://github.com/ga4gh/beacon-team/">Beacon interface</a> currently implements <span style="font-weight: bold">structural variant requests</span> (i.e. DUP, DEL; see <a target="_blank" href="https://github.com/ga4gh/beacon-team/pull/94">Beacon Github PR #94</a>), in addition to standard Beacon SNV calls.</p>
-    <p>Code for the project is accessible through the <a href="https://github.com/progenetix/" target="_blank">Progenetix Github repository</a>:</p>
-    <ul>
-      <li>
-        <a href="https://github.com/progenetix/beaconplus-ui" target="_blank">frontend</a> (JS &amp; HTML) and <a href="https://github.com/progenetix/beaconplus-server" target="_blank">server code</a> (Perl CGI)
-      </li>
-      <li>
-        <a href="https://github.com/progenetix/arraymap2ga4gh" target="_blank">example datasets</a> (<a target="_blank" href="http://mongodb.org">MongoDB</a> variant, biosample ... collections)
-      </li>
-    </ul>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div id="intro" class="alert alert-info">
+        <p>This experimental <a target="_blank" href="https://github.com/ga4gh/beacon-team/">Beacon interface</a> currently implements <span style="font-weight: bold">structural variant requests</span> (i.e. DUP, DEL; see <a target="_blank" href="https://github.com/ga4gh/beacon-team/pull/94">Beacon Github PR #94</a>), in addition to standard Beacon SNV calls.</p>
+        <p>Code for the project is accessible through the <a href="https://github.com/progenetix/" target="_blank">Progenetix Github repository</a>:</p>
+        <ul>
+          <li>
+            <a href="https://github.com/progenetix/beaconplus-ui" target="_blank">frontend</a> (JS &amp; HTML) and <a href="https://github.com/progenetix/beaconplus-server" target="_blank">server code</a> (Perl CGI)
+          </li>
+          <li>
+            <a href="https://github.com/progenetix/arraymap2ga4gh" target="_blank">example datasets</a> (<a target="_blank" href="http://mongodb.org">MongoDB</a> variant, biosample ... collections)
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 
-  <div class="panel panel-default" style="margin-bottom: 10px; min-height: 260px; padding-bottom: 20px;">
+  <div class="panel panel-default" style="min-height: 260px">
     <div class="panel-heading">Query</div>
     <div class="panel-body">
 
@@ -47,8 +54,8 @@ TODO: It would be great to have help buttons for auto-filling example queries fo
 -->
 <!--
 TODO: Smarter image size/positioning
--->
         <img id="cnvrangeimg" src="./img/beacon_structural_matches.png" style="float: right; border:0px; height: 220px; margin:  0px 10px -200px 10px;" onclick="window.open(this.src)" />
+-->
 
         <div class="form-group">
           <label for="datasetId" class="col-sm-2 control-label">Dataset</span></label>
@@ -64,6 +71,15 @@ TODO: Smarter image size/positioning
           <label for="referenceName" class="col-sm-2 control-label">Reference name<span class="compulsory">*</span></label>
           <div class="col-sm-4">
             <input type="text" class="form-control" name="referenceName" id="referenceName" placeholder="chromosome name, e.g: 9" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="assemblyID" class="col-sm-2 control-label">Genome Assembly<span class="compulsory">*</span></label>
+          <div class="col-sm-4">
+            <select id="assemblyID" name="assemblyID" class="form-control">
+              <option value="GRCh36">GRCh36 / hg18</option>
+            </select>
           </div>
         </div>
 
@@ -160,10 +176,11 @@ TODO: A second submit should open a new page with the raw return from the server
     </div>
   </div>
 
-  <div class="panel panel-default" style="margin-bottom: 10px; padding-bottom: 20px;">
+  <div class="panel panel-default">
     <div class="panel-heading">Response</div>
     <div class="panel-body">
-      <div id="noResult" class="alert alert-warning">There were no previous searches yet. Please, perform a query by using the form above.</div>
+      <div id="noResult" class="alert alert-warning">
+        There were no previous searches yet. Please, perform a query by using the form above.</div>
       <div style="display: none;" id="result">
         <table class="table table-responsive" id="resultTable">
           <thead>
@@ -175,13 +192,15 @@ TODO: A second submit should open a new page with the raw return from the server
     </div>
   </div>
 
-  <div class="panel panel-default" style="margin-bottom: 10px; padding-bottom: 0px; border: none;">
+  <div class="panel panel-default" style="margin-bottom: 10px; border: none;">
     <div class="panel-body" style="display: flex; justify-content:space-between; align-items: flex-start;">
-      <a href="http://arraymap.org" target="_blank"><img src="/p/arraymap_black_180.png" style="border:0px; margin: 0px;" /></a>
-      <div style="margin: auto; display: inline-block; width: 400px; text-align: center;">
+      <a href="http://arraymap.org" target="_blank"><img src="/p/arraymap_black_180.png" style="margin: 5px;" /></a>
+      <a href="http://elixir-europe.org" target="_blank"><img src="/p/elixir_logo_grey_65x50.png" style="margin: 5px;" /></a>
+      <div style="display: inline-block; min-width: 200px; text-align: center;">
         This Beacon implementation is maintained by the <a href="http://wiki.progenetix.org/Wiki/BaudisgroupIMLS/" target="_blank">Computational Oncogenomics Group</a> at the <a href="http://www.imls.uzh.ch/baudis/" target="_blank">University of Zurich</a>, together with the <a href="https://www.sib.swiss/sibt/" target="_blank">SIB Technology group</a>. The project is supported through <a href="https://www.elixir-europe.org" target="_blank">ELIXIR</a>.
       </div>
-      <a href="http://progenetix.org" target="_blank"><img src="/p/progenetix_black_180.png" style="border:0px; margin: -10px 0px 0px 0px;" /></a>
+      <a href="http://sib.swiss" target="_blank"><img src="/p/sib_logo_65x50.png" style="margin: 5px;" /></a>
+      <a href="http://progenetix.org" target="_blank"><img src="/p/progenetix_black_180.png" style="margin: 0px 5px 5px 5px;" /></a>
     </div>
   </div>
 
