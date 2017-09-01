@@ -1,3 +1,17 @@
+body { font-family: "HelveticaNeue-Light", "Helvetica", "sans-serif"}
+
+.hide_on_load { display: none; }
+.panel {margin-bottom: 5px;}
+.panel-body {
+  margin-bottom: 0px;
+  padding: 5px;
+}
+
+.alert {
+  margin-bottom: 0px;
+  padding: 5px;
+}
+
 .compulsory {
     color: red;
     font-weight: bold;
