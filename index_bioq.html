@@ -71,8 +71,6 @@ TODO: Smarter image size/positioning
           <div class="col-sm-4">
             <select id="assemblyID" name="assemblyID" class="form-control">
               <option value="GRCh36">GRCh36 / hg18</option>
-              <option value="GRCh37">GRCh37 / hg19</option>
-              <option value="GRCh38">GRCh38 / hg38</option>
             </select>
           </div>
         </div>
@@ -176,11 +174,7 @@ TODO: A second submit should open a new page with the raw return from the server
         <div class="form-group">
             <div class="col-sm-offset-2">
                 <div class="col-sm-2">
-                  <button class="btn btn-info">Beacon Query <i class="fa fa-spinner fa-spin" id="spinner" style="display: none"></i></button>
-                </div>
-                <div class="col-sm-3" width="500px;">
-                  <div id="exampleValuesCNV" class="btn btn-info" style="float: right; background-color: #dd9966; margin-right: 15px;">CNV Ex.</div>
-                  <div id="exampleValuesSNV" class="btn btn-info" style="float: right; background-color: #dd9966; margin-right: 5px;">SNV Ex.</div>
+                    <button class="btn btn-info">Beacon Query <i class="fa fa-spinner fa-spin" id="spinner" style="display: none"></i></button>
                 </div>
                 <div class="col-sm-4" id="error" style="display: none;"></div>
             </div>
@@ -224,33 +218,6 @@ TODO: A second submit should open a new page with the raw return from the server
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="js/query.js"></script>
-
-
-<script type='text/javascript'>
-
-  $('#exampleValuesCNV').click(function(){
-    $('#structdiv').show();
-    $('#variantType').val('DEL');
-//    $('#bioontology').val('pgx:icdom:9440_3');
-    $('#startMin').val('19000000');
-    $('#startMin').val('19000000');
-    $('#startMax').val('21984490');
-    $('#endMin').val('21900000');
-    $('#endMax').val('25000000');
-    $('#snvdiv').hide();
-  });
-
-  $('#exampleValuesSNV').click(function(){
-    $('#snvdiv').show();
-    $('#datasetId').val('dipg');
-    $('#variantType').val('SNV');
-//    $('#bioontology').val('pgx:icdom:9380_3');
-    $('#start').val('7577121');
-    $('#structdiv').hide();
-  });
-
-</script>
-
 
 <script type='text/javascript'>
 
