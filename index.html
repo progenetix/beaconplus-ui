@@ -151,6 +151,23 @@ End of SNV fields
 -->
 
 <!--
+Biosample parameter(s)
+TODO: Auto-populate based on contents of selected collection.
+Alternatively, pre-generated value lists, or stored lists with auto-complete.
+-->
+
+        <div class="form-group">
+          <label for="bioontology" class="col-sm-2 control-label">Bio-ontology</label>
+          <div class="col-sm-4">
+              <input type="text" class="form-control" name="bioontology" id="bioontology" placeholder="pgx:icdom:9440_3">
+          </div>
+      </div>
+
+<!--
+End of biosample parameter(s)
+-->
+
+<!--
 Submission/error
 TODO: A second submit should open a new page with the raw return from the server (currently solved through a link in the table).
 -->
@@ -176,7 +193,7 @@ TODO: A second submit should open a new page with the raw return from the server
       <div style="display: none;" id="result">
         <table class="table table-responsive" id="resultTable">
           <thead>
-          <tr><th>Dataset</th><th>Reference name</th><th>Variant Type</th><th>Start Min</th><th>Start Max</th><th>End Min</th><th>End Max</th><th>Position</th><th>Ref Bases</th><th>Alt Bases</th><th>Call Count</th><th>Frequency</th><th>Query</th></tr>
+          <tr><th>Dataset</th><th>Chro.</th><th>Assembly</th><th>Var. Type</th><th>Start Min</th><th>Start Max</th><th>End Min</th><th>End Max</th><th>Pos.</th><th>Ref.</th><th>Alt.</th><th>Bio Query</th><th>Call Count</th><th>Samples</th><th><i>f</i></th><th>Query</th></tr>
           </thead>
           <tbody></tbody>
         </table>
@@ -260,6 +277,13 @@ TODO: A second submit should open a new page with the raw return from the server
     });
 
 </script>
+
+
+
+
+
+
+
 
 </body>
 </html>

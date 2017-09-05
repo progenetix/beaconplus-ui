@@ -39,9 +39,10 @@ $( "#beacon-form" ).submit(function( event ) {
 
     				var result = '';
     				$.each(formParam, function (i, val) {
-    					result += '<td>'+ val.value +'</td>';
+    					result += '<td>' + val.value +'</td>';
     				});
             result += '<td>'+ data.dataset_allele_responses[i].call_count +'</td>';
+            result += '<td>'+ data.dataset_allele_responses[i].sample_count +'</td>';
             result += '<td>'+ data.dataset_allele_responses[i].frequency +'</td>';
             result += '<td><a href="' + ARRAYMAP + '/?' + data.info.query_string +'" title="' + data.info.query_string + '" target="_BLANK">show JSON</a></td>';
 
@@ -82,7 +83,8 @@ function buildQuery(params) {
       "endMax": "variants.end_max",
       "referenceBases": "variants.reference_bases",
       "alternateBases": "variants.alternate_bases",
-      "start": "variants.start"
+      "start": "variants.start",
+      "bioontology":"biosamples.bio_characteristics.ontology_terms.term_id"
   };
 
   var paramName, paramValue = null;
