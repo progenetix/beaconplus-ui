@@ -36,7 +36,10 @@
   </div>
 
   <div class="panel panel-default" style="min-height: 260px">
-    <div class="panel-heading">Query</div>
+    <div class="panel-heading">Query
+      <div id="exampleValuesCNV" class="btn btn-info" style="float: right; background-color: #dd9966; margin: -7px 0px 0px 5px;">CNV Example</div>
+      <div id="exampleValuesSNV" class="btn btn-info" style="float: right; background-color: #dd9966; margin: -7px 0px 0px 0px;">SNV Example</div>
+    </div>
     <div class="panel-body">
 
       <form class="form-horizontal" id="beacon-form" action="" method="post">
@@ -178,11 +181,6 @@ TODO: A second submit should open a new page with the raw return from the server
                 <div class="col-sm-2">
                   <button class="btn btn-info">Beacon Query <i class="fa fa-spinner fa-spin" id="spinner" style="display: none"></i></button>
                 </div>
-                <div class="col-sm-3" width="500px;">
-                  <div id="exampleValuesCNV" class="btn btn-info" style="float: right; background-color: #dd9966; margin-right: 15px;">CNV Ex.</div>
-                  <div id="exampleValuesSNV" class="btn btn-info" style="float: right; background-color: #dd9966; margin-right: 5px;">SNV Ex.</div>
-                </div>
-                <div class="col-sm-4" id="error" style="display: none;"></div>
             </div>
         </div>
 
@@ -230,13 +228,18 @@ TODO: A second submit should open a new page with the raw return from the server
 
   $('#exampleValuesCNV').click(function(){
     $('#structdiv').show();
+    $('#datasetId').val('arraymap');
     $('#variantType').val('DEL');
-//    $('#bioontology').val('pgx:icdom:9440_3');
+    $('#bioontology').val('ncit:C3059');
+    $('#referenceName').val('9');
     $('#startMin').val('19000000');
     $('#startMin').val('19000000');
     $('#startMax').val('21984490');
     $('#endMin').val('21900000');
     $('#endMax').val('25000000');
+    $('#start').val('');
+    $('#referenceBases').val('');
+    $('#alternateBases').val('');
     $('#snvdiv').hide();
   });
 
@@ -244,8 +247,15 @@ TODO: A second submit should open a new page with the raw return from the server
     $('#snvdiv').show();
     $('#datasetId').val('dipg');
     $('#variantType').val('SNV');
-//    $('#bioontology').val('pgx:icdom:9380_3');
+    $('#bioontology').val('pgx:icdom:9380_3');
+    $('#referenceName').val('17');
     $('#start').val('7577121');
+    $('#referenceBases').val('G');
+    $('#alternateBases').val('A');
+    $('#startMin').val('');
+    $('#startMax').val('');
+    $('#endMin').val('');
+    $('#endMax').val('');
     $('#structdiv').hide();
   });
 
