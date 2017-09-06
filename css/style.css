@@ -1,5 +1,7 @@
 body { font-family: "HelveticaNeue-Light", "Helvetica", "sans-serif"}
 
+td, th { font-size: 0.8em; }
+
 .hide_on_load { display: none; }
 .panel {margin-bottom: 5px;}
 .panel-body {
