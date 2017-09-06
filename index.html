@@ -210,7 +210,7 @@ TODO: A second submit should open a new page with the raw return from the server
   <div class="panel panel-default" style="margin-bottom: 10px; border: none;">
     <div class="panel-body footer" style="display: flex; justify-content:space-between; align-items: flex-start;">
       <a href="http://arraymap.org" target="_blank"><img src="./img/arraymap_black_180.png" style="height: 25px; margin: 5px;" /></a>
-      <a href="http://arraymap.org" target="_blank"><img src="./img/uzh_logo_pos_160x50.png" style="height: 25px; margin: 5px;" /></a>
+      <a href="http://www.uzh.ch" target="_blank"><img src="./img/uzh_logo_pos_160x50.png" style="height: 25px; margin: 5px;" /></a>
       <div style="display: inline-block; min-width: 200px; text-align: center; margin: 0px 10px 0px 10px;">
         This Beacon implementation is developed by the <a href="http://wiki.progenetix.org/Wiki/BaudisgroupIMLS/" target="_blank">Computational Oncogenomics Group</a> at the <a href="http://www.imls.uzh.ch/baudis/" target="_blank">University of Zurich</a>, with support from the <a href="https://www.sib.swiss/sibt/" target="_blank">SIB Technology group</a> and <a href="https://www.elixir-europe.org" target="_blank">ELIXIR</a>.
       </div>
@@ -225,94 +225,7 @@ TODO: A second submit should open a new page with the raw return from the server
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="js/query.js"></script>
-
-
-<script type='text/javascript'>
-
-  $('#exampleValuesCNV').click(function(){
-    $('#structdiv').show();
-    $('#datasetId').val('arraymap');
-    $('#variantType').val('DEL');
-    $('#bioontology').val('ncit:C3059');
-    $('#referenceName').val('9');
-    $('#startMin').val('19000000');
-    $('#startMin').val('19000000');
-    $('#startMax').val('21984490');
-    $('#endMin').val('21900000');
-    $('#endMax').val('25000000');
-    $('#start').val('');
-    $('#referenceBases').val('');
-    $('#alternateBases').val('');
-    $('#snvdiv').hide();
-  });
-
-  $('#exampleValuesSNV').click(function(){
-    $('#snvdiv').show();
-    $('#datasetId').val('dipg');
-    $('#variantType').val('SNV');
-    $('#bioontology').val('pgx:icdom:9380_3');
-    $('#referenceName').val('17');
-    $('#start').val('7577121');
-    $('#referenceBases').val('G');
-    $('#alternateBases').val('A');
-    $('#startMin').val('');
-    $('#startMax').val('');
-    $('#endMin').val('');
-    $('#endMax').val('');
-    $('#structdiv').hide();
-  });
-
-</script>
-
-
-<script type='text/javascript'>
-
-  $('select[name=variantType]').change(function () {
-    if ($(this).val() == 'SNV') {
-      $('#snvdiv').show();
-      $('#start').prop('required',true);
-      $('#referenceBases').prop('required',true);
-      $('#alternateBases').prop('required',true);
-      $('#startMin').prop('required',false);
-      $('#startMin').val('');
-      $('#startMax').val('');
-      $('#endMin').prop('required',false);
-      $('#endMin').val('');
-      $('#endMax').val('');
-      $('#structdiv').hide();
-      $('#cnvrangeimg').hide();
-    } else if ($(this).val() == 'DEL' || $(this).val() == 'DUP') {
-      $('#structdiv').show();
-      $('#cnvrangeimg').show();
-      $('#startMin').prop('required',true);
-      $('#endMin').prop('required',true);
-      $('#start').prop('required',false);
-      $('#start').val('');
-      $('#referenceBases').prop('required',false);
-      $('#referenceBases').val('');
-      $('#alternateBases').prop('required',false);
-      $('#alternateBases').val('');
-      $('#snvdiv').hide();
-    } else {
-      $('#snvdiv').hide();
-      $('#structdiv').hide();
-      $('#cnvrangeimg').hide();
-    }
-  });
-
-</script>
-
-<script type='text/javascript'>
-
-  $('#startMin').keyup(function () {
-    $('#startMax').val(this.value);
-  });
-  $('#endMin').keyup(function () {
-    $('#endMax').val(this.value);
-  });
-
-</script>
-
+<script src="js/form.js"></script>
 <script src="js/datasets.js"></script>
 
 <script type='text/javascript'>
