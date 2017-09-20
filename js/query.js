@@ -41,6 +41,7 @@ $( "#beacon-form" ).submit(function( event ) {
     				$.each(formParam, function (i, val) {
     					result += '<td>' + val.value +'</td>';
     				});
+            result += '<td>'+ data.dataset_allele_responses[i].variant_count +'</td>';
             result += '<td>'+ data.dataset_allele_responses[i].call_count +'</td>';
             result += '<td>'+ data.dataset_allele_responses[i].sample_count +'</td>';
             result += '<td>'+ data.dataset_allele_responses[i].frequency +'</td>';
