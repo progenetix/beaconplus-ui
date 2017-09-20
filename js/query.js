@@ -44,7 +44,7 @@ $( "#beacon-form" ).submit(function( event ) {
             result += '<td>'+ data.dataset_allele_responses[i].variant_count +'</td>';
             result += '<td>'+ data.dataset_allele_responses[i].call_count +'</td>';
             result += '<td>'+ data.dataset_allele_responses[i].sample_count +'</td>';
-            result += '<td>'+ data.dataset_allele_responses[i].frequency +'</td>';
+            result += '<td>'+ data.dataset_allele_responses[i].info.bs_match_frequency +'</td>';
             result += '<td><a href="' + ARRAYMAP + '/?' + data.info.query_string +'" title="' + data.info.query_string + '" target="_BLANK">show JSON</a></td>';
 
     				$("#resultTable").append('<tr>' + result + '</tr>');
