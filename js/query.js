@@ -37,6 +37,23 @@ $( "#beacon-form" ).submit(function( event ) {
           var dataset_no = data.dataset_allele_responses.length;
     			for (var i = 0; i < dataset_no; i++) {
 
+            var ucscgenome = $("#assemblyID").val();
+            if (ucscgenome == 'GRCh36' ) {
+              ucscgenome == 'hg18';
+            } else if (ucscgenome == 'GRCh37' ) {
+              ucscgenome == 'hg19';
+            } else if (ucscgenome == 'GRCh38' ) {
+              ucscgenome == 'hg38';
+            }
+
+            var ucscstart = $("#startMin").val();
+            var ucscend = $("#endMax").val();
+
+            if ($("#start").val() > 0) {
+              ucscstart = $("#start").val();
+              ucscend = $("#start").val();
+            }
+
             var result = '';
             result += '<td>'+ $("#datasetId").val() +'</td>';
             result += '<td>'+ $("#assemblyID").val() +'</td>';
@@ -52,7 +69,7 @@ $( "#beacon-form" ).submit(function( event ) {
     				// });
             result += '<td>'+ data.dataset_allele_responses[i].variant_count +'<br/>' + data.dataset_allele_responses[i].call_count +'<br/>' +data.dataset_allele_responses[i].sample_count +'</td>';
             result += '<td>'+ data.dataset_allele_responses[i].info.bs_match_frequency + '<br/>' + data.dataset_allele_responses[i].frequency +'</td>';
-            result += '<td><a href="' + ARRAYMAP + '/?' + data.info.query_string +'" title="' + data.info.query_string + '" target="_BLANK">show JSON</a></td>';
+            result += '<td><a href="' + ARRAYMAP + '/?' + data.info.query_string +'" title="' + data.info.query_string + '" target="_BLANK">JSON</a><br/><a href="http://www.genome.ucsc.edu/cgi-bin/hgTracks?db=' + ucscgenome + '&position=chr' + $("#referenceName").val() + '%3A' + ucscstart + '%2D' + ucscend + '" target="_blank">UCSC</a></td>';
 
     				$("#resultTable").append('<tr>' + result + '</tr>');
 
