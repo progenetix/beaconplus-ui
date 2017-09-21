@@ -37,14 +37,21 @@ $( "#beacon-form" ).submit(function( event ) {
           var dataset_no = data.dataset_allele_responses.length;
     			for (var i = 0; i < dataset_no; i++) {
 
-    				var result = '';
-    				$.each(formParam, function (i, val) {
-    					result += '<td>' + val.value +'</td>';
-    				});
-            result += '<td>'+ data.dataset_allele_responses[i].variant_count +'</td>';
-            result += '<td>'+ data.dataset_allele_responses[i].call_count +'</td>';
-            result += '<td>'+ data.dataset_allele_responses[i].sample_count +'</td>';
-            result += '<td>'+ data.dataset_allele_responses[i].info.bs_match_frequency +'</td>';
+            var result = '';
+            result += '<td>'+ $("#datasetId").val() +'</td>';
+            result += '<td>'+ $("#assemblyID").val() +'</td>';
+            result += '<td>'+ $("#referenceName").val() +'</td>';
+            result += '<td>'+ $("#variantType").val() +'</td>';
+            result += '<td>'+ $("#startMin").val() + '<br/>'+ $("#startMax").val() +'</td>';
+            result += '<td>'+ $("#endMin").val() + '<br/>'+ $("#endMax").val() +'</td>';
+            result += '<td>'+ $("#start").val() +'</td>';
+            result += '<td>'+ $("#referenceBases").val() + '<br/>' + $("#alternateBases").val() +'</td>';
+            result += '<td>'+ $("#bioontology").val() +'</td>';
+    				// $.each(formParam, function (i, val) {
+    				// 	result += '<td>' + val.value +'</td>';
+    				// });
+            result += '<td>'+ data.dataset_allele_responses[i].variant_count +'<br/>' + data.dataset_allele_responses[i].call_count +'<br/>' +data.dataset_allele_responses[i].sample_count +'</td>';
+            result += '<td>'+ data.dataset_allele_responses[i].info.bs_match_frequency + '<br/>' + data.dataset_allele_responses[i].frequency +'</td>';
             result += '<td><a href="' + ARRAYMAP + '/?' + data.info.query_string +'" title="' + data.info.query_string + '" target="_BLANK">show JSON</a></td>';
 
     				$("#resultTable").append('<tr>' + result + '</tr>');
@@ -78,8 +85,8 @@ function buildQuery(params) {
       "referenceName": "variants.reference_name",
       "assemblyID": "assembly_id",
       "variantType": "variants.variant_type",
-      "startMin": "variants.start_max",
-      "startMax": "variants.start_min",
+      "startMin": "variants.start_min",
+      "startMax": "variants.start_max",
       "endMin": "variants.end_min",
       "endMax": "variants.end_max",
       "referenceBases": "variants.reference_bases",

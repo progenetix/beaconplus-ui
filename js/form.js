@@ -1,11 +1,3 @@
-$.getJSON( "/qmongo/?db=arraymap_ga4gh&collection=biosamples&all=values&afqfield=bio_characteristics.ontology_terms.term_id&querytext=ncit|icdom&api_doctype=json", function( data ) {
-  var items = [];
-  $.each( data, function(i, val) {
-    $('#bioontology').append( $('<option></option>').val(val).html(val) );
-  });
-});
-
-
 $( "#toggle_intro" ).click(function() {
   $( "#intro" ).toggle( "slow", function() {
     // Animation complete.
@@ -16,7 +8,7 @@ $('#exampleValuesCNV').click(function(){
   $('#structdiv').show();
   $('#datasetId').val('arraymap');
   $('#variantType').val('DEL');
-  $('#bioontology').val('ncit:C3059');
+  $('#bioontology').val('ncit:C3224');
   $('#referenceName').val('9');
   $('#startMin').val('19000000');
   $('#startMin').val('19000000');

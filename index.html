@@ -184,6 +184,15 @@ Alternatively, pre-generated value lists, or stored lists with auto-complete.
           </div>
       </div>
 
+<script>
+      $.getJSON( "/qmongo/?db=arraymap_ga4gh&collection=biosamples&all=values&afqfield=bio_characteristics.ontology_terms.term_id&querytext=ncit|icdom&api_doctype=json", function( data ) {
+        var items = [];
+        $.each( data, function(i, val) {
+          $('#bioontology').append( $('<option></option>').val(val).html(val) );
+        });
+      });
+</script>
+
 <!--
 End of biosample parameter(s)
 -->
@@ -229,9 +238,22 @@ TODO: A second submit should open a new page with the raw return from the server
       <div id="noResult" class="alert alert-warning">
         There were no previous searches yet. Please, perform a query by using the form above.</div>
       <div style="display: none;" id="result">
-        <table class="table table-responsive" id="resultTable">
+        <table class="table table-responsive resulttable" id="resultTable">
           <thead>
-          <tr><th>Dataset</th><th>Chro.</th><th>Assembly</th><th>Var. Type</th><th>Start Min</th><th>Start Max</th><th>End Min</th><th>End Max</th><th>Pos.</th><th>Ref.</th><th>Alt.</th><th>Bio Query</th><th>Variants</th><th>Calls</th><th>Samples</th><th><i>f</i></th><th>Query</th></tr>
+          <tr>
+            <th style="vertical-align: middle;">Dataset</th>
+            <th style="vertical-align: middle;">Assembly</th>
+            <th style="vertical-align: middle;">Chro</th>
+            <th style="vertical-align: middle;">Var Type</th>
+            <th style="vertical-align: middle;">Start Range</th>
+            <th style="vertical-align: middle;">End Range</th>
+            <th style="vertical-align: middle;">Pos.</th>
+            <th style="vertical-align: middle;">Ref<br/>Alt</th>
+            <th style="vertical-align: middle;">Bio Query</th>
+            <th style="vertical-align: middle;">Vars<br/>Calls<br/>Samples</th>
+            <th style="vertical-align: middle;"><i>f</i><sub>bio</sub><br/><i>f</i><sub>all</sub></th>
+            <th style="vertical-align: middle;">Query</th>
+          </tr>
           </thead>
           <tbody></tbody>
         </table>
@@ -253,26 +275,18 @@ TODO: A second submit should open a new page with the raw return from the server
 
     <div class="panel panel-default" style="border: none;">
         <div class="panel-body">
-            <div class="row">
-                <div class="col-md-3 col-sm-3">
-                    <a href="http://arraymap.org" target="_blank"><img src="./img/arraymap_black_180.png" style="height: 25px; margin: 5px;" /></a>
-                    <a href="http://progenetix.org" target="_blank"><img src="./img/progenetix_black_180.png" style="height: 25px; margin: 0px 5px 5px 5px;" /></a>
-                </div>
-                <div class="col-md-6 col-sm-6">
-                    <p style="font-style: italic;">
+            <div style="display: flex; justify-content: space-between;">
+                <a href="http://arraymap.org" target="_blank"><img src="./img/arraymap_black_180.png" style="height: 25px; margin: 5px;" /></a>
+                <a href="http://progenetix.org" target="_blank"><img src="./img/progenetix_black_180.png" style="height: 25px; margin: 0px 5px 5px 5px;" /></a>
+                <div style="min-width: 300px;">
                         This Beacon implementation is developed by the <a href="http://wiki.progenetix.org/Wiki/BaudisgroupIMLS/" target="_blank">Computational Oncogenomics Group</a> at the <a href="http://www.imls.uzh.ch/baudis/" target="_blank">University of Zurich</a>, with support from the <a href="https://www.sib.swiss/sibt/" target="_blank">SIB Technology group</a> and <a href="https://www.elixir-europe.org" target="_blank">ELIXIR</a>.
-                    </p>
                 </div>
-                <div class="col-md-3 col-sm-3">
-                    <a href="http://www.uzh.ch" target="_blank"><img src="./img/uzh_logo_pos_160x50.png" style="height: 25px; margin: 5px;" /></a>
-                    <a href="http://elixir-europe.org" target="_blank"><img src="./img/elixir_logo_grey_65x50.png" style="height: 25px; margin: 5px;" /></a>
-                    <a href="http://sib.swiss" target="_blank"><img src="./img/sib_logo_65x50.png" style="height: 25px; margin: 5px;" /></a>
-                </div>
+                <a href="http://www.uzh.ch" target="_blank"><img src="./img/uzh_logo_pos_160x50.png" style="height: 25px; margin: 5px;" /></a>
+                <a href="http://elixir-europe.org" target="_blank"><img src="./img/elixir_logo_grey_65x50.png" style="height: 25px; margin: 5px;" /></a>
+                <a href="http://sib.swiss" target="_blank"><img src="./img/sib_logo_65x50.png" style="height: 25px; margin: 5px;" /></a>
             </div>
         </div>
     </div>
-
-</div>
 
 </div>
 
