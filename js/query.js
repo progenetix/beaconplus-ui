@@ -39,11 +39,11 @@ $( "#beacon-form" ).submit(function( event ) {
 
             var ucscgenome = $("#assemblyID").val();
             if (ucscgenome == 'GRCh36' ) {
-              ucscgenome == 'hg18';
+              ucscgenome = 'hg18';
             } else if (ucscgenome == 'GRCh37' ) {
-              ucscgenome == 'hg19';
+              ucscgenome = 'hg19';
             } else if (ucscgenome == 'GRCh38' ) {
-              ucscgenome == 'hg38';
+              ucscgenome = 'hg38';
             }
 
             var ucscstart = $("#startMin").val();
@@ -56,7 +56,8 @@ $( "#beacon-form" ).submit(function( event ) {
 
             var result = '';
             result += '<td>'+ $("#datasetId").val() +'</td>';
-            result += '<td>'+ $("#assemblyID").val() +'</td>';
+            result += '<td>'+ ucscgenome +'</td>';
+            // result += '<td>'+ $("#assemblyID").val() +'</td>';
             result += '<td>'+ $("#referenceName").val() +'</td>';
             result += '<td>'+ $("#variantType").val() +'</td>';
             result += '<td>'+ $("#startMin").val() + '<br/>'+ $("#startMax").val() +'</td>';

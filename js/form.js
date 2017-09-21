@@ -1,11 +1,13 @@
 $( "#toggle_intro" ).click(function() {
-  $( "#intro" ).toggle( "slow", function() {
-    // Animation complete.
-  });
+  $( "#intro" ).toggle( "slow", function() {});
 });
 
 $('#exampleValuesCNV').click(function(){
+  $('#dgvinfo').hide();
+  $('#snvinfo').hide();
   $('#structdiv').show();
+  $('#bioontologywrapper').show();
+  $( "#cnvinfo" ).toggle( "slow", function() {});
   $('#variantType').val('DEL');
   $('#assemblyID').val('GRCh36');
   $('#datasetId').val('arraymap');
@@ -18,13 +20,19 @@ $('#exampleValuesCNV').click(function(){
   $('#start').val('');
   $('#referenceBases').val('');
   $('#alternateBases').val('');
+  $('#intro').hide();
   $('#snvdiv').hide();
 });
 
 $('#exampleValuesSNV').click(function(){
+  $('#dgvinfo').hide();
+  $('#cnvinfo').hide();
   $('#snvdiv').show();
+  $('#bioontologywrapper').show();
+  $( "#snvinfo" ).toggle( "slow", function() {});
   $('#datasetId').val('dipg');
   $('#assemblyID').val('GRCh36');
+  $('#variantType').val('SNV');
   $('#bioontology').val('pgx:icdom:9380_3');
   $('#referenceName').val('17');
   $('#start').val('7577121');
@@ -34,10 +42,16 @@ $('#exampleValuesSNV').click(function(){
   $('#startMax').val('');
   $('#endMin').val('');
   $('#endMax').val('');
+  $('#intro').hide();
   $('#structdiv').hide();
 });
 
 $('#exampleValuesDGV').click(function(){
+  $('#snvinfo').hide();
+  $('#cnvinfo').hide();
+  $( "#dgvinfo" ).toggle( "slow", function() {
+    // Animation complete.
+  });
   $('#structdiv').show();
   $('#datasetId').val('dgv');
   $('#assemblyID').val('GRCh38');
@@ -51,6 +65,8 @@ $('#exampleValuesDGV').click(function(){
   $('#start').val('');
   $('#referenceBases').val('');
   $('#alternateBases').val('');
+  $('#bioontologywrapper').hide();
+  $('#intro').hide();
   $('#snvdiv').hide();
 });
 

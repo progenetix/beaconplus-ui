@@ -173,7 +173,7 @@ TODO: Auto-populate based on contents of selected collection.
 Alternatively, pre-generated value lists, or stored lists with auto-complete.
 -->
 
-        <div class="form-group">
+        <div id="bioontologywrapper" class="form-group">
           <label for="bioontology" class="col-sm-2 control-label">Bio-ontology</label>
           <div class="col-sm-4">
             <select id="bioontology" name="bioontology" class="form-control">
@@ -233,6 +233,41 @@ TODO: A second submit should open a new page with the raw return from the server
       </div>
     </div>
   </div>
+
+
+
+
+
+    <div id="dgvinfo" class="panel panel-default" style="display: none;" >
+      <div class="panel-body"  >
+        <div class="alert alert-info">
+          <p>The DGV example test the Beacon<span style="vertical-align: super; color: red; font-weight: 800;">+</span> UI and backend against a subset of data from the <a href="http://dgv.tcag.ca/dgv/app/home" target="_blank">Database of Genome Variants</a>. The example here performs a base-specific match on one of the variants provided to us. Using the link to the UCSC browser provided in the results table will display the matching genome region, with more overlapping DGV entries (you may have to activate the DCV track for seinhg them).</p>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div id="cnvinfo" class="panel panel-default" style="display: none;" >
+      <div class="panel-body"  >
+        <div class="alert alert-info">
+          <p>The DGV example test the Beacon<span style="vertical-align: super; color: red; font-weight: 800;">+</span> UI and backend against the <a href="http://arraymap.org" target="_blank">arrayMap database</a>, with a range query looking for deletions involving the CDKN2A locus in a "focal" manner. The bracketing of start and end ranges will return deletions of less than ~Mb, roughly overlapping the CDKn2A CDR.</p>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div id="snvinfo" class="panel panel-default" style="display: none;" >
+      <div class="panel-body"  >
+        <div class="alert alert-info">
+          <p>The SNV example test the Beacon<span style="vertical-align: super; color: red; font-weight: 800;">+</span> UI and backend against the DIPG dataset, with a specific mutation.</p>
+        </div>
+      </div>
+    </div>
+
+
+
 
   <div class="panel panel-default">
     <div class="panel-heading">Response</div>
