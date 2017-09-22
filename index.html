@@ -230,6 +230,14 @@ TODO: A second submit should open a new page with the raw return from the server
           </li>
         </ul>
         <p>The latest version (2017-09-05) also adds an experimental support for <i>biocharacteristics</i> queries, against ontology <i>term_id</i>s as specified in the <a href="https://github.com/ga4gh/ga4gh-schemas/blob/metadata-integration/src/main/proto/ga4gh/bio_metadata.proto" target="_blank">metadata development branch</a>. This is mostly intended for development purposes - no documentation yet, besides the GA4GH notes.</p>
+        <p/>
+        <h4>Results Notes</h4>
+        <ul>
+          <li>"Variants" represent the unique genome variants, e.g. with a unique combination of <i>chromosome:stat:end:type</i>, similar to the VCF specifications. Several <i>callsets</i> may have identical variants (though relatively rare in structural aberrations).</li>
+          <li>"Callsets" denote the number experiments with matching variants.</li>
+          <li>Optional metadata query parameters ("Bio"...) are only applied when "(Bio)samples" are evaluated; i.e. the numbers for callsets will reflect on the matches in the whole dataset.</li>
+        </ul>
+
       </div>
     </div>
   </div>
@@ -239,7 +247,12 @@ TODO: A second submit should open a new page with the raw return from the server
   <div id="dgvinfo" class="panel panel-default" style="display: none;" >
     <div class="panel-body"  >
       <div class="alert alert-info">
-        <p>The DGV example test the Beacon<span style="vertical-align: super; color: red; font-weight: 800;">+</span> UI and backend against a subset of data from the <a href="http://dgv.tcag.ca/dgv/app/home" target="_blank">Database of Genome Variants</a>. The example here performs a base-specific match on one of the variants provided to us. Using the link to the UCSC browser provided in the results table will display the matching genome region, with more overlapping DGV entries (you may have to activate the DCV track for seinhg them).</p>
+        <p>The DGV example test the Beacon<span style="vertical-align: super; color: red; font-weight: 800;">+</span> UI and backend against a subset of data from the <a href="http://dgv.tcag.ca/dgv/app/home" target="_blank">Database of Genome Variants</a>. The example here performs a base-specific match on one of the variants provided to us. Using the link to the UCSC browser provided in the results table will display the matching genome region, with more overlapping DGV entries (you may have to activate the DCV track for seeing them).</p>
+        <p>Since the data in DGV provides aggregated call counts per variant, the results differ from the strictly sample based examples:</p>
+        <ul>
+          <li>Since no individual samples can be mapped, no sample counts/frequencies can be given.</li>
+          <li>"Callsets" in this context denote the number of studies/reports with matching variants, not those of experiments.</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -247,7 +260,7 @@ TODO: A second submit should open a new page with the raw return from the server
   <div id="cnvinfo" class="panel panel-default" style="display: none;" >
     <div class="panel-body"  >
       <div class="alert alert-info">
-        <p>The DGV example test the Beacon<span style="vertical-align: super; color: red; font-weight: 800;">+</span> UI and backend against the <a href="http://arraymap.org" target="_blank">arrayMap database</a>, with a range query looking for deletions involving the CDKN2A locus in a "focal" manner. The bracketing of start and end ranges will return deletions of less than ~6Mb, all at least partially overlapping the CDKN2A CDR.</p>
+        <p>The CNV example test the Beacon<span style="vertical-align: super; color: red; font-weight: 800;">+</span> UI and backend against the <a href="http://arraymap.org" target="_blank">arrayMap database</a>, with a range query looking for deletions involving the CDKN2A locus in a "focal" manner. The bracketing of start and end ranges will return deletions of less than ~6Mb, all at least partially overlapping the CDKN2A CDR.</p>
       </div>
     </div>
   </div>
@@ -277,11 +290,11 @@ TODO: A second submit should open a new page with the raw return from the server
             <th style="vertical-align: middle;">Var Type</th>
             <th style="vertical-align: middle;">Start Range</th>
             <th style="vertical-align: middle;">End Range</th>
-            <th style="vertical-align: middle;">Pos.</th>
+            <th style="vertical-align: middle;">Pos</th>
             <th style="vertical-align: middle;">Ref<br/>Alt</th>
             <th style="vertical-align: middle;">Bio Query</th>
-            <th style="vertical-align: middle;">Vars<br/>Calls<br/>Samples</th>
-            <th style="vertical-align: middle;"><i>f</i><sub>bio</sub><br/><i>f</i><sub>all</sub></th>
+            <th style="vertical-align: middle;">Variants<br/>Calls<br/>Callsets<br/>Samples</th>
+            <th style="vertical-align: middle;"><i>f</i><sub>callsets</sub><br/>f</i><sub>bio</sub><i></th>
             <th style="vertical-align: middle;">Response<br/>Context</th>
           </tr>
           </thead>
