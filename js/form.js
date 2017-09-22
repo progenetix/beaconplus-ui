@@ -57,11 +57,11 @@ $('#exampleValuesDGV').click(function(){
   $('#assemblyID').val('GRCh38');
   $('#variantType').val('DEL');
   $('#bioontology').val('');
-  $('#referenceName').val('9');
-  $('#startMin').val('21029331');
-  $('#startMax').val('21029331');
-  $('#endMin').val('21199681');
-  $('#endMax').val('21199681');
+  $('#referenceName').val('6');
+  $('#startMin').val('57077975');
+  $('#startMax').val('57077975');
+  $('#endMin').val('57081442');
+  $('#endMax').val('57081442');
   $('#start').val('');
   $('#referenceBases').val('');
   $('#alternateBases').val('');
