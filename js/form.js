@@ -14,17 +14,17 @@ $('#exampleValuesCNV').click(function(){
   $('#snvinfo').hide();
   $('#structdiv').show();
   $('#bioontologywrapper').show();
-  $( "#cnvinfo" ).toggle( "slow", function() {});
+  $("#cnvinfo").toggle( "slow", function() {});
   $('#variantType').val('DEL');
   $('#assemblyID').val('GRCh36');
   $('#datasetId').val('arraymap');
   $('#bioontology').empty();
-  $.getJSON( "/beacon/beaconplus-server/beaconontologies.cgi?db=arraymap_ga4gh", function( data ) {
+  $.getJSON( "/beacon/beaconplus-server/beaconontologies.cgi?db=arraymap_ga4gh&querytext=c3224", function( data ) {
     $.each(data, function(index, value) {
       $('#bioontology').append( $('<option></option>').val(value.term_id).html(value.infolabel) );
     });
   }, 'json');
-  $('#bioontology').val('ncit:C3224');
+  $('#bioontology').val('ncit:c3224');
   $('#referenceName').val('9');
   $('#startMin').val('19000000');
   $('#startMax').val('21984490');
@@ -46,13 +46,12 @@ $('#exampleValuesSNV').click(function(){
   $('#datasetId').val('dipg');
   $('#assemblyID').val('GRCh36');
   $('#bioontology').empty();
-  $.getJSON( "/beacon/beaconplus-server/beaconontologies.cgi?db=dipg_ga4gh", function( data ) {
+  $.getJSON( "/beacon/beaconplus-server/beaconontologies.cgi?db=dipg_ga4gh&querytext=c71.7", function( data ) {
     $.each(data, function(index, value) {
       $('#bioontology').append( $('<option></option>').val(value.term_id).html(value.infolabel) );
     });
   }, 'json');
   $('#variantType').val('SNV');
-  $('#bioontology').val('pgx:icdom:9380_3');
   $('#referenceName').val('17');
   $('#start').val('7577121');
   $('#referenceBases').val('G');
