@@ -1,3 +1,11 @@
+$.getJSON( "/qmongo/?db=arraymap_ga4gh&collection=bioontologies&all=values&afqfield=term_id&querytext=.&api_doctype=json", function( data ) {
+  var items = [];
+  $.each( data, function(i, val) {
+    $('#bioontology').append( $('<option></option>').val(val).html(val) );
+  });
+});
+
+
 $( "#toggle_intro" ).click(function() {
   $( "#intro" ).toggle( "slow", function() {});
 });
@@ -11,6 +19,13 @@ $('#exampleValuesCNV').click(function(){
   $('#variantType').val('DEL');
   $('#assemblyID').val('GRCh36');
   $('#datasetId').val('arraymap');
+  $('#bioontology').empty();
+  $.getJSON( "/qmongo/?db=dipg_ga4gh&collection=bioontologies&all=values&afqfield=term_id&querytext=.&api_doctype=json", function( data ) {
+    var items = [];
+    $.each( data, function(i, val) {
+      $('#bioontology').append( $('<option></option>').val(val).html(val) );
+    });
+  });
   $('#bioontology').val('ncit:C3224');
   $('#referenceName').val('9');
   $('#startMin').val('19000000');
@@ -32,6 +47,13 @@ $('#exampleValuesSNV').click(function(){
   $( "#snvinfo" ).toggle( "slow", function() {});
   $('#datasetId').val('dipg');
   $('#assemblyID').val('GRCh36');
+  $('#bioontology').empty();
+  $.getJSON( "/qmongo/?db=dipg_ga4gh&collection=bioontologies&all=values&afqfield=term_id&querytext=.&api_doctype=json", function( data ) {
+    var items = [];
+    $.each( data, function(i, val) {
+      $('#bioontology').append( $('<option></option>').val(val).html(val) );
+    });
+  });
   $('#variantType').val('SNV');
   $('#bioontology').val('pgx:icdom:9380_3');
   $('#referenceName').val('17');
@@ -68,6 +90,19 @@ $('#exampleValuesDGV').click(function(){
   $('#bioontologywrapper').hide();
   $('#intro').hide();
   $('#snvdiv').hide();
+});
+
+
+$('select[name=datasetId]').change(function () {
+// TODO: changing the dataset should re-populate the ontology list
+  $('#bioontology').empty();
+  $.getJSON( "/qmongo/?db=" + $(this).val() + "_ga4gh&collection=bioontologies&all=values&afqfield=term_id&querytext=.&api_doctype=json", function( data ) {
+    var items = [];
+    $.each( data, function(i, val) {
+      $('#bioontology').append( $('<option></option>').val(val).html(val) );
+    });
+  });
+
 });
 
 

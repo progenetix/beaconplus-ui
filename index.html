@@ -186,15 +186,6 @@ Alternatively, pre-generated value lists, or stored lists with auto-complete.
           </div>
       </div>
 
-<script>
-      $.getJSON( "/qmongo/?db=arraymap_ga4gh&collection=biosamples&all=values&afqfield=bio_characteristics.ontology_terms.term_id&querytext=ncit|icdom&api_doctype=json", function( data ) {
-        var items = [];
-        $.each( data, function(i, val) {
-          $('#bioontology').append( $('<option></option>').val(val).html(val) );
-        });
-      });
-</script>
-
 <!--
 End of biosample parameter(s)
 -->
