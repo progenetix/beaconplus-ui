@@ -1,9 +1,8 @@
-$.getJSON( "/qmongo/?db=arraymap_ga4gh&collection=bioontologies&all=values&afqfield=term_id&querytext=.&api_doctype=json", function( data ) {
-  var items = [];
-  $.each( data, function(i, val) {
-    $('#bioontology').append( $('<option></option>').val(val).html(val) );
+$.getJSON( "/beacon/beaconplus-server/beaconontologies.cgi", function( data ) {
+  $.each(data, function(index, value) {
+    $('#bioontology').append( $('<option></option>').val(value.term_id).html(value.infolabel) );
   });
-});
+}, 'json');
 
 
 $( "#toggle_intro" ).click(function() {
@@ -20,12 +19,11 @@ $('#exampleValuesCNV').click(function(){
   $('#assemblyID').val('GRCh36');
   $('#datasetId').val('arraymap');
   $('#bioontology').empty();
-  $.getJSON( "/qmongo/?db=dipg_ga4gh&collection=bioontologies&all=values&afqfield=term_id&querytext=.&api_doctype=json", function( data ) {
-    var items = [];
-    $.each( data, function(i, val) {
-      $('#bioontology').append( $('<option></option>').val(val).html(val) );
+  $.getJSON( "/beacon/beaconplus-server/beaconontologies.cgi?db=arraymap_ga4gh", function( data ) {
+    $.each(data, function(index, value) {
+      $('#bioontology').append( $('<option></option>').val(value.term_id).html(value.infolabel) );
     });
-  });
+  }, 'json');
   $('#bioontology').val('ncit:C3224');
   $('#referenceName').val('9');
   $('#startMin').val('19000000');
@@ -48,12 +46,11 @@ $('#exampleValuesSNV').click(function(){
   $('#datasetId').val('dipg');
   $('#assemblyID').val('GRCh36');
   $('#bioontology').empty();
-  $.getJSON( "/qmongo/?db=dipg_ga4gh&collection=bioontologies&all=values&afqfield=term_id&querytext=.&api_doctype=json", function( data ) {
-    var items = [];
-    $.each( data, function(i, val) {
-      $('#bioontology').append( $('<option></option>').val(val).html(val) );
+  $.getJSON( "/beacon/beaconplus-server/beaconontologies.cgi?db=dipg_ga4gh", function( data ) {
+    $.each(data, function(index, value) {
+      $('#bioontology').append( $('<option></option>').val(value.term_id).html(value.infolabel) );
     });
-  });
+  }, 'json');
   $('#variantType').val('SNV');
   $('#bioontology').val('pgx:icdom:9380_3');
   $('#referenceName').val('17');
@@ -92,22 +89,16 @@ $('#exampleValuesDGV').click(function(){
   $('#snvdiv').hide();
 });
 
-
 $('select[name=datasetId]').change(function () {
 // TODO: changing the dataset should re-populate the ontology list
   $('#bioontology').empty();
-  $.getJSON( "/qmongo/?db=" + $(this).val() + "_ga4gh&collection=bioontologies&all=values&afqfield=term_id&querytext=.&api_doctype=json", function( data ) {
-    var items = [];
-    $.each( data, function(i, val) {
-      $('#bioontology').append( $('<option></option>').val(val).html(val) );
+  $.getJSON( "/qmongo/?db=" + $(this).val() + "_ga4gh", function( data ) {
+    $.each(data, function(index, value) {
+      $('#bioontology').append( $('<option></option>').val(value.term_id).html(value.infolabel) );
     });
-  });
+  }, 'json');
 
 });
-
-
-
-
 
 $('select[name=variantType]').change(function () {
   if ($(this).val() == 'SNV') {
