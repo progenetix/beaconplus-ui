@@ -111,7 +111,21 @@ TODO: Smarter image size/positioning
             <div class="col-sm-4">
               <input type="text" class="form-control" name="startMin" id="startMin" placeholder="begin of match start interval, e.g: 20000000" />
             </div>
+
+
+<!--
+            <div class="col-sm-5">
+              <div style="display:block; float: left; height: 18px; margin-left: 10%; margin-top: 20px; width: 80%; background-color: rgb(221,221,221); border: 1px solid rgb(255,23,23);"></div>
+              <div style="clear: both; height: 6px; "></div>
+              <div style="display:block; float: left; height: 12px; width: 20%; margin-left: 20%; background-color: rgb(255,221,63);"></div>
+              <div style="clear: both;"></div>
+              <div style="display:block; float: right; height: 12px; width: 20%; margin-right: 20%; background-color: rgb(23,221,255);"></div>
+            </div>
+-->
+
           </div>
+
+
 
           <div class="form-group">
               <label for="startMax" class="col-sm-2 control-label">Start <i>max</i> Position</label>
@@ -249,7 +263,8 @@ TODO: A second submit should open a new page with the raw return from the server
   <div id="cnvinfo" class="panel panel-default" style="display: none;" >
     <div class="panel-body"  >
       <div class="alert alert-info">
-        <p>The CNV example test the Beacon<span style="vertical-align: super; color: red; font-weight: 800;">+</span> UI and backend against the <a href="http://arraymap.org" target="_blank">arrayMap database</a>, with a range query looking for deletions involving the CDKN2A locus in a "focal" manner. The bracketing of start and end ranges will return deletions of less than ~6Mb, all at least partially overlapping the CDKN2A CDR.</p>
+        <p>The CNV example test the Beacon<span style="vertical-align: super; color: red; font-weight: 800;">+</span> UI and backend against the <a href="http://arraymap.org" target="_blank">arrayMap database</a>, with a range query looking for deletions involving the CDKN2A locus in a "focal" manner. The bracketing of start and end ranges will return deletions of less than ~5Mb, all at least partially overlapping the <a href="http://www.genome.ucsc.edu/cgi-bin/hgTracks?db=hg18&nonVirtPosition=&position=chr9%3A21958228%2D21964826" target="_blank">CDKN2A CDR (isoform 1)</a>.</p>
+        <p>Additionally, results from the variant query are then limited to callsets derived from biosamples of malignant melanomas, as identified through the annotation of an <b>ncit:c3224</b> <a href="https://evs.nci.nih.gov/ftp1/NCI_Thesaurus/Neoplasm/About_Core.html" target="_blank">NCIt Neoplasm Core</a> <i>term_id</i>.</p>
       </div>
     </div>
   </div>
