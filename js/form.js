@@ -19,7 +19,13 @@ $('#exampleValuesCNV').click(function(){
   $('#assemblyID').val('GRCh36');
   $('#datasetId').val('arraymap');
   $('#bioontology').empty();
-  $.getJSON( "/beacon/beaconplus-server/beaconontologies.cgi?db=arraymap_ga4gh&querytext=c3224", function( data ) {
+  $.getJSON( "/beacon/beaconplus-server/beaconontologies.cgi?db=arraymap_ga4gh&querytext=c3224$", function( data ) {
+    $('#bioontology').append( $('<option></option>').val("").html("no selection") );
+    $.each(data, function(index, value) {
+      $('#bioontology').append( $('<option selected="selected"></option>').val(value.term_id).html(value.infolabel) );
+    });
+  }, 'json');
+  $.getJSON( "/beacon/beaconplus-server/beaconontologies.cgi?db=arraymap_ga4gh", function( data ) {
     $.each(data, function(index, value) {
       $('#bioontology').append( $('<option></option>').val(value.term_id).html(value.infolabel) );
     });
@@ -47,6 +53,12 @@ $('#exampleValuesSNV').click(function(){
   $('#assemblyID').val('GRCh36');
   $('#bioontology').empty();
   $.getJSON( "/beacon/beaconplus-server/beaconontologies.cgi?db=dipg_ga4gh&querytext=c71.7", function( data ) {
+    $('#bioontology').append( $('<option></option>').val("").html("no selection") );
+    $.each(data, function(index, value) {
+      $('#bioontology').append( $('<option selected="selected"></option>').val(value.term_id).html(value.infolabel) );
+    });
+  }, 'json');
+  $.getJSON( "/beacon/beaconplus-server/beaconontologies.cgi?db=dipg_ga4gh", function( data ) {
     $.each(data, function(index, value) {
       $('#bioontology').append( $('<option></option>').val(value.term_id).html(value.infolabel) );
     });
