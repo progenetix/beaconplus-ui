@@ -4,6 +4,11 @@ $.getJSON( "/beacon/beaconplus-server/beaconontologies.cgi", function( data ) {
   });
 }, 'json');
 
+$.getJSON( "/beacon/beaconplus-server/beaconinfo.cgi", function( data ) {
+  $.each(data.dataset, function(index, value) {
+    $('#datasetId').append( $('<option></option>').val(value.datasetId).html(value.datasetId) );
+  });
+}, 'json');
 
 $( "#toggle_intro" ).click(function() {
   $( "#intro" ).toggle( "slow", function() {});
@@ -102,13 +107,18 @@ $('#exampleValuesDGV').click(function(){
 
 $('select[name=datasetId]').change(function () {
 // TODO: changing the dataset should re-populate the ontology list
-  $('#bioontology').empty();
-  $.getJSON( "/qmongo/?db=" + $(this).val() + "_ga4gh", function( data ) {
-    $.each(data, function(index, value) {
-      $('#bioontology').append( $('<option></option>').val(value.term_id).html(value.infolabel) );
-    });
-  }, 'json');
-
+  var datasetid = $(this).val();
+  if (datasetid == 'dgv') {
+    $('#bioontologywrapper').hide();
+  } else {
+    $('#bioontology').empty();
+    $.getJSON( "/beacon/beaconplus-server/beaconontologies.cgi?db=" + datasetid + "_ga4gh", function( data ) {
+      $.each(data, function(index, value) {
+        $('#bioontology').append( $('<option></option>').val(value.term_id).html(value.infolabel) );
+      });
+    }, 'json');
+    $('#bioontologywrapper').show();
+  }
 });
 
 $('select[name=variantType]').change(function () {
