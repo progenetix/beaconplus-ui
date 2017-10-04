@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <title>Beacon+ - Feature evaluation for the GA4GH Beacon project</title>
+  <meta name="google-site-verification" content="D_DC_Zxy3cCmrst5uaScIDD7daZ2_HO7Vhq2ZjfSIMo" />
+  <meta name="google-site-verification" content="is7-_LmgwVxd7M4_XIn6psLPjlZyk58QuP-DN7FC44g" />
+  <link rel="stylesheet" href="css/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="./css/style.css">
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+</head>
+
+<body>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-572981-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+<div class="container">
+
+  <div class="jumbotron" style="margin-bottom: 10px; padding:  20px 20px 30px 20px;">
+    <img src="./img/beacon_logo_25x70.png" style="float: right;" />
+    <h2 style="margin: 0px;">Beacon<span style="vertical-align: super; color: red; font-weight: 800;">+</span></h2>
+  </div>
+
+  <div class="panel panel-default" >
+    <div class="panel-body">
+      <div class="alert alert-info" style="min-height: 40px; padding-top: 10px;">
+        <div id="toggle_intro" class="btn btn-info" style="float: right; margin: -7px 0px 0px 5px;">Info</div>
+        This forward looking Beacon interface implements additional, planned features beyond the current GA4GH <a target="_blank" href="https://github.com/ga4gh/beacon-team/"> specifications</a>.
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default" style="min-height: 260px">
+    <div class="panel-heading">Query
+      <div id="exampleValuesCNV" class="btn btn-info" style="float: right; background-color: #dd9966; margin: -7px -5px 0px 5px;">CNV Example</div>
+      <div id="exampleValuesSNV" class="btn btn-info" style="float: right; background-color: #dd9966; margin: -7px 0px 0px 5px;">SNV Example</div>
+    </div>
+
+    <div class="panel-body">
+
+      <form class="form-horizontal" id="beacon-form" action="" method="post">
+
+<!--
+TODO: It would be great to have help buttons for auto-filling example queries for both structural and alternateBases examples!
+-->
+<!--
+TODO: Smarter image size/positioning
+        <img id="cnvrangeimg" src="./img/beacon_structural_matches.png" style="float: right; border:0px; height: 220px; margin:  0px 10px -200px 10px;" onclick="window.open(this.src)" />
+-->
+
+        <input type="hidden" id="datasetId" name="datasetId" value="dipg">
+
+        <div class="form-group">
+          <label for="referenceName" class="col-sm-2 control-label">Reference name<span class="compulsory">*</span></label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" name="referenceName" id="referenceName" placeholder="chromosome name, e.g: 9" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="assemblyID" class="col-sm-2 control-label">Genome Assembly<span class="compulsory">*</span></label>
+          <div class="col-sm-4">
+            <select id="assemblyID" name="assemblyID" class="form-control">
+              <option value="GRCh36">GRCh36 / hg18</option>
+              <option value="GRCh37">GRCh37 / hg19</option>
+              <option value="GRCh38">GRCh38 / hg38</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="variantType" class="col-sm-2 control-label">Variant type<span class="compulsory">*</span></label>
+          <div class="col-sm-4">
+            <select id="variantType" name="variantType" class="form-control">
+              <option value="">Please Select Variant Type</option>
+              <option value="SNV">SNV / indel</option>
+              <option value="DEL">DEL (Deletion)</option>
+              <option value="DUP">DUP (Duplication)</option>
+            </select>
+          </div>
+        </div>
+
+        <div  class="hide_on_load" id="structdiv">
+          <div class="form-group">
+            <label for="startMin" class="col-sm-2 control-label">Start <i>min</i> Position<span class="compulsory">*</span></label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" name="startMin" id="startMin" placeholder="begin of match start interval, e.g: 20000000" />
+            </div>
+          </div>
+          <div class="form-group">
+              <label for="startMax" class="col-sm-2 control-label">Start <i>max</i> Position</label>
+              <div class="col-sm-4">
+                  <input type="text" class="form-control" name="startMax" id="startMax" placeholder="end of match start interval, e.g: 21984490" />
+              </div>
+          </div>
+          <div class="form-group">
+            <label for="endMin" class="col-sm-2 control-label">End <i>min</i> Position</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" id="endMin" name="endMin" placeholder="begin of match end interval, e.g: 21984490" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="endMax" class="col-sm-2 control-label">End <i>max</i> Position</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" id="endMax" name="endMax" placeholder="end of match end interval, e.g: 25000000" />
+            </div>
+          </div>
+        </div>
+
+<!--
+Start of SNV fields
+TODO: This may be better served with a standard G>A syntax, or general open text field for e.g. "chr17:7577121 G>A" and post-processing.
+-->
+        <div  class="hide_on_load" id="snvdiv">
+          <div class="form-group">
+              <label for="start" class="col-sm-2 control-label">Position<span class="compulsory">*</span></label>
+              <div class="col-sm-4">
+                  <input type="text" class="form-control" name="start" id="start" placeholder="position for exact allelic variant, e.g. 7577121" />
+              </div>
+          </div>
+          <div class="form-group">
+            <label for="referenceBases" class="col-sm-2 control-label">Ref. Base(s)<span class="compulsory">*</span></label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="referenceBases" id="referenceBases" placeholder="the reference base for the allele, e.g. G" />
+            </div>
+          </div>
+          <div class="form-group" id="altbasesdiv">
+              <label for="alternateBases" class="col-sm-2 control-label">Alt. Base(s)<span class="compulsory">*</span></label>
+              <div class="col-sm-4">
+                  <input type="text" class="form-control" name="alternateBases" id="alternateBases" placeholder="the SNV variant for the allele, e.g. A" />
+              </div>
+          </div>
+        </div>
+
+<!--
+End of SNV fields
+-->
+
+<!--
+Biosample parameter(s)
+-->
+
+        <div id="bioontologywrapper" class="form-group">
+          <label for="bioontology" class="col-sm-2 control-label">Bio-ontology</label>
+          <div class="col-sm-4">
+            <select id="bioontology" name="bioontology" class="form-control">
+              <option value="" selected="selected">(no selection)</option>
+            </select>
+<!--
+              <input type="text" class="form-control" name="bioontology" id="bioontology" placeholder="pgx:icdom:9440_3">
+-->
+
+          </div>
+      </div>
+
+<!--
+End of biosample parameter(s)
+-->
+
+<!--
+Submission/error
+TODO: A second submit should open a new page with the raw return from the server (currently solved through a link in the table).
+-->
+        <div class="form-group">
+            <div class="col-sm-offset-2">
+                <div class="col-sm-2">
+                  <button class="btn btn-info">Beacon Query <i class="fa fa-spinner fa-spin" id="spinner" style="display: none"></i></button>
+                </div>
+            </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+  <div id="intro" class="panel panel-default" style="display: none;" >
+    <div class="panel-body"  >
+      <div class="alert alert-info">
+        <p>The Beacon<span style="vertical-align: super; color: red; font-weight: 800;">+</span> interface currently implements <span style="font-weight: bold">structural variant requests</span> (i.e. DUP, DEL; see <a target="_blank" href="https://github.com/ga4gh/beacon-team/pull/94">Beacon Github PR #94</a>), in addition to standard Beacon SNV calls.</p>
+        <p>Code for the project is accessible through the <a href="https://github.com/progenetix/" target="_blank">Progenetix Github repository</a>:</p>
+        <ul>
+          <li>
+            <a href="https://github.com/progenetix/beaconplus-ui" target="_blank">frontend</a> (JS &amp; HTML) and <a href="https://github.com/progenetix/beaconplus-server" target="_blank">server code</a> (Perl CGI)
+          </li>
+          <li>
+            <a href="https://github.com/progenetix/arraymap2ga4gh" target="_blank">example datasets</a> (<a target="_blank" href="http://mongodb.org">MongoDB</a> variant, biosample ... collections)
+          </li>
+        </ul>
+        <p>The latest version (2017-09-05) also adds an experimental support for <i>biocharacteristics</i> queries, against ontology <i>term_id</i>s as specified in the <a href="https://github.com/ga4gh/ga4gh-schemas/blob/metadata-integration/src/main/proto/ga4gh/bio_metadata.proto" target="_blank">metadata development branch</a>. This is mostly intended for development purposes - no documentation yet, besides the GA4GH notes.</p>
+        <p/>
+        <h4>Results Notes</h4>
+        <ul>
+          <li>"Variants" represent the unique genome variants, e.g. with a unique combination of <i>chromosome:stat:end:type</i>, similar to the VCF specifications. Several <i>callsets</i> may have identical variants (though relatively rare in structural aberrations).</li>
+          <li>"Callsets" denote the number experiments with matching variants.</li>
+          <li>Optional metadata query parameters ("Bio"...) are only applied when "(Bio)samples" are evaluated; i.e. the numbers for callsets will reflect on the matches in the whole dataset.</li>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+
+<!-- The following panels display information about the query examples -->
+
+  <div id="dgvinfo" class="panel panel-default" style="display: none;" >
+    <div class="panel-body"  >
+      <div class="alert alert-info">
+        <p>The DGV example test the Beacon<span style="vertical-align: super; color: red; font-weight: 800;">+</span> UI and backend against a subset of data from the <a href="http://dgv.tcag.ca/dgv/app/home" target="_blank">Database of Genome Variants</a>. The example here performs a base-specific match on one of the variants provided to us. Using the link to the UCSC browser provided in the results table will display the matching genome region, with more overlapping DGV entries (you may have to activate the DCV track for seeing them).</p>
+        <p>Since the data in DGV provides aggregated call counts per variant, the results differ from the strictly sample based examples:</p>
+        <ul>
+          <li>Since no individual samples can be mapped, no sample counts/frequencies can be given.</li>
+          <li>"Callsets" in this context denote the number of studies/reports with matching variants, not those of experiments.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div id="cnvinfo" class="panel panel-default" style="display: none;" >
+    <div class="panel-body"  >
+      <div class="alert alert-info">
+        <p>The CNV example test the Beacon<span style="vertical-align: super; color: red; font-weight: 800;">+</span> UI and backend against the <a href="http://arraymap.org" target="_blank">arrayMap database</a>, with a range query looking for deletions involving the CDKN2A locus in a "focal" manner. The bracketing of start and end ranges will return deletions of less than ~5Mb, all at least partially overlapping the <a href="http://www.genome.ucsc.edu/cgi-bin/hgTracks?db=hg18&nonVirtPosition=&position=chr9%3A21958228%2D21964826" target="_blank">CDKN2A CDR (isoform 1)</a>.</p>
+        <p>Additionally, results from the variant query are then limited to callsets derived from biosamples of malignant melanomas, as identified through the annotation of an <b>ncit:c3224</b> <a href="https://evs.nci.nih.gov/ftp1/NCI_Thesaurus/Neoplasm/About_Core.html" target="_blank">NCIt Neoplasm Core</a> <i>term_id</i>.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="snvinfo" class="panel panel-default" style="display: none;" >
+    <div class="panel-body"  >
+      <div class="alert alert-info">
+        <p>The SNV example test the Beacon<span style="vertical-align: super; color: red; font-weight: 800;">+</span> UI and backend against the DIPG dataset, with a specific mutation.</p>
+      </div>
+    </div>
+  </div>
+
+<!-- End of information about the query examples -->
+
+  <div class="panel panel-default">
+    <div class="panel-heading">Response</div>
+    <div class="panel-body">
+      <div id="noResult" class="alert alert-warning">
+        There were no previous searches yet. Please, perform a query by using the form above.</div>
+      <div style="display: none;" id="result">
+        <table class="table table-responsive resulttable" id="resultTable">
+          <thead>
+          <tr>
+            <th style="vertical-align: middle;">Dataset</th>
+            <th style="vertical-align: middle;">Assembly</th>
+            <th style="vertical-align: middle;">Chro</th>
+            <th style="vertical-align: middle;">Var Type</th>
+            <th style="vertical-align: middle;">Start Range</th>
+            <th style="vertical-align: middle;">End Range</th>
+            <th style="vertical-align: middle;">Pos</th>
+            <th style="vertical-align: middle;">Ref<br/>Alt</th>
+            <th style="vertical-align: middle;">Bio Query</th>
+            <th style="vertical-align: middle;">Variants<br/>Calls<br/>Callsets<br/>Samples</th>
+            <th style="vertical-align: middle;"><i>f</i><sub>callsets</sub><br/>f</i><sub>bio</sub><i></th>
+            <th style="vertical-align: middle;">Response<br/>Context</th>
+          </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+<!--
+  <div class="panel panel-default" style="margin-bottom: 10px; border: none;">
+    <p class="panel-body footer" style="display: flex; justify-content:space-between;">
+      <p style="font-style: italic;">
+        This Beacon implementation is developed by the <a href="http://wiki.progenetix.org/Wiki/BaudisgroupIMLS/" target="_blank">Computational Oncogenomics Group</a> at the <a href="http://www.imls.uzh.ch/baudis/" target="_blank">University of Zurich</a>, with support from the <a href="https://www.sib.swiss/sibt/" target="_blank">SIB Technology group</a> and <a href="https://www.elixir-europe.org" target="_blank">ELIXIR</a>.
+      </p>
+
+
+    </div>
+  </div>
+-->
+
+  <div class="panel panel-default" style="border: none;">
+    <div class="panel-body">
+      <div style="display: flex; justify-content: space-between;">
+        <a href="http://arraymap.org" target="_blank"><img src="./img/arraymap_black_180.png" style="height: 25px; margin: 5px;" /></a>
+        <a href="http://progenetix.org" target="_blank"><img src="./img/progenetix_black_180.png" style="height: 25px; margin: 0px 5px 5px 5px;" /></a>
+        <div style="min-width: 300px;">
+          This Beacon implementation is developed by the <a href="http://wiki.progenetix.org/Wiki/BaudisgroupIMLS/" target="_blank">Computational Oncogenomics Group</a> at the <a href="http://www.imls.uzh.ch/baudis/" target="_blank">University of Zurich</a>, with support from the <a href="https://www.sib.swiss/sibt/" target="_blank">SIB Technology group</a> and <a href="https://www.elixir-europe.org" target="_blank">ELIXIR</a>.
+        </div>
+        <a href="http://www.uzh.ch" target="_blank"><img src="./img/uzh_logo_pos_160x50.png" style="height: 25px; margin: 5px;" /></a>
+        <a href="http://elixir-europe.org" target="_blank"><img src="./img/elixir_logo_grey_65x50.png" style="height: 25px; margin: 5px;" /></a>
+        <a href="http://sib.swiss" target="_blank"><img src="./img/sib_logo_65x50.png" style="height: 25px; margin: 5px;" /></a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="js/query.js"></script>
+<script src="js/form_dipg.js"></script>
+<script src="js/datasets.js"></script>
+
+<script type='text/javascript'>
+
+    $( document ).ready(function() {
+        console.log("Loading page");
+        loadDatasets();
+    });
+
+</script>
+
+</body>
+</html>
