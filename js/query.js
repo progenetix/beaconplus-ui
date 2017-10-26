@@ -7,6 +7,7 @@
 
 var host = window.location.hostname;
 const ARRAYMAP = "http://" + host + "/beaconresponse";
+const HANDOVER = "http://" + host + "/beaconhandover";
 
 $( "#beacon-form" ).submit(function( event ) {
 
@@ -70,7 +71,7 @@ $( "#beacon-form" ).submit(function( event ) {
     				// });
             result += '<td>'+ data.dataset_allele_responses[i].variant_count +'<br/>' + data.dataset_allele_responses[i].call_count +'<br/>' + data.dataset_allele_responses[i].callset_count +'<br/>' + data.dataset_allele_responses[i].sample_count +'</td>';
             result += '<td>' + data.dataset_allele_responses[i].frequency + '<br/>' + data.dataset_allele_responses[i].info.bs_match_frequency + '</td>';
-            result += '<td><a href="' + ARRAYMAP + '/?' + data.info.query_string +'" title="' + data.info.query_string + '" target="_BLANK">JSON</a><br/><a href="http://www.genome.ucsc.edu/cgi-bin/hgTracks?db=' + ucscgenome + '&position=chr' + $("#referenceName").val() + '%3A' + ucscstart + '%2D' + ucscend + '" target="_blank">UCSC</a></td>';
+            result += '<td><a href="' + ARRAYMAP + '/?' + data.info.query_string +'" title="' + data.info.query_string + '" target="_BLANK">JSON</a><br/><a href="http://www.genome.ucsc.edu/cgi-bin/hgTracks?db=' + ucscgenome + '&position=chr' + $("#referenceName").val() + '%3A' + ucscstart + '%2D' + ucscend + '" target="_blank">UCSC</a><br/><a href="' + HANDOVER + '/?accessid=' + data.dataset_allele_responses[i].info.callset_access_handle + '" title="Data Handover" target="_BLANK">Handover</a></td>';
 
     				$("#resultTable").append('<tr>' + result + '</tr>');
 
