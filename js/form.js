@@ -4,7 +4,7 @@ $.getJSON( "/beacon/beaconplus-server/beaconontologies.cgi", function( data ) {
   });
 }, 'json');
 
-$.getJSON( "/beacon/beaconplus-server/beaconinfo.cgi", function( data ) {
+$.getJSON( "/beacon/beaconplus-server/beaconinfo.cgi/?q=get_datasetids", function( data ) {
   $.each(data.dataset, function(index, value) {
     $('#datasetId').append( $('<option></option>').val(value.datasetId).html(value.datasetId) );
   });
