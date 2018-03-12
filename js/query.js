@@ -55,8 +55,9 @@ $( "#beacon-form" ).submit(function( event ) {
               ucscend = $("#start").val();
             }
             
-            ucscstart = ucscstart + 1;
-            ucscend = ucscend + 1;
+            // UCSC browser is 1 based
+            ucscstart = +ucscstart + +1;
+            ucscend = +ucscend + +1;
 
             var result = '';
             result += '<td>'+ $("#datasetId").val() +'</td>';
