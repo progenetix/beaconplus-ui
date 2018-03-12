@@ -54,7 +54,7 @@ $( "#beacon-form" ).submit(function( event ) {
               ucscstart = $("#start").val();
               ucscend = $("#start").val();
             }
-            
+
             // UCSC browser is 1 based
             ucscstart = +ucscstart + +1;
             ucscend = +ucscend + +1;
@@ -72,9 +72,9 @@ $( "#beacon-form" ).submit(function( event ) {
     				// $.each(formParam, function (i, val) {
     				// 	result += '<td>' + val.value +'</td>';
     				// });
-            result += '<td>'+ data.dataset_allele_responses[i].variant_count +'<br/>' + data.dataset_allele_responses[i].call_count +'<br/>' + data.dataset_allele_responses[i].sample_count +'</td>';
-            result += '<td>' + data.dataset_allele_responses[i].frequency + '</td>';
-            result += '<td><a href="' + ARRAYMAP + '/?' + data.info.query_string +'" title="' + data.info.query_string + '" target="_BLANK">JSON</a><br/><a href="http://www.genome.ucsc.edu/cgi-bin/hgTracks?db=' + ucscgenome + '&position=chr' + $("#referenceName").val() + '%3A' + ucscstart + '%2D' + ucscend + '" target="_blank">UCSC</a><br/><a href="' + HANDOVER + '/?accessid=' + data.dataset_allele_responses[i].info.callset_access_handle + '" title="Data Handover" target="_BLANK">Handover</a></td>';
+            result += '<td>'+ data.datasetAlleleResponses[i].variantCount +'<br/>' + data.datasetAlleleResponses[i].callCount +'<br/>' + data.datasetAlleleResponses[i].sampleCount +'</td>';
+            result += '<td>' + data.datasetAlleleResponses[i].frequency + '</td>';
+            result += '<td><a href="' + ARRAYMAP + '/?' + data.info.queryString +'" title="' + data.info.queryString + '" target="_BLANK">JSON</a><br/><a href="http://www.genome.ucsc.edu/cgi-bin/hgTracks?db=' + ucscgenome + '&position=chr' + $("#referenceName").val() + '%3A' + ucscstart + '%2D' + ucscend + '" target="_blank">UCSC</a><br/><a href="' + HANDOVER + '/?accessid=' + data.dataset_allele_responses[i].info.callset_access_handle + '" title="Data Handover" target="_BLANK">Handover</a></td>';
 
     				$("#resultTable").append('<tr>' + result + '</tr>');
 
