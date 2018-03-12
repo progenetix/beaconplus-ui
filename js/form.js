@@ -1,4 +1,5 @@
 $.getJSON( "/beacon/beaconplus-server/beaconontologies.cgi", function( data ) {
+  $('#bioontology').append( $('<option></option>').val("").html("(no selection)") );
   $.each(data, function(index, value) {
     $('#bioontology').append( $('<option></option>').val(value.term_id).html(value.infolabel) );
   });
@@ -20,8 +21,7 @@ $('#exampleValuesCNV').click(function(){
   $('#structdiv').show();
   $('#bioontologywrapper').show();
   $("#cnvinfo").toggle( "slow", function() {});
-  $('#variantType').val('DEL');
-  $('#assemblyID').val('GRCh36'); //GRCh38
+  $('#assemblyID').val('GRCh38'); //GRCh38
   $('#datasetId').val('arraymap');
   $('#bioontology').empty();
   $.getJSON( "/beacon/beaconplus-server/beaconontologies.cgi?dataset_id=arraymap&querytext=ncit:c3224$", function( data ) {
@@ -38,12 +38,12 @@ $('#exampleValuesCNV').click(function(){
   $('#bioontology').val('ncit:c3224');
   $('#referenceName').val('9');
   $('#startMin').val('19,500,000');
-  $('#startMax').val('21,964,826'); // 21,975,098
-  $('#endMin').val('21,958,228'); // 21,967,753
+  $('#startMax').val('21,975,098'); // 21,975,098
+  $('#endMin').val('21,967,753'); // 21,967,753
   $('#endMax').val('24,500,000');
   $('#start').val('');
   $('#referenceBases').val('');
-  $('#alternateBases').val('');
+  $('#alternateBases').val('DEL');
   $('#intro').hide();
   $('#snvdiv').hide();
 });
@@ -55,7 +55,7 @@ $('#exampleValuesSNV').click(function(){
   $('#bioontologywrapper').show();
   $( "#snvinfo" ).toggle( "slow", function() {});
   $('#datasetId').val('dipg');
-  $('#assemblyID').val('GRCh36');
+  $('#assemblyID').val('GRCh38');
   $('#bioontology').empty();
   $.getJSON( "/beacon/beaconplus-server/beaconontologies.cgi?dataset_id=dipg&querytext=c71.7", function( data ) {
     $('#bioontology').append( $('<option></option>').val("").html("no selection") );
@@ -68,9 +68,8 @@ $('#exampleValuesSNV').click(function(){
       $('#bioontology').append( $('<option></option>').val(value.term_id).html(value.infolabel) );
     });
   }, 'json');
-  $('#variantType').val('SNV');
   $('#referenceName').val('17');
-  $('#start').val('7577121');
+  $('#start').val('7733516');
   $('#referenceBases').val('G');
   $('#alternateBases').val('A');
   $('#startMin').val('');
@@ -90,7 +89,6 @@ $('#exampleValuesDGV').click(function(){
   $('#structdiv').show();
   $('#datasetId').val('dgv');
   $('#assemblyID').val('GRCh38');
-  $('#variantType').val('DEL');
   $('#bioontology').val('');
   $('#referenceName').val('6');
   $('#startMin').val('57077975');
@@ -99,7 +97,7 @@ $('#exampleValuesDGV').click(function(){
   $('#endMax').val('57081442');
   $('#start').val('');
   $('#referenceBases').val('');
-  $('#alternateBases').val('');
+  $('#alternateBases').val('DEL');
   $('#bioontologywrapper').hide();
   $('#intro').hide();
   $('#snvdiv').hide();
@@ -113,6 +111,7 @@ $('select[name=datasetId]').change(function () {
   } else {
     $('#bioontology').empty();
     $.getJSON( "/beacon/beaconplus-server/beaconontologies.cgi?dataset_id=" + datasetid, function( data ) {
+      $('#bioontology').append( $('<option></option>').val("").html("(no selection)") );
       $.each(data, function(index, value) {
         $('#bioontology').append( $('<option></option>').val(value.term_id).html(value.infolabel) );
       });
@@ -121,38 +120,35 @@ $('select[name=datasetId]').change(function () {
   }
 });
 
-$('select[name=variantType]').change(function () {
-  if ($(this).val() == 'SNV') {
-    $('#snvdiv').show();
-    $('#start').prop('required',true);
-    $('#referenceBases').prop('required',true);
-    $('#alternateBases').prop('required',true);
-    $('#startMin').prop('required',false);
-    $('#startMin').val('');
-    $('#startMax').val('');
-    $('#endMin').prop('required',false);
-    $('#endMin').val('');
-    $('#endMax').val('');
-    $('#structdiv').hide();
-    $('#cnvrangeimg').hide();
-  } else if ($(this).val() == 'DEL' || $(this).val() == 'DUP') {
-    $('#structdiv').show();
-    $('#cnvrangeimg').show();
-    $('#startMin').prop('required',true);
-    $('#endMin').prop('required',true);
-    $('#start').prop('required',false);
-    $('#start').val('');
-    $('#referenceBases').prop('required',false);
-    $('#referenceBases').val('');
-    $('#alternateBases').prop('required',false);
-    $('#alternateBases').val('');
-    $('#snvdiv').hide();
-  } else {
-    $('#snvdiv').hide();
-    $('#structdiv').hide();
-    $('#cnvrangeimg').hide();
-  }
-});
+// $('select[name=alternateBases]').change(function () {
+//   if ($(this).val() == 'SNV') {
+//     $('#snvdiv').show();
+//     $('#start').prop('required',true);
+//     $('#referenceBases').prop('required',true);
+//     $('#alternateBases').prop('required',true);
+//     $('#startMin').prop('required',false);
+//     $('#startMin').val('');
+//     $('#startMax').val('');
+//     $('#endMin').prop('required',false);
+//     $('#endMin').val('');
+//     $('#endMax').val('');
+//     $('#structdiv').hide();
+//   } else if ($(this).val() == 'DEL' || $(this).val() == 'DUP') {
+//     $('#structdiv').show();
+//     $('#startMin').prop('required',true);
+//     $('#endMin').prop('required',true);
+//     $('#start').prop('required',false);
+//     $('#start').val('');
+//     $('#referenceBases').prop('required',false);
+//     $('#referenceBases').val('');
+//     $('#alternateBases').prop('required',false);
+//     $('#alternateBases').val('');
+//     $('#snvdiv').hide();
+//   } else {
+//     $('#snvdiv').hide();
+//     $('#structdiv').hide();
+//   }
+// });
 
 $('#startMin').keyup(function () {
   $('#startMax').val(this.value);

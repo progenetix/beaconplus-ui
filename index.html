@@ -73,50 +73,39 @@ TODO: Smarter image size/positioning
         </div>
 
         <div class="form-group">
-          <label for="assemblyID" class="col-sm-2 control-label">Genome Assembly<span class="compulsory">*</span></label>
+          <label for="assemblyId" class="col-sm-2 control-label">Genome Assembly<span class="compulsory">*</span></label>
           <div class="col-sm-4">
-            <select id="assemblyID" name="assemblyID" class="form-control">
+            <select id="assemblyId" name="assemblyId" class="form-control">
+<!--
               <option value="GRCh36">GRCh36 / hg18</option>
               <option value="GRCh37">GRCh37 / hg19</option>
+-->
               <option value="GRCh38">GRCh38 / hg38</option>
             </select>
           </div>
         </div>
 
+<!--
         <div class="form-group">
-          <label for="variantType" class="col-sm-2 control-label">Variant type<span class="compulsory">*</span></label>
+          <label for="altBasesStruct" class="col-sm-2 control-label">Alternate Bases (structural)<span class="compulsory">*</span></label>
           <div class="col-sm-4">
-            <select id="variantType" name="variantType" class="form-control">
-              <option value="">Please Select Variant Type</option>
+            <select id="altBasesStruct" name="alternateBases" class="form-control">
+              <option value="">Please Select Structutral Alteration</option>
               <option value="SNV">SNV / indel</option>
               <option value="DEL">DEL (Deletion)</option>
               <option value="DUP">DUP (Duplication)</option>
             </select>
           </div>
         </div>
+-->
 
         <div  class="hide_on_load" id="structdiv">
-
           <div class="form-group">
             <label for="startMin" class="col-sm-2 control-label">Start <i>min</i> Position<span class="compulsory">*</span></label>
             <div class="col-sm-4">
               <input type="text" class="form-control" name="startMin" id="startMin" placeholder="begin of match start interval, e.g: 20000000" />
             </div>
-
-
-<!--
-            <div class="col-sm-5">
-              <div style="display:block; float: left; height: 18px; margin-left: 10%; margin-top: 20px; width: 80%; background-color: rgb(221,221,221); border: 1px solid rgb(255,23,23);"></div>
-              <div style="clear: both; height: 6px; "></div>
-              <div style="display:block; float: left; height: 12px; width: 20%; margin-left: 20%; background-color: rgb(255,221,63);"></div>
-              <div style="clear: both;"></div>
-              <div style="display:block; float: right; height: 12px; width: 20%; margin-right: 20%; background-color: rgb(23,221,255);"></div>
-            </div>
--->
-
           </div>
-
-
 
           <div class="form-group">
               <label for="startMax" class="col-sm-2 control-label">Start <i>max</i> Position</label>
@@ -159,14 +148,14 @@ TODO: This may be better served with a standard G>A syntax, or general open text
                 <input type="text" class="form-control" name="referenceBases" id="referenceBases" placeholder="the reference base for the allele, e.g. G" />
             </div>
           </div>
+        </div>
 
           <div class="form-group" id="altbasesdiv">
               <label for="alternateBases" class="col-sm-2 control-label">Alt. Base(s)<span class="compulsory">*</span></label>
               <div class="col-sm-4">
-                  <input type="text" class="form-control" name="alternateBases" id="alternateBases" placeholder="the SNV variant for the allele, e.g. A" />
+                  <input type="text" class="form-control" name="alternateBases" id="alternateBases" placeholder="the SNV variant for the allele, e.g. A or DEL" />
               </div>
           </div>
-        </div>
 
 <!--
 End of SNV fields
@@ -282,7 +271,6 @@ TODO: A second submit should open a new page with the raw return from the server
             <th style="vertical-align: middle;">Dataset</th>
             <th style="vertical-align: middle;">Assembly</th>
             <th style="vertical-align: middle;">Chro</th>
-            <th style="vertical-align: middle;">Var Type</th>
             <th style="vertical-align: middle;">Start Range</th>
             <th style="vertical-align: middle;">End Range</th>
             <th style="vertical-align: middle;">Pos</th>

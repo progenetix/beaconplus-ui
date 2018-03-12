@@ -1,6 +1,6 @@
 /**
  * Created by sduvaud on 12/05/17.
- * Last modification by Michael Baudis 2017-08-24
+ * Last modification by Michael Baudis 2018-02-01
 */
 
 // Endpoint (URL) for Beacon backend implementing a query API to access data
@@ -38,7 +38,7 @@ $( "#beacon-form" ).submit(function( event ) {
           var dataset_no = data.dataset_allele_responses.length;
     			for (var i = 0; i < dataset_no; i++) {
 
-            var ucscgenome = $("#assemblyID").val();
+            var ucscgenome = $("#assemblyId").val();
             if (ucscgenome == 'GRCh36' ) {
               ucscgenome = 'hg18';
             } else if (ucscgenome == 'GRCh37' ) {
@@ -54,13 +54,15 @@ $( "#beacon-form" ).submit(function( event ) {
               ucscstart = $("#start").val();
               ucscend = $("#start").val();
             }
+            
+            ucscstart = ucscstart + 1;
+            ucscend = ucscend + 1;
 
             var result = '';
             result += '<td>'+ $("#datasetId").val() +'</td>';
-            result += '<td>'+ ucscgenome +'</td>';
+            result += '<td>'+ $("#assemblyId").val() +'</td>';
             // result += '<td>'+ $("#assemblyID").val() +'</td>';
             result += '<td>'+ $("#referenceName").val() +'</td>';
-            result += '<td>'+ $("#variantType").val() +'</td>';
             result += '<td>'+ $("#startMin").val() + '<br/>'+ $("#startMax").val() +'</td>';
             result += '<td>'+ $("#endMin").val() + '<br/>'+ $("#endMax").val() +'</td>';
             result += '<td>'+ $("#start").val() +'</td>';
@@ -96,21 +98,19 @@ $( "#beacon-form" ).submit(function( event ) {
 
 function buildQuery(params) {
 
-// TODO: Query paramters should be submitted depending on variantType...
-
   var query = '';
   var paramName2Url = {
-      "datasetId": "dataset_id",
-      "referenceName": "variants.reference_name",
-      "assemblyID": "assembly_id",
-      "variantType": "variants.variant_type",
-      "startMin": "variants.start_min",
-      "startMax": "variants.start_max",
-      "endMin": "variants.end_min",
-      "endMax": "variants.end_max",
-      "referenceBases": "variants.reference_bases",
-      "alternateBases": "variants.alternate_bases",
-      "start": "variants.start",
+      "datasetId": "datasetId",
+      "referenceName": "referenceName",
+      "assemblyId": "assemblyId",
+      "startMin": "startMin",
+      "startMax": "startMax",
+      "endMin": "endMin",
+      "endMax": "endMax",
+      "referenceBases": "referenceBases",
+      "alternateBases": "alternateBases",
+      "start": "start",
+      "end": "end",
       "bioontology":"biosamples.bio_characteristics.ontology_terms.term_id"
   };
 
@@ -120,9 +120,6 @@ function buildQuery(params) {
       paramName = val.name;
       paramValue = val.value;
 
-      if (paramName == 'referenceName') {
-          paramValue = 'chr' + paramValue;
-      }
       if (paramValue != '' && paramName != '') {
           query += paramName2Url[paramName] + '=' + paramValue + '&';
       }
@@ -133,7 +130,7 @@ function buildQuery(params) {
 
 function checkParameters(params) {
 
-    var referenceName, start, startMin, variantType, referenceBases, alternateBases = null;
+    var referenceName, start, startMin, referenceBases, alternateBases = null;
     var startMax = endMin = endMax = -1;
 
     $.each(params, function (i, val) {
@@ -161,11 +158,14 @@ function checkParameters(params) {
             endMax = Math.abs(parseInt(val.value));
         }
 
-        if (val.name == 'variantType') {
-          if (val.value == 'DEL' || val.value == 'DUP') {
-            variantType = val.value;
-          }
+        if (val.name == 'referenceBases') {
+            referenceBases = val.value;
         }
+
+        if (val.name == 'alternateBases') {
+            alternateBases = val.value;
+        }
+
     });
 
     // TODO: re-implement checks for both types of queries.
@@ -176,7 +176,7 @@ function checkParameters(params) {
     // ###############################################################
     // Rule #1: Compulsory fields:
     // ###############################################################
-    if (referenceName == '' || variantType == '') {
+    if (referenceName == '' || alternateBases == '') {
         return "One or more compulsory fields are missing!";
     }
 
@@ -211,14 +211,6 @@ function checkParameters(params) {
     if (chromosme == 'ERR') {
         return "reference name incorrect!";
     }
-
-    // ###############################################################
-    // Rule #5: Variant type (DEL or DUP)
-    // ###############################################################
-// TODO: modify this for bases OR structural test
-    // if (variantType != 'DEL' && variantType != 'DUP') {
-    //     return "variant type must be either DEL or DUP";
-    // }
 
     return "OK";
 }
