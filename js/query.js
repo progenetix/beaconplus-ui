@@ -1,6 +1,6 @@
 /**
  * Created by sduvaud on 12/05/17.
- * Last modification by Michael Baudis 2018-02-01
+ * Last modification by Michael Baudis 2018-03-12
 */
 
 // Endpoint (URL) for Beacon backend implementing a query API to access data
@@ -35,7 +35,7 @@ $( "#beacon-form" ).submit(function( event ) {
           $("#result").show();
 
           // this already implements the responses for multiple datasets
-          var dataset_no = data.dataset_allele_responses.length;
+          var dataset_no = data.datasetAlleleResponses.length;
     			for (var i = 0; i < dataset_no; i++) {
 
             var ucscgenome = $("#assemblyId").val();
@@ -74,7 +74,7 @@ $( "#beacon-form" ).submit(function( event ) {
     				// });
             result += '<td>'+ data.datasetAlleleResponses[i].variantCount +'<br/>' + data.datasetAlleleResponses[i].callCount +'<br/>' + data.datasetAlleleResponses[i].sampleCount +'</td>';
             result += '<td>' + data.datasetAlleleResponses[i].frequency + '</td>';
-            result += '<td><a href="' + ARRAYMAP + '/?' + data.info.queryString +'" title="' + data.info.queryString + '" target="_BLANK">JSON</a><br/><a href="http://www.genome.ucsc.edu/cgi-bin/hgTracks?db=' + ucscgenome + '&position=chr' + $("#referenceName").val() + '%3A' + ucscstart + '%2D' + ucscend + '" target="_blank">UCSC</a><br/><a href="' + HANDOVER + '/?accessid=' + data.dataset_allele_responses[i].info.callset_access_handle + '" title="Data Handover" target="_BLANK">Handover</a></td>';
+            result += '<td><a href="' + ARRAYMAP + '/?' + data.info.queryString +'" title="' + data.info.queryString + '" target="_BLANK">JSON</a><br/><a href="http://www.genome.ucsc.edu/cgi-bin/hgTracks?db=' + ucscgenome + '&position=chr' + $("#referenceName").val() + '%3A' + ucscstart + '%2D' + ucscend + '" target="_blank">UCSC</a><br/><a href="' + HANDOVER + '/?accessid=' + data.datasetAlleleResponses[i].info.callset_access_handle + '" title="Data Handover" target="_BLANK">Handover</a></td>';
 
     				$("#resultTable").append('<tr>' + result + '</tr>');
 
@@ -88,7 +88,6 @@ $( "#beacon-form" ).submit(function( event ) {
         });
     }
     else {
-
         $("#spinner").hide();
         $('#message').remove();
         $('#error').show();
