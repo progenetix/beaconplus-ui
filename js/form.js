@@ -21,7 +21,7 @@ $('#exampleValuesCNV').click(function(){
   $('#structdiv').show();
   $('#bioontologywrapper').show();
   $("#cnvinfo").toggle( "slow", function() {});
-  $('#assemblyID').val('GRCh38'); //GRCh38
+  $('#assemblyId').val('GRCh38'); //GRCh38
   $('#datasetId').val('arraymap');
   $('#bioontology').empty();
   $.getJSON( "/beacon/beaconplus-server/beaconontologies.cgi?dataset_id=arraymap&querytext=ncit:c3224$", function( data ) {
@@ -42,8 +42,9 @@ $('#exampleValuesCNV').click(function(){
   $('#endMin').val('21,967,753'); // 21,967,753
   $('#endMax').val('24,500,000');
   $('#start').val('');
-  $('#referenceBases').val('');
-  $('#alternateBases').val('DEL');
+  $('#alternateBases').val('');
+  $('#referenceBases').val('N');
+  $('#variantType').val('DEL');
   $('#intro').hide();
   $('#snvdiv').hide();
 });
@@ -72,6 +73,7 @@ $('#exampleValuesSNV').click(function(){
   $('#start').val('7733516');
   $('#referenceBases').val('G');
   $('#alternateBases').val('A');
+  $('#variantType').val('');
   $('#startMin').val('');
   $('#startMax').val('');
   $('#endMin').val('');
@@ -96,8 +98,9 @@ $('#exampleValuesDGV').click(function(){
   $('#endMin').val('57081442');
   $('#endMax').val('57081442');
   $('#start').val('');
-  $('#referenceBases').val('');
-  $('#alternateBases').val('DEL');
+  $('#referenceBases').val('N');
+  $('#alternateBases').val('');
+  $('#variantType').val('DEL');
   $('#bioontologywrapper').hide();
   $('#intro').hide();
   $('#snvdiv').hide();

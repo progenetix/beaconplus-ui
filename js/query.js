@@ -67,7 +67,7 @@ $( "#beacon-form" ).submit(function( event ) {
             result += '<td>'+ $("#startMin").val() + '<br/>'+ $("#startMax").val() +'</td>';
             result += '<td>'+ $("#endMin").val() + '<br/>'+ $("#endMax").val() +'</td>';
             result += '<td>'+ $("#start").val() +'</td>';
-            result += '<td>'+ $("#referenceBases").val() + '<br/>' + $("#alternateBases").val() +'</td>';
+            result += '<td>'+ $("#referenceBases").val() + '<br/>' + $("#alternateBases").val() + $("#variantType").val() +'</td>';
             result += '<td>'+ $("#bioontology").val() +'</td>';
     				// $.each(formParam, function (i, val) {
     				// 	result += '<td>' + val.value +'</td>';
@@ -109,6 +109,7 @@ function buildQuery(params) {
       "endMax": "endMax",
       "referenceBases": "referenceBases",
       "alternateBases": "alternateBases",
+      "variantType": "variantType",
       "start": "start",
       "end": "end",
       "bioontology":"biosamples.bio_characteristics.ontology_terms.term_id"
@@ -130,7 +131,7 @@ function buildQuery(params) {
 
 function checkParameters(params) {
 
-    var referenceName, start, startMin, referenceBases, alternateBases = null;
+    var referenceName, start, startMin, referenceBases, alternateBases, variantType = null;
     var startMax = endMin = endMax = -1;
 
     $.each(params, function (i, val) {
@@ -166,6 +167,10 @@ function checkParameters(params) {
             alternateBases = val.value;
         }
 
+        if (val.name == 'variantType') {
+            variantType = val.value;
+        }
+
     });
 
     // TODO: re-implement checks for both types of queries.
@@ -176,7 +181,7 @@ function checkParameters(params) {
     // ###############################################################
     // Rule #1: Compulsory fields:
     // ###############################################################
-    if (referenceName == '' || alternateBases == '') {
+    if (referenceName == '' || (alternateBases == '' && variantType == '')) {
         return "One or more compulsory fields are missing!";
     }
 
