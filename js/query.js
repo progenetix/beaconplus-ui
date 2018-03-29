@@ -1,13 +1,15 @@
 /**
  * Created by sduvaud on 12/05/17.
- * Last modification by Michael Baudis 2018-02-01
+ * Last modification by Michael Baudis 2018-03-12
 */
 
 // Endpoint (URL) for Beacon backend implementing a query API to access data
 
 var host = window.location.hostname;
-const ARRAYMAP = "http://" + host + "/beaconresponse";
-const HANDOVER = "http://" + host + "/beaconhandover";
+const ARRAYMAP = "/Sites/beacon/beaconplus-server/beaconresponse.cgi";
+const HANDOVER = "/Sites/beacon/beaconplus-server/beaconhandover.cgi";
+// const ARRAYMAP = "//" + host + "/beaconresponse";
+// const HANDOVER = "//" + host + "/beaconhandover";
 
 $( "#beacon-form" ).submit(function( event ) {
 
@@ -35,7 +37,7 @@ $( "#beacon-form" ).submit(function( event ) {
           $("#result").show();
 
           // this already implements the responses for multiple datasets
-          var dataset_no = data.dataset_allele_responses.length;
+          var dataset_no = data.datasetAlleleResponses.length;
     			for (var i = 0; i < dataset_no; i++) {
 
             var ucscgenome = $("#assemblyId").val();
@@ -67,14 +69,14 @@ $( "#beacon-form" ).submit(function( event ) {
             result += '<td>'+ $("#startMin").val() + '<br/>'+ $("#startMax").val() +'</td>';
             result += '<td>'+ $("#endMin").val() + '<br/>'+ $("#endMax").val() +'</td>';
             result += '<td>'+ $("#start").val() +'</td>';
-            result += '<td>'+ $("#referenceBases").val() + '<br/>' + $("#alternateBases").val() +'</td>';
+            result += '<td>'+ $("#referenceBases").val() + '<br/>' + $("#alternateBases").val() + $("#variantType").val() +'</td>';
             result += '<td>'+ $("#bioontology").val() +'</td>';
     				// $.each(formParam, function (i, val) {
     				// 	result += '<td>' + val.value +'</td>';
     				// });
             result += '<td>'+ data.datasetAlleleResponses[i].variantCount +'<br/>' + data.datasetAlleleResponses[i].callCount +'<br/>' + data.datasetAlleleResponses[i].sampleCount +'</td>';
             result += '<td>' + data.datasetAlleleResponses[i].frequency + '</td>';
-            result += '<td><a href="' + ARRAYMAP + '/?' + data.info.queryString +'" title="' + data.info.queryString + '" target="_BLANK">JSON</a><br/><a href="http://www.genome.ucsc.edu/cgi-bin/hgTracks?db=' + ucscgenome + '&position=chr' + $("#referenceName").val() + '%3A' + ucscstart + '%2D' + ucscend + '" target="_blank">UCSC</a><br/><a href="' + HANDOVER + '/?accessid=' + data.dataset_allele_responses[i].info.callset_access_handle + '" title="Data Handover" target="_BLANK">Handover</a></td>';
+            result += '<td><a href="' + ARRAYMAP + '/?' + data.info.queryString +'" title="' + data.info.queryString + '" target="_BLANK">JSON</a><br/><a href="http://www.genome.ucsc.edu/cgi-bin/hgTracks?db=' + ucscgenome + '&position=chr' + $("#referenceName").val() + '%3A' + ucscstart + '%2D' + ucscend + '" target="_blank">UCSC</a><br/><a href="' + HANDOVER + '/?accessid=' + data.datasetAlleleResponses[i].info.callset_access_handle + '" title="Data Handover" target="_BLANK">Handover</a></td>';
 
     				$("#resultTable").append('<tr>' + result + '</tr>');
 
@@ -88,7 +90,6 @@ $( "#beacon-form" ).submit(function( event ) {
         });
     }
     else {
-
         $("#spinner").hide();
         $('#message').remove();
         $('#error').show();
@@ -110,6 +111,7 @@ function buildQuery(params) {
       "endMax": "endMax",
       "referenceBases": "referenceBases",
       "alternateBases": "alternateBases",
+      "variantType": "variantType",
       "start": "start",
       "end": "end",
       "bioontology":"biosamples.bio_characteristics.ontology_terms.term_id"
@@ -131,7 +133,7 @@ function buildQuery(params) {
 
 function checkParameters(params) {
 
-    var referenceName, start, startMin, referenceBases, alternateBases = null;
+    var referenceName, start, startMin, referenceBases, alternateBases, variantType = null;
     var startMax = endMin = endMax = -1;
 
     $.each(params, function (i, val) {
@@ -167,6 +169,10 @@ function checkParameters(params) {
             alternateBases = val.value;
         }
 
+        if (val.name == 'variantType') {
+            variantType = val.value;
+        }
+
     });
 
     // TODO: re-implement checks for both types of queries.
@@ -177,7 +183,7 @@ function checkParameters(params) {
     // ###############################################################
     // Rule #1: Compulsory fields:
     // ###############################################################
-    if (referenceName == '' || alternateBases == '') {
+    if (referenceName == '' || (alternateBases == '' && variantType == '')) {
         return "One or more compulsory fields are missing!";
     }
 
