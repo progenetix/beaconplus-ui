@@ -4,4 +4,4 @@ This [arrayMap Beacon](http://beacon.arraymap.org) **web-based user interface** 
 
 The UI uses arrayMap-API to AJAX send queries to the arraymap server.
 
-Example: [http://arraymap.org/beaconresponse/?variants.reference_name=chr9&variants.variant_type=DEL&variants.start_min=20000000&variants.start_max=21984490&variants.end_min=21984490&variants.end_max=25000000](http://arraymap.org/beaconresponse/?variants.reference_name=chr9&variants.variant_type=DEL&variants.start_min=20000000&variants.start_max=21984490&variants.end_min=21984490&variants.end_max=25000000)
+Example: [http://arraymap.org/beaconresponse/?referenceName=chr9&variant_Tpe=DEL&startMin=20000000&startMax=21984490&endMin=21984490&endMax=25000000](http://arraymap.org/beaconresponse/?referenceName=chr9&variant_Tpe=DEL&startMin=20000000&startMax=21984490&endMin=21984490&endMax=25000000)
