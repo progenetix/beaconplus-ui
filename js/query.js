@@ -1,13 +1,13 @@
 /**
  * Created by sduvaud on 12/05/17.
- * Last modification by Michael Baudis 2018-03-12
+ * Last modification by Michael Baudis 2018-05-17
 */
 
 // Endpoint (URL) for Beacon backend implementing a query API to access data
 
 var host = window.location.hostname;
-const ARRAYMAP = "/Sites/beacon/beaconplus-server/beaconresponse.cgi";
-const HANDOVER = "/Sites/beacon/beaconplus-server/beaconhandover.cgi";
+const ARRAYMAP = "/beaconplus-server/beaconresponse.cgi";
+const HANDOVER = "/beaconplus-server/beaconhandover.cgi";
 // const ARRAYMAP = "//" + host + "/beaconresponse";
 // const HANDOVER = "//" + host + "/beaconhandover";
 
