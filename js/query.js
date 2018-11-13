@@ -1,15 +1,12 @@
 /**
  * Created by sduvaud on 12/05/17.
- * Last modification by Michael Baudis 2018-05-17
+ * Last modification by Michael Baudis 2018-11-13
 */
 
 // Endpoint (URL) for Beacon backend implementing a query API to access data
 
 var host = window.location.hostname;
 const ARRAYMAP = "/beaconplus-server/beaconresponse.cgi";
-const HANDOVER = "/beaconplus-server/beaconhandover.cgi";
-// const ARRAYMAP = "//" + host + "/beaconresponse";
-// const HANDOVER = "//" + host + "/beaconhandover";
 
 $( "#beacon-form" ).submit(function( event ) {
 
@@ -62,21 +59,24 @@ $( "#beacon-form" ).submit(function( event ) {
             ucscend = +ucscend + +1;
 
             var result = '';
-            result += '<td>'+ $("#datasetId").val() +'</td>';
+            result += '<td>'+ $("#datasetIds").val() +'</td>';
             result += '<td>'+ $("#assemblyId").val() +'</td>';
-            // result += '<td>'+ $("#assemblyID").val() +'</td>';
             result += '<td>'+ $("#referenceName").val() +'</td>';
             result += '<td>'+ $("#startMin").val() + '<br/>'+ $("#startMax").val() +'</td>';
             result += '<td>'+ $("#endMin").val() + '<br/>'+ $("#endMax").val() +'</td>';
             result += '<td>'+ $("#start").val() +'</td>';
             result += '<td>'+ $("#referenceBases").val() + '<br/>' + $("#alternateBases").val() + $("#variantType").val() +'</td>';
             result += '<td>'+ $("#bioontology").val() +'</td>';
-    				// $.each(formParam, function (i, val) {
-    				// 	result += '<td>' + val.value +'</td>';
-    				// });
             result += '<td>'+ data.datasetAlleleResponses[i].variantCount +'<br/>' + data.datasetAlleleResponses[i].callCount +'<br/>' + data.datasetAlleleResponses[i].sampleCount +'</td>';
             result += '<td>' + data.datasetAlleleResponses[i].frequency + '</td>';
-            result += '<td><a href="' + ARRAYMAP + '/?' + data.info.queryString +'" title="' + data.info.queryString + '" target="_BLANK">JSON</a><br/><a href="http://www.genome.ucsc.edu/cgi-bin/hgTracks?db=' + ucscgenome + '&position=chr' + $("#referenceName").val() + '%3A' + ucscstart + '%2D' + ucscend + '" target="_blank">UCSC</a><br/><a href="' + HANDOVER + '/?accessid=' + data.datasetAlleleResponses[i].info.callset_access_handle + '" title="Data Handover" target="_BLANK">Handover</a></td>';
+            result += '<td><a href="' + ARRAYMAP + '/?' + data.info.queryString +'" title="' + data.info.queryString + '" target="_BLANK">JSON</a><br/><a href="http://www.genome.ucsc.edu/cgi-bin/hgTracks?db=' + ucscgenome + '&position=chr' + $("#referenceName").val() + '%3A' + ucscstart + '%2D' + ucscend + '" target="_blank">UCSC</a>';
+
+            var handover_no = data.datasetAlleleResponses[i].handover.length;
+    			  for (var h = 0; h < handover_no; h++) {
+              result += '<br/><a href="' + data.datasetAlleleResponses[i].handover[h].url + '" target="_blank" alt="' + data.datasetAlleleResponses[i].handover[h].note + '">' + data.datasetAlleleResponses[i].handover[h].label + '</a>';
+            }
+
+            result += '</td>';
 
     				$("#resultTable").append('<tr>' + result + '</tr>');
 
@@ -102,7 +102,7 @@ function buildQuery(params) {
 
   var query = '';
   var paramName2Url = {
-      "datasetId": "datasetId",
+      "datasetIds": "datasetIds",
       "referenceName": "referenceName",
       "assemblyId": "assemblyId",
       "startMin": "startMin",
@@ -114,7 +114,7 @@ function buildQuery(params) {
       "variantType": "variantType",
       "start": "start",
       "end": "end",
-      "bioontology":"biosamples.bio_characteristics.ontology_terms.term_id"
+      "bioontology":"biosamples.biocharacteristics.type.id"
   };
 
   var paramName, paramValue = null;

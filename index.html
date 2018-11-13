@@ -20,7 +20,7 @@
 <div class="container">
 
   <div class="jumbotron" style="margin-bottom: 10px; padding:  20px 20px 30px 20px;">
-    <img src="./img/beacon_logo_25x70.png" style="float: right;" />
+    <a target="_blank" href="http://beacon-project.io"><img src="./img/beacon_logo_25x70.png" style="float: right;" /></a>
     <h2 style="margin: 0px;">Beacon<span style="vertical-align: super; color: red; font-weight: 800;">+</span></h2>
   </div>
 
@@ -28,7 +28,7 @@
     <div class="panel-body">
       <div class="alert alert-info" style="min-height: 40px; padding-top: 10px;">
         <div id="toggle_intro" class="btn btn-info" style="float: right; margin: -7px 0px 0px 5px;">Info</div>
-        This forward looking Beacon interface implements additional, planned features beyond the current GA4GH <a target="_blank" href="//github.com/ga4gh/beacon-team/"> specifications</a>.
+        This forward looking Beacon interface implements additional, planned features beyond the current Beacon <a target="_blank" href="//github.com/ga4gh/beacon-team/"> specifications</a>. Further information can be found through the <a target="_blank" href="http://beacon-project.io">ELIXIR Beacon website</a>.
       </div>
     </div>
   </div>
@@ -39,8 +39,8 @@
 <!--
 TODO: disabled due to new backend structures ...
       <div id="exampleValuesDGV" class="btn btn-info" style="float: right; background-color: #dd9966; margin: -7px 0px 0px 5px;">DGV Example</div>
-      <div id="exampleValuesSNV" class="btn btn-info" style="float: right; background-color: #dd9966; margin: -7px 0px 0px 5px;">SNV Example</div>
 -->
+      <div id="exampleValuesSNV" class="btn btn-info" style="float: right; background-color: #dd9966; margin: -7px 0px 0px 5px;">SNV Example</div>
       <div id="exampleValuesBND" class="btn btn-info" style="float: right; background-color: #dd9966; margin: -7px 0px 0px 5px;">BND Example</div>
     </div>
 
@@ -57,14 +57,9 @@ TODO: Smarter image size/positioning
 -->
 
         <div class="form-group">
-            <label for="datasetId" class="col-sm-2 control-label">Dataset</span></label>
+            <label for="datasetIds" class="col-sm-2 control-label">Dataset</span></label>
             <div class="col-sm-4">
-              <select id="datasetId" name="datasetId" class="form-control">
-<!--
-                <option value="arraymap" selected="selected">arrayMap (CNV only)</option>
-                <option value="dipg">DIPG (CNV + selected SNV)</option>
-                <option value="dgv">DGV (GRCh38, CNV, testing; counts differ)</option>
--->
+              <select id="datasetIds" name="datasetIds" class="form-control">
               </select>
             </div>
         </div>
@@ -240,7 +235,9 @@ TODO: A second submit should open a new page with the raw return from the server
   <div id="intro" class="panel panel-default" style="display: none;" >
     <div class="panel-body"  >
       <div class="alert alert-info">
-        <p>The Beacon<span style="vertical-align: super; color: red; font-weight: 800;">+</span> interface currently implements <span style="font-weight: bold">structural variant requests</span> (i.e. DUP, DEL; see <a target="_blank" href="//github.com/ga4gh/beacon-team/pull/94">Beacon Github PR #94</a>), in addition to standard Beacon SNV calls.</p>
+        <p>The Beacon<span style="vertical-align: super; color: red; font-weight: 800;">+</span> interface currently implements <span style="font-weight: bold">structural variant requests</span> (i.e. DUP, DEL), in addition to standard Beacon SNV calls.</p>
+        <p><a href="https://beacon.progenetix.org/beaconplus-server/beaconresponse.cgi/?datasetIds=arraymap&referenceName=9&assemblyId=GRCh38&variantType=DEL&startMin=19,500,000&startMax=21,975,098&endMin=21,967,753&endMax=24,500,000&referenceBases=N&biosamples.biocharacteristics.type.id=ncit:C3224&" target="_blank">Example query ...</a>
+        </p>
         <p>Code for the project is accessible through the <a href="//github.com/progenetix/" target="_blank">Progenetix Github repository</a>:</p>
         <ul>
           <li>
@@ -250,7 +247,7 @@ TODO: A second submit should open a new page with the raw return from the server
             <a href="//github.com/progenetix/arraymap2ga4gh" target="_blank">example datasets</a> (<a target="_blank" href="//mongodb.org">MongoDB</a> variant, biosample ... collections)
           </li>
         </ul>
-        <p>The latest version (2017-09-05) also adds an experimental support for <i>biocharacteristics</i> queries, against ontology <i>term_id</i>s as specified in the <a href="//github.com/ga4gh/ga4gh-schemas/blob/metadata-integration/src/main/proto/ga4gh/bio_metadata.proto" target="_blank">metadata development branch</a>. This is mostly intended for development purposes - no documentation yet, besides the GA4GH notes.</p>
+        <p>This Beacon also has an experimental support for <i>biocharacteristics</i> queries, against ontology <i>id</i>s as specified in the <a href="//ga4gh-metadata.github.io/schemas/" target="_blank">SchemaBlocks</a> site. This is mostly intended for development purposes - no documentation yet, besides the GA4GH notes.</p>
         <p/>
         <h4>Results Notes</h4>
         <ul>
@@ -278,7 +275,7 @@ TODO: A second submit should open a new page with the raw return from the server
     <div id="cnvinfo" class="panel-body" style="display: none;" >
       <div class="alert alert-info">
         <p>The CNV example test the Beacon<span style="vertical-align: super; color: red; font-weight: 800;">+</span> UI and backend against the <a href="//arraymap.org" target="_blank">arrayMap database</a>, with a range query looking for deletions involving the CDKN2A locus in a "focal" manner. The bracketing of start and end ranges will return deletions of less than ~5Mb, all at least partially overlapping the <a href="//www.genome.ucsc.edu/cgi-bin/hgTracks?db=hg18&nonVirtPosition=&position=chr9%3A21958228%2D21964826" target="_blank">CDKN2A CDR (isoform 1)</a>.</p>
-        <p>Additionally, results from the variant query are then limited to callsets derived from biosamples of malignant melanomas, as identified through the annotation of an <b>ncit:c3224</b> <a href="//evs.nci.nih.gov/ftp1/NCI_Thesaurus/Neoplasm/About_Core.html" target="_blank">NCIt Neoplasm Core</a> <i>term_id</i>.</p>
+        <p>Additionally, results from the variant query are then limited to callsets derived from biosamples of malignant melanomas, as identified through the annotation of an <b>ncit:c3224</b> <a href="//evs.nci.nih.gov/ftp1/NCI_Thesaurus/Neoplasm/About_Core.html" target="_blank">NCIt Neoplasm Core</a> <i>id</i>.</p>
       </div>
     </div>
 
@@ -318,18 +315,6 @@ TODO: A second submit should open a new page with the raw return from the server
       </div>
     </div>
   </div>
-
-<!--
-  <div class="panel panel-default" style="margin-bottom: 10px; border: none;">
-    <p class="panel-body footer" style="display: flex; justify-content:space-between;">
-      <p style="font-style: italic;">
-        This Beacon implementation is developed by the <a href="//wiki.progenetix.org/Wiki/BaudisgroupIMLS/" target="_blank">Computational Oncogenomics Group</a> at the <a href="//www.imls.uzh.ch/baudis/" target="_blank">University of Zurich</a>, with support from the <a href="//www.sib.swiss/sibt/" target="_blank">SIB Technology group</a> and <a href="//www.elixir-europe.org" target="_blank">ELIXIR</a>.
-      </p>
-
-
-    </div>
-  </div>
--->
 
   <div class="panel panel-default" style="border: none;">
     <div class="panel-body">
