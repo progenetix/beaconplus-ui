@@ -6,7 +6,7 @@
 // Endpoint (URL) for Beacon backend implementing a query API to access data
 
 var host = window.location.hostname;
-const ARRAYMAP = "/beaconplus-server/beaconresponse.cgi";
+const BEACONRESPONSE = "/beaconplus-server/beaconresponse.cgi";
 
 $( "#beacon-form" ).submit(function( event ) {
 
@@ -24,7 +24,7 @@ $( "#beacon-form" ).submit(function( event ) {
       var query = buildQuery(formParam);
       var params = {
         type: 'GET',
-        url: ARRAYMAP + '/?' + query
+        url: BEACONRESPONSE + '?' + query
       };
 
       $.ajax(params)
@@ -66,14 +66,14 @@ $( "#beacon-form" ).submit(function( event ) {
             result += '<td>'+ $("#endMin").val() + '<br/>'+ $("#endMax").val() +'</td>';
             result += '<td>'+ $("#start").val() +'</td>';
             result += '<td>'+ $("#referenceBases").val() + '<br/>' + $("#alternateBases").val() + $("#variantType").val() +'</td>';
-            result += '<td>'+ $("#bioontology").val() +'</td>';
+            result += '<td>'+ $("#bioontology").val().join("<br/>") +'</td>';
             result += '<td>'+ data.datasetAlleleResponses[i].variantCount +'<br/>' + data.datasetAlleleResponses[i].callCount +'<br/>' + data.datasetAlleleResponses[i].sampleCount +'</td>';
             result += '<td>' + data.datasetAlleleResponses[i].frequency + '</td>';
-            result += '<td><a href="' + ARRAYMAP + '/?' + data.info.queryString +'" title="' + data.info.queryString + '" target="_BLANK">JSON</a><br/><a href="http://www.genome.ucsc.edu/cgi-bin/hgTracks?db=' + ucscgenome + '&position=chr' + $("#referenceName").val() + '%3A' + ucscstart + '%2D' + ucscend + '" target="_blank">UCSC</a>';
+            result += '<td><a href="' + BEACONRESPONSE + '?' + query +'" title="' + BEACONRESPONSE + '?' + query + '" target="_BLANK">JSON</a><br/><a href="http://www.genome.ucsc.edu/cgi-bin/hgTracks?db=' + ucscgenome + '&position=chr' + $("#referenceName").val() + '%3A' + ucscstart + '%2D' + ucscend + '" target="_blank">UCSC</a>';
 
             var handover_no = data.datasetAlleleResponses[i].handover.length;
     			  for (var h = 0; h < handover_no; h++) {
-              result += '<br/><a href="' + data.datasetAlleleResponses[i].handover[h].url + '" target="_blank" alt="' + data.datasetAlleleResponses[i].handover[h].note + '">' + data.datasetAlleleResponses[i].handover[h].label + '</a>';
+              result += '<br/><a href="' + data.datasetAlleleResponses[i].handover[h].url + '" target="_blank" title="' + data.datasetAlleleResponses[i].handover[h].note + '">[H-&gt;O] ' + data.datasetAlleleResponses[i].handover[h].label + '</a>';
             }
 
             result += '</td>';

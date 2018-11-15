@@ -1,5 +1,4 @@
-$.getJSON( "/beaconplus-server/beaconinfo.cgi/?querytype=ontologyids", function( data ) {
-  $('#bioontology').append( $('<option></option>').val("").html("(no selection)") );
+$.getJSON( "/beaconplus-server/beaconinfo.cgi/?querytype=ontologyids&querytext=ncit:", function( data ) {
   $.each(data, function(index, value) {
     $('#bioontology').append( $('<option></option>').val(value.id).html(value.infolabel) );
   });
@@ -25,13 +24,18 @@ $('#exampleValuesCNV').click(function(){
   $('#assemblyId').val('GRCh38'); //GRCh38
   $('#datasetIds').val('arraymap');
   $('#bioontology').empty();
-  $.getJSON( "/beaconplus-server/beaconinfo.cgi/?dataset_ids=arraymap&querytext=ncit:c3224&querytype=ontologyids", function( data ) {
+  $.getJSON( "/beaconplus-server/beaconinfo.cgi/?datasetIds=arraymap&querytext=ncit:c3224&querytype=ontologyids", function( data ) {
     $('#bioontology').append( $('<option></option>').val("").html("no selection") );
     $.each(data, function(index, value) {
       $('#bioontology').append( $('<option selected="selected"></option>').val(value.id).html(value.infolabel) );
     });
   }, 'json');
-  $.getJSON( "/beaconplus-server/beaconinfo.cgi/?datasetIds=arraymap&querytext=&querytype=ontologyids", function( data ) {
+  $.getJSON( "/beaconplus-server/beaconinfo.cgi/?datasetIds=arraymap&querytext=ncit:&querytype=ontologyids", function( data ) {
+    $.each(data, function(index, value) {
+      $('#bioontology').append( $('<option></option>').val(value.id + "$").html(value.infolabel) );
+    });
+  }, 'json');
+  $.getJSON( "/beaconplus-server/beaconinfo.cgi/?datasetIds=arraymap&querytext=icdom:&querytype=ontologyids", function( data ) {
     $.each(data, function(index, value) {
       $('#bioontology').append( $('<option></option>').val(value.id + "$").html(value.infolabel) );
     });
@@ -66,7 +70,7 @@ $('#exampleValuesBND').click(function(){
      $('#bioontology').append( $('<option selected="selected"></option>').val(value.id).html(value.infolabel) );
    });
   }, 'json');
-  $.getJSON( "/beaconplus-server/beaconinfo.cgi/?datasetIds=arraymap&querytext=&querytype=ontologyids", function( data ) {
+  $.getJSON( "/beaconplus-server/beaconinfo.cgi/?datasetIds=arraymap&querytext=ncit:&querytype=ontologyids", function( data ) {
    $.each(data, function(index, value) {
      $('#bioontology').append( $('<option></option>').val(value.id + "$").html(value.infolabel) );
    });
@@ -94,13 +98,13 @@ $('#exampleValuesSNV').click(function(){
   $('#datasetIds').val('dipg');
   $('#assemblyID').val('GRCh38');
   $('#bioontology').empty();
-  $.getJSON( "/beaconplus-server/beaconontologies.cgi/?datasetIds=dipg&querytext=c71.7", function( data ) {
+  $.getJSON( "/beaconplus-server/beaconontologies.cgi/?datasetIds=dipg&querytext=icdot:c71.7", function( data ) {
     $('#bioontology').append( $('<option></option>').val("").html("no selection") );
     $.each(data, function(index, value) {
       $('#bioontology').append( $('<option selected="selected"></option>').val(value.id).html(value.infolabel) );
     });
   }, 'json');
-  $.getJSON( "/beaconplus-server/beaconontologies.cgi?datasetIds=dipg", function( data ) {
+  $.getJSON( "/beaconplus-server/beaconontologies.cgi?datasetIds=dipg&querytext=icdot:", function( data ) {
     $.each(data, function(index, value) {
       $('#bioontology').append( $('<option></option>').val(value.id).html(value.infolabel) );
     });
