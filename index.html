@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="css/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="css/style.css">
+<!--TODO: local jquery -->
   <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
   <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
@@ -41,6 +42,7 @@ TODO: disabled due to new backend structures ...
       <div id="exampleValuesDGV" class="btn btn-info" style="float: right; background-color: #dd9966; margin: -7px 0px 0px 5px;">DGV Example</div>
 -->
       <div id="exampleValuesSNV" class="btn btn-info" style="float: right; background-color: #dd9966; margin: -7px 0px 0px 5px;">SNV Example</div>
+      <div id="exampleValuesSNVrange" class="btn btn-info" style="float: right; background-color: #dd9966; margin: -7px 0px 0px 5px;">SNV Range Example</div>
       <div id="exampleValuesBND" class="btn btn-info" style="float: right; background-color: #dd9966; margin: -7px 0px 0px 5px;">BND Example</div>
     </div>
 
@@ -57,7 +59,7 @@ TODO: Smarter image size/positioning
 -->
 
         <div class="form-group">
-            <label for="datasetIds" class="col-sm-2 control-label">Dataset</span></label>
+            <label for="datasetIds" class="col-sm-2 control-label">Dataset<span class="compulsory">*</span></label>
             <div class="col-sm-4">
               <select id="datasetIds" name="datasetIds" class="form-control">
               </select>
@@ -100,18 +102,14 @@ TODO: Smarter image size/positioning
           <label for="assemblyId" class="col-sm-2 control-label">Genome Assembly<span class="compulsory">*</span></label>
           <div class="col-sm-4">
             <select id="assemblyId" name="assemblyId" class="form-control">
-<!--
-              <option value="GRCh36">GRCh36 / hg18</option>
-              <option value="GRCh37">GRCh37 / hg19</option>
--->
+<!--          <option value="GRCh36">GRCh36 / hg18</option>
+              <option value="GRCh37">GRCh37 / hg19</option>                  -->
               <option value="GRCh38">GRCh38 / hg38</option>
             </select>
           </div>
         </div>
 
-
-        <div  class="hide_on_load" id="structdiv">
-
+        <div  class="hide_on_load" id="group_structvar">
           <div class="form-group">
             <label for="variantType" class="col-sm-2 control-label">(structural) variantType</label>
             <div class="col-sm-4">
@@ -124,70 +122,73 @@ TODO: Smarter image size/positioning
               </select>
             </div>
           </div>
+        </div>
 
-         <div class="form-group">
-            <label for="startMin" class="col-sm-2 control-label">Start <i>min</i> Position<span class="compulsory">*</span></label>
-            <div class="col-sm-4">
-              <input type="text" class="form-control" name="startMin" id="startMin" placeholder="begin of match start interval, e.g: 20000000" />
-            </div>
-          </div>
-
-          <div class="form-group">
-              <label for="startMax" class="col-sm-2 control-label">Start <i>max</i> Position</label>
+        <div  class="" id="group_rangestart">
+          <div  class="" id="group_rangestart_min">
+            <div class="form-group">
+              <label for="startMin" class="col-sm-2 control-label">Start <i>min</i> Position<span class="compulsory">*</span></label>
               <div class="col-sm-4">
-                  <input type="text" class="form-control" name="startMax" id="startMax" placeholder="end of match start interval, e.g: 21984490" />
+                <input type="text" class="form-control" name="startMin" id="startMin" placeholder="begin of match start interval, e.g: 20000000" />
               </div>
-          </div>
-
-          <div  class="" id="structend">
-
-         <div class="form-group">
-            <label for="endMin" class="col-sm-2 control-label">End <i>min</i> Position</label>
-            <div class="col-sm-4">
-              <input type="text" class="form-control" id="endMin" name="endMin" placeholder="begin of match end interval, e.g: 21984490" />
             </div>
           </div>
-
-          <div class="form-group">
-            <label for="endMax" class="col-sm-2 control-label">End <i>max</i> Position</label>
-            <div class="col-sm-4">
-              <input type="text" class="form-control" id="endMax" name="endMax" placeholder="end of match end interval, e.g: 25000000" />
+          <div  class="" id="group_rangestart_max">
+            <div class="form-group">
+                <label for="startMax" class="col-sm-2 control-label">Start <i>max</i> Position</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" name="startMax" id="startMax" placeholder="end of match start interval, e.g: 21984490" />
+                </div>
+            </div>
+        </div>
+        </div>
+        
+        <div  class="" id="group_rangeend">
+          <div  class="" id="group_rangeend_min">
+            <div class="form-group">
+              <label for="endMin" class="col-sm-2 control-label">End <i>min</i> Position</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" id="endMin" name="endMin" placeholder="begin of match end interval, e.g: 21984490" />
+              </div>
             </div>
           </div>
-
+          <div  class="" id="group_rangeend_max">
+            <div class="form-group">
+              <label for="endMax" class="col-sm-2 control-label">End <i>max</i> Position</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" id="endMax" name="endMax" placeholder="end of match end interval, e.g: 25000000" />
+              </div>
+            </div>
           </div>
-
         </div>
 
 <!--
 Start of SNV fields
 TODO: This may be better served with a standard G>A syntax, or general open text field for e.g. "chr17:7577121 G>A" and post-processing.
-
-
-        <div  class="hide_on_load" id="snvdiv">
 -->
-        <div  class="" id="snvdiv">
+
+        <div  class="" id="group_start">
           <div class="form-group">
               <label for="start" class="col-sm-2 control-label">Position<span class="compulsory">*</span></label>
               <div class="col-sm-4">
                   <input type="text" class="form-control" name="start" id="start" placeholder="position for exact allelic variant, e.g. 7577121" />
               </div>
           </div>
+        </div>
 
+        <div  class="" id="group_refalt">
           <div class="form-group">
             <label for="referenceBases" class="col-sm-2 control-label">Ref. Base(s)</label>
             <div class="col-sm-4">
                 <input type="text" class="form-control" name="referenceBases" id="referenceBases" placeholder="the reference base for the allele, e.g. G" />
             </div>
           </div>
-
           <div class="form-group" id="altbasesdiv">
               <label for="alternateBases" class="col-sm-2 control-label">Alt. Base(s)</label>
               <div class="col-sm-4">
                   <input type="text" class="form-control" name="alternateBases" id="alternateBases" placeholder="the SNV variant for the allele, e.g. A" />
               </div>
           </div>
-
         </div>
 
 <!--
@@ -300,10 +301,8 @@ TODO: A second submit should open a new page with the raw return from the server
             <th style="vertical-align: middle;">Dataset</th>
             <th style="vertical-align: middle;">Assembly</th>
             <th style="vertical-align: middle;">Chro</th>
-            <th style="vertical-align: middle;">Start Range</th>
-            <th style="vertical-align: middle;">End Range</th>
-            <th style="vertical-align: middle;">Pos</th>
-            <th style="vertical-align: middle;">Ref<br/>Alt | Type</th>
+            <th style="vertical-align: middle;">Position<br/>Start Range<br/>End Range</th>
+            <th style="vertical-align: middle;">Ref<br/>Alt<br/>Type</th>
             <th style="vertical-align: middle;">Bio Query</th>
             <th style="vertical-align: middle;">Variants<br/>Calls<br/>Samples</th>
             <th style="vertical-align: middle;"><i>f</i><sub>alleles</sub></th>
@@ -322,7 +321,7 @@ TODO: A second submit should open a new page with the raw return from the server
         <a href="//arraymap.org" target="_blank"><img src="./img/arraymap_black_180.png" style="height: 25px; margin: 5px;" /></a>
         <a href="//progenetix.org" target="_blank"><img src="./img/progenetix_black_180.png" style="height: 25px; margin: 0px 5px 5px 5px;" /></a>
         <div style="min-width: 300px;">
-          This Beacon implementation is developed by the <a href="//wiki.progenetix.org/Wiki/BaudisgroupIMLS/" target="_blank">Computational Oncogenomics Group</a> at the <a href="//www.imls.uzh.ch/baudis/" target="_blank">University of Zurich</a>, with support from the <a href="//www.sib.swiss/sibt/" target="_blank">SIB Technology group</a> and <a href="//www.elixir-europe.org" target="_blank">ELIXIR</a>.
+          This Beacon implementation is developed by the <a href="//wiki.progenetix.org/Wiki/BaudisgroupIMLS/" target="_blank">Computational Oncogenomics Group</a> at the <a href="//info.baudisgroup.org/" target="_blank">University of Zurich</a>, with support from the <a href="//www.sib.swiss/sibt/" target="_blank">SIB Technology group</a> and <a href="//www.elixir-europe.org" target="_blank">ELIXIR</a>.
         </div>
         <a href="//www.uzh.ch" target="_blank"><img src="./img/uzh_logo_pos_160x50.png" style="height: 25px; margin: 5px;" /></a>
         <a href="//elixir-europe.org" target="_blank"><img src="./img/elixir_logo_grey_65x50.png" style="height: 25px; margin: 5px;" /></a>
@@ -333,30 +332,10 @@ TODO: A second submit should open a new page with the raw return from the server
 
 </div>
 
-<script src="js/query.js"></script>
-<script src="js/form.js"></script>
-
-<!-- StatCounter -->
-<script type="text/javascript">
-  var sc_project=3556072;
-  var sc_invisible=1;
-  var sc_security="018d1bf6";
-  var scJsHost = (("https:" == document.location.protocol) ?
-  "//secure." : "//www.");
-  document.write("<sc"+"ript type='text/javascript' src='" +
-  scJsHost + "statcounter.com/counter/counter.js'></"+"script>");
-</script>
-<noscript>
-  <div class="statcounter">
-    <a title="Web Analytics"
-    href="//statcounter.com/" target="_blank"><img
-    class="statcounter"
-    src="//c.statcounter.com/3556072/0/018d1bf6/1/" alt="Web
-    Analytics"></a>
-</div>
-</noscript>
-<!-- End of StatCounter -->
-
+<script type="text/javascript" src="js/query.js"></script>
+<script type="text/javascript" src="js/form.js"></script>
+<!-- See https://github.com/jeremyfa/yaml.js -->
+<script type="text/javascript" src="js/yaml.js"></script>
 <!-- Google -->
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

@@ -1,6 +1,6 @@
 /**
  * Created by sduvaud on 12/05/17.
- * Last modification by Michael Baudis 2018-11-13
+ * Last modification by Michael Baudis 2018-11-16
 */
 
 // Endpoint (URL) for Beacon backend implementing a query API to access data
@@ -62,10 +62,8 @@ $( "#beacon-form" ).submit(function( event ) {
             result += '<td>'+ $("#datasetIds").val() +'</td>';
             result += '<td>'+ $("#assemblyId").val() +'</td>';
             result += '<td>'+ $("#referenceName").val() +'</td>';
-            result += '<td>'+ $("#startMin").val() + '<br/>'+ $("#startMax").val() +'</td>';
-            result += '<td>'+ $("#endMin").val() + '<br/>'+ $("#endMax").val() +'</td>';
-            result += '<td>'+ $("#start").val() +'</td>';
-            result += '<td>'+ $("#referenceBases").val() + '<br/>' + $("#alternateBases").val() + $("#variantType").val() +'</td>';
+            result += '<td>'+ [ $("#start").val(), [ $("#startMin").val(), $("#startMax").val()].join(" - "), [$("#endMin").val(), $("#endMax").val()].join(" - ") ].join('<br/>') + '</td>';
+            result += '<td>'+ [ $("#referenceBases").val(), $("#alternateBases").val(), $("#variantType").val() ].join("<br/>") +'</td>';
             result += '<td>'+ $("#bioontology").val().join("<br/>") +'</td>';
             result += '<td>'+ data.datasetAlleleResponses[i].variantCount +'<br/>' + data.datasetAlleleResponses[i].callCount +'<br/>' + data.datasetAlleleResponses[i].sampleCount +'</td>';
             result += '<td>' + data.datasetAlleleResponses[i].frequency + '</td>';
