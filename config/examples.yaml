@@ -1,0 +1,149 @@
+---
+exampleValuesCNV:
+  note: "Example for focal CDKN2A deletion matches."
+  label: "CNV Example"
+  parameters:
+    datasetIds: 
+      examplevalue: "arraymap"
+    assemblyId: 
+      examplevalue: "GRCh38"
+    geneinputField: 
+      examplevalue: "CDKN2A"
+    referenceName: 
+      examplevalue: 9
+    start: 
+      examplevalue: ""
+    end: 
+      examplevalue: ""
+    startMin: 
+      examplevalue: 19500000
+    startMax: 
+      examplevalue: 21975098
+    endMin: 
+      examplevalue: 21967753
+    endMax: 
+      examplevalue: 24500000
+    variantType: 
+      examplevalue: "DEL"
+    alternateBases: 
+      examplevalue: "N"
+      visibility: "hide"
+    referenceBases: 
+      examplevalue: "*"
+      visibility: "hide"
+  ontology_queries:
+    - "ncit:C3224"
+    - "ncit:"
+    - "icdom:"
+    - "icdot:"
+
+exampleValuesSNVrange:
+  note: "Example for EIF4A1 transcript region matches (precise variants)"
+  label: "SNV Range Example"
+  parameters:
+    datasetIds: 
+      examplevalue: "dipg"
+    assemblyId: 
+      examplevalue: "GRCh38"
+    geneinputField: 
+      examplevalue: "EIF4A1"
+    referenceName: 
+      examplevalue: 17
+    start: 
+      examplevalue: ""
+    end: 
+      examplevalue: ""
+    startMin: 
+      examplevalue: 7572826
+    startMax: 
+      examplevalue: ""
+    endMin: 
+      examplevalue: ""
+    endMax: 
+      examplevalue: 7579005
+    variantType: 
+      examplevalue: ""
+    alternateBases: 
+      examplevalue: "N"
+    referenceBases: 
+      examplevalue: "*"
+  ontology_queries:
+    - "ncit:"
+    - "icdom:"
+    - "icdot:"
+
+exampleValuesSNV:
+  note: "Example for specific EIF4A1 mutation"
+  label: "SNV Example"
+  parameters:
+    datasetIds: 
+      examplevalue: "dipg"
+    assemblyId: 
+      examplevalue: "GRCh38"
+    geneinputField: 
+      examplevalue: "EIF4A1"
+    referenceName: 
+      examplevalue: 17
+    start: 
+      examplevalue: 7577121
+    end: 
+      examplevalue: ""
+    startMin: 
+      examplevalue: ""
+    startMax: 
+      examplevalue: ""
+    endMin: 
+      examplevalue: ""
+    endMax: 
+      examplevalue: ""
+    variantType: 
+      examplevalue: ""
+    alternateBases: 
+      examplevalue: "A"
+    referenceBases: 
+      examplevalue: "G"
+  ontology_queries:
+    - "icdot:C71.7"
+    - "ncit:"
+    - "icdom:"
+    - "icdot:"
+      
+exampleValuesBND:
+  note: "Breakpoint Queries (e.g. BND or CNV edges)."
+  label: "BND Example"
+  parameters:
+    datasetIds: 
+      examplevalue: "arraymap"
+    assemblyId: 
+      examplevalue: "GRCh38"
+    geneinputField: 
+      examplevalue: ""
+    referenceName: 
+      examplevalue: 8
+    start: 
+      examplevalue: ""
+    end: 
+      examplevalue: ""
+    startMin: 
+      examplevalue: 127500000
+    startMax: 
+      examplevalue: 127900000
+    endMin: 
+      examplevalue: ""
+    endMax: 
+      examplevalue: ""
+    variantType: 
+      examplevalue: "BND"
+    alternateBases: 
+      examplevalue: "N"
+      visibility: "hide"
+    referenceBases: 
+      examplevalue: "*"
+      visibility: "hide"
+  ontology_queries:
+    - "icdom:80703"
+    - "ncit:"
+    - "icdom:"
+    - "icdot:"
+
+
