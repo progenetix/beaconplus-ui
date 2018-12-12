@@ -22,6 +22,8 @@ $.each( formExamples, function( key, value ) {
 
   $('#' + example).click(function(){
     $('#beacon-form').trigger("reset");
+    $('#intro-info').html(exampledata.description);
+    $('#intro-info').show();
     $('#bioontology').find('option').remove().end().append( $('<option></option>').val("").html("no selection") );
     var ontoquery = "/beaconplus-server/beaconinfo.cgi?querytype=ontologyids&datasetIds=" + exampledata.parameters.datasetIds.examplevalue;
     $.each(exampledata.ontology_queries, function(index, value) {

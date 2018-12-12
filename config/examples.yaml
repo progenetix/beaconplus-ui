@@ -2,6 +2,8 @@
 exampleValuesCNV:
   note: "Example for focal CDKN2A deletion matches."
   label: "CNV Example"
+  description: |
+    This example shows the query for CNV deletion variants overlapping the CDKN2A gene's coding region with at least a single base, but limited to "focal" hits (here i.e. <= ~4Mbp in size). The query is against the arrayMap collection and can be modified e.g. through changing the position parameters or data source.
   parameters:
     datasetIds: 
       examplevalue: "arraymap"
@@ -16,13 +18,13 @@ exampleValuesCNV:
     end: 
       examplevalue: ""
     startMin: 
-      examplevalue: 19500000
+      examplevalue: 18000000
     startMax: 
       examplevalue: 21975098
     endMin: 
       examplevalue: 21967753
     endMax: 
-      examplevalue: 24500000
+      examplevalue: 26000000
     variantType: 
       examplevalue: "DEL"
     alternateBases: 
@@ -32,7 +34,7 @@ exampleValuesCNV:
       examplevalue: "*"
       visibility: "hide"
   ontology_queries:
-    - "ncit:C3224"
+    - "icdom:944"
     - "ncit:"
     - "icdom:"
     - "icdot:"
@@ -40,6 +42,8 @@ exampleValuesCNV:
 exampleValuesSNVrange:
   note: "Example for EIF4A1 transcript region matches (precise variants)"
   label: "SNV Range Example"
+  description: |
+    As in the standard SNV query, this example shows a Beacon query against mutations in the EIF4A1 gene in the DIPG childhood brain tumor dataset. However, this range + wildcard query will return any variant with a *single* alternate base (indicated through "N"). The exact variants which were being found can be retrieved through the variant handover [H—>O] link.
   parameters:
     datasetIds: 
       examplevalue: "dipg"
@@ -75,6 +79,8 @@ exampleValuesSNVrange:
 exampleValuesSNV:
   note: "Example for specific EIF4A1 mutation"
   label: "SNV Example"
+  description: |
+    This example shows a core Beacon query, against a specific mutation in the EIF4A1 gene, in the DIPG childhood brain tumor dataset.
   parameters:
     datasetIds: 
       examplevalue: "dipg"
@@ -111,6 +117,8 @@ exampleValuesSNV:
 exampleValuesBND:
   note: "Breakpoint Queries (e.g. BND or CNV edges)."
   label: "BND Example"
+  description: |
+    For this example the arrayMap collection is queried for samples with a breakpoint/fusion event around the MYC gene. Additionally to "BND" annotations, also the ends of "DUP" and "DEL" events are being considered internally.
   parameters:
     datasetIds: 
       examplevalue: "arraymap"
