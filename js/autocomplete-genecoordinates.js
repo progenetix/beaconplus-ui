@@ -18,10 +18,10 @@ $(function() {
             {
               label: "[" + item.gene_symbol + "]" + " " + item.reference_name + ":" + item.cds_start_min + "-" + item.cds_end_max,
               referenceName: item.reference_name,
-              startMin: item.cds_start_min - 1000000,
+              startMin: item.cds_start_min - 2000000,
               startMax: item.cds_end_max - 1,
               endMin: item.cds_start_min + 1,
-              endMax: item.cds_end_max + 1000000
+              endMax: item.cds_end_max + 2000000
             }
             ]
           }));

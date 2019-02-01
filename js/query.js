@@ -75,9 +75,9 @@ $( "#beacon-form" ).submit(function( event ) {
             result += '<td>' + data.datasetAlleleResponses[i].frequency + '</td>';
             result += '<td><a href="' + BEACONRESPONSE + '?' + query +'" title="' + BEACONRESPONSE + '?' + query + '" target="_BLANK">JSON</a><br/><a href="http://www.genome.ucsc.edu/cgi-bin/hgTracks?db=' + ucscgenome + '&position=chr' + $("#referenceName").val() + '%3A' + ucscstart + '%2D' + ucscend + '" target="_blank">UCSC</a>';
 
-            var handover_no = data.datasetAlleleResponses[i].handover.length;
+            var handover_no = data.datasetAlleleResponses[i].datasetHandover.length;
     			  for (var h = 0; h < handover_no; h++) {
-              result += '<br/><a href="' + data.datasetAlleleResponses[i].handover[h].url + '" target="_blank" title="' + data.datasetAlleleResponses[i].handover[h].note + '">[H-&gt;O] ' + data.datasetAlleleResponses[i].handover[h].label + '</a>';
+              result += '<br/><a href="' + data.datasetAlleleResponses[i].datasetHandover[h].url + '" target="_blank" title="' + data.datasetAlleleResponses[i].datasetHandover[h].description + '">[H-&gt;O] ' + data.datasetAlleleResponses[i].datasetHandover[h].handoverType.label + '</a>';
             }
 
             result += '</td>';
