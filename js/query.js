@@ -63,7 +63,10 @@ $( "#beacon-form" ).submit(function( event ) {
             if ( $('#bioontology').val() ){
               bioontologies = $("#bioontology").val().join("<br/>");
             }
-
+            if ( $('#materialtype').val() ){
+              bioontologies =  bioontologies + "<br/>" + $('#materialtype').val();
+            }
+            
             var result = '';
             result += '<td>'+ $("#datasetIds").val() +'</td>';
             result += '<td>'+ $("#assemblyId").val() +'</td>';
@@ -118,8 +121,9 @@ function buildQuery(params) {
       "variantType": "variantType",
       "start": "start",
       "end": "end",
-      "bioontology":"biosamples.biocharacteristics.type.id"
-  };
+      "materialtype": "biosamples.provenance.material.type.id",
+      "bioontology": "biosamples.biocharacteristics.type.id"
+ };
 
   var paramName, paramValue = null;
   $.each(params, function (i, val) {
