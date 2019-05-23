@@ -121,8 +121,10 @@ function buildQuery(params) {
       "variantType": "variantType",
       "start": "start",
       "end": "end",
-      "materialtype": "biosamples.provenance.material.type.id",
-      "bioontology": "biosamples.biocharacteristics.type.id"
+//       "materialtype": "biosamples.provenance.material.type.id",
+      "materialtype": "filters",
+//      "bioontology": "biosamples.biocharacteristics.type.id"
+      "bioontology": "filters"
  };
 
   var paramName, paramValue = null;
@@ -132,7 +134,7 @@ function buildQuery(params) {
       paramValue = val.value;
 
       if (paramValue != '' && paramName != '') {
-          query += paramName2Url[paramName] + '=' + paramValue + '&';
+          query += paramName2Url[paramName] + '=' + encodeURIComponent(paramValue) + '&';
       }
   });
 

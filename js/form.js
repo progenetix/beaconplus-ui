@@ -1,6 +1,6 @@
 $.getJSON( "/beaconplus-server/beaconinfo.cgi?querytype=ontologyids&querytext=ncit:", function( data ) {
   $.each(data, function(index, value) {
-    $('#bioontology').append( $('<option></option>').val(value.id).html(value.id + ": " + value.label_short + " (" + value.count + ")") );
+    $('#bioontology').append( $('<option></option>').val(value.child_terms).html(value.id + ": " + value.label_short + " (" + value.count + ")") );
   });
 }, 'json');
 
@@ -31,9 +31,9 @@ $.each( formExamples, function( key, value ) {
       $.getJSON( ontoquery + "&querytext=" + queryvalue, function( data ) {
         $.each(data, function(index, value) {
           if (index == 0 && /\d/.test(queryvalue)) {
-            $('#bioontology').append( $('<option selected="selected"></option>').val(value.id).html(value.id + ": " + value.label_short + " (" + value.count + ")") );
+            $('#bioontology').append( $('<option selected="selected"></option>').val(value.child_terms).html(value.id + ": " + value.label_short + " (" + value.count + ")") );
           } else {
-            $('#bioontology').append( $('<option></option>').val(value.id).html(value.id + ": " + value.label_short + " (" + value.count + ")") );       
+            $('#bioontology').append( $('<option></option>').val(value.child_terms).html(value.id + ": " + value.label_short + " (" + value.count + ")") );       
           }
         });
       }, 'json');
