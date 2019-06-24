@@ -18,7 +18,7 @@ $.each( formExamples, function( key, value ) {
   var example = key;
   var exampledata = value;
 
-  $( "#query_example_group" ).append( '<div id="' + example + '" class="btn btn-info" style="float: right; background-color: #dd9966; margin: -7px 0px 0px 5px;">' + exampledata.label + '</div>');
+  $( "#query_example_group" ).append( '<div id="' + example + '" class="btn btn-info" style="float: left; background-color: #dd9966; margin: -7px 5px 0px 0px;">' + exampledata.label + '</div>');
 
   $('#' + example).click(function(){
     $('#beacon-form').trigger("reset");
@@ -48,7 +48,7 @@ $.each( formExamples, function( key, value ) {
         $('#' + parameter + '_group').show();  
       }
       if (value.visibility === 'hide') {
-        $('#' + parameter + '_group').hide();  
+        $('#' + parameter + '_group').hide();
       }
     });
 

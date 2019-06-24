@@ -55,8 +55,8 @@ $( "#beacon-form" ).submit(function( event ) {
             }
 
             // UCSC browser is 1 based
-            ucscstart = +ucscstart + +1;
-            ucscend = +ucscend + +1;
+            ucscstart = + ucscstart + +1;
+            ucscend = + ucscend + +1;
 
             // capture the "null is not an object" exception if nothing selected
             var bioontologies = "";
