@@ -6,5 +6,8 @@ Beacon+ now is a feature-extended, forward looking implementation of the [Beacon
 
 The Beacon+ queries are against genomic variant data and metadata annotations (biomedical, procedural) from the [Progenetix](http://progenetix.org) cancer genomics environment.
 
+For more information, please see the [Beacon documentation on Progenetix](https://info.progenetix.org/tags/Beacon.html) and the [Beacon Project](http://beacon-project.io) website.
 
-Example:<http://beacon.progenetix.org/Sites/beacon/cgi-bin/beaconresponse.cgi/?datasetId=arraymap&referenceName=9&assemblyId=GRCh38&variantType=DEL&startMin=19500000&startMax=21975098&endMin=21967753&endMax=24500000&referenceBases=N&biosamples.biosamples.biocharacteristics.type.id=ncit:c3224>
+Examples:
+
+* <http://beacon.progenetix.org/Sites/beacon/cgi-bin/beaconresponse.cgi/?datasetId=arraymap&referenceName=9&assemblyId=GRCh38&variantType=DEL&startMin=19500000&startMax=21975098&endMin=21967753&endMax=24500000&referenceBases=N&biosamples.biosamples.biocharacteristics.type.id=ncit:c3224>
