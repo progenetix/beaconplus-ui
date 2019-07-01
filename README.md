@@ -10,4 +10,4 @@ For more information, please see the [Beacon documentation on Progenetix](https:
 
 Examples:
 
-* <http://beacon.progenetix.org/Sites/beacon/cgi-bin/beaconresponse.cgi/?datasetId=arraymap&referenceName=9&assemblyId=GRCh38&variantType=DEL&startMin=19500000&startMax=21975098&endMin=21967753&endMax=24500000&referenceBases=N&biosamples.biosamples.biocharacteristics.type.id=ncit:c3224>
+* <http://beacon.progenetix.org/cgi-bin/beaconresponse.cgi/?datasetId=arraymap&referenceName=9&assemblyId=GRCh38&variantType=DEL&startMin=19500000&startMax=21975098&endMin=21967753&endMax=24500000&filters=ncit:c3224>
