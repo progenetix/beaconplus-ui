@@ -1,10 +1,10 @@
-$.getJSON( "/beaconplus-server/beaconinfo.cgi?querytype=ontologyids&querytext=ncit:", function( data ) {
+$.getJSON( "/cgi-bin/beaconinfo.cgi?querytype=ontologyids&querytext=ncit:", function( data ) {
   $.each(data, function(index, value) {
     $('#bioontology').append( $('<option></option>').val(value.child_terms).html(value.id + ": " + value.label_short + " (" + value.count + ")") );
   });
 }, 'json');
 
-$.getJSON( "/beaconplus-server/beaconinfo.cgi/?querytype=get_datasetids", function( data ) {
+$.getJSON( "/cgi-bin/beaconinfo.cgi/?querytype=get_datasetids", function( data ) {
   $.each(data, function(index, value) {
     $('#datasetIds').append( $('<option></option>').val(value).html(value) );
   });
@@ -25,7 +25,7 @@ $.each( formExamples, function( key, value ) {
     $('#intro-info').html(exampledata.description);
     $('#intro-info').show();
     $('#bioontology').find('option').remove().end().append( $('<option></option>').val("").html("no selection") );
-    var ontoquery = "/beaconplus-server/beaconinfo.cgi?querytype=ontologyids&datasetIds=" + exampledata.parameters.datasetIds.examplevalue;
+    var ontoquery = "/cgi-bin/beaconinfo.cgi?querytype=ontologyids&datasetIds=" + exampledata.parameters.datasetIds.examplevalue;
     $.each(exampledata.ontology_queries, function(index, value) {
       var queryvalue  = value;
       $.getJSON( ontoquery + "&querytext=" + queryvalue, function( data ) {
