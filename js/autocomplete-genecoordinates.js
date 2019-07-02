@@ -3,7 +3,7 @@ $(function() {
   $( "#" + geneinput_field ).autocomplete({
     source: function( request, response ) {
       $.ajax({
-        url: "/cgi-bin/-server/genespans.cgi",
+        url: "/cgi-bin/genespans.cgi",
         dataType: "jsonp",
         data: {
           featureClass:  "P",

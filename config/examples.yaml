@@ -28,10 +28,10 @@ exampleValuesCNV:
     variantType: 
       examplevalue: "DEL"
     alternateBases: 
-      examplevalue: "N"
+      examplevalue: ""
       visibility: "hide"
     referenceBases: 
-      examplevalue: "*"
+      examplevalue: "N"
       visibility: "hide"
   ontology_queries:
     - "icdom-944"
@@ -70,7 +70,7 @@ exampleValuesSNVrange:
     alternateBases: 
       examplevalue: "N"
     referenceBases: 
-      examplevalue: "*"
+      examplevalue: "N"
   ontology_queries:
     - "ncit"
     - "icdom"
@@ -143,10 +143,10 @@ exampleValuesBND:
     variantType: 
       examplevalue: "BND"
     alternateBases: 
-      examplevalue: "N"
+      examplevalue: ""
       visibility: "hide"
     referenceBases: 
-      examplevalue: "*"
+      examplevalue: "N"
       visibility: "hide"
   ontology_queries:
     - "icdom-80703"
