@@ -1,6 +1,6 @@
-$.getJSON( "/cgi-bin/beaconinfo.cgi?querytype=ontologyids&querytext=ncit:", function( data ) {
+$.getJSON( "/api/progenetix/biosubsets/mappings/shortlabel,ncit:/", function( data ) {
   $.each(data, function(index, value) {
-    $('#bioontology').append( $('<option></option>').val(value.child_terms).html(value.id + ": " + value.label_short + " (" + value.count + ")") );
+    $('#bioontology').append( $('<option></option>').val(value.child_terms.join(",")).html(value.id + ": " + value.label + " (" + value.count + ")") );
   });
 }, 'json');
 
@@ -25,15 +25,15 @@ $.each( formExamples, function( key, value ) {
     $('#intro-info').html(exampledata.description);
     $('#intro-info').show();
     $('#bioontology').find('option').remove().end().append( $('<option></option>').val("").html("no selection") );
-    var ontoquery = "/cgi-bin/beaconinfo.cgi?querytype=ontologyids&datasetIds=" + exampledata.parameters.datasetIds.examplevalue;
+    var ontoquery = "/api/"+exampledata.parameters.datasetIds.examplevalue+"/biosubsets/mappings/shortlabel,";
     $.each(exampledata.ontology_queries, function(index, value) {
       var queryvalue  = value;
-      $.getJSON( ontoquery + "&querytext=" + queryvalue, function( data ) {
+      $.getJSON( ontoquery + queryvalue, function( data ) {
         $.each(data, function(index, value) {
           if (index == 0 && /\d/.test(queryvalue)) {
-            $('#bioontology').append( $('<option selected="selected"></option>').val(value.child_terms).html(value.id + ": " + value.label_short + " (" + value.count + ")") );
+            $('#bioontology').append( $('<option selected="selected"></option>').val(value.child_terms.join(",")).html(value.id + ": " + value.label + " (" + value.count + ")") );
           } else {
-            $('#bioontology').append( $('<option></option>').val(value.child_terms).html(value.id + ": " + value.label_short + " (" + value.count + ")") );       
+            $('#bioontology').append( $('<option></option>').val(value.child_terms.join(",")).html(value.id + ": " + value.label + " (" + value.count + ")") );       
           }
         });
       }, 'json');

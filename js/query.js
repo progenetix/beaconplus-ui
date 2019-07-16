@@ -73,7 +73,7 @@ $( "#beacon-form" ).submit(function( event ) {
             result += '<td>'+ $("#referenceName").val() +'</td>';
             result += '<td>'+ [ $("#start").val(), [ $("#startMin").val(), $("#startMax").val()].join(" - "), [$("#endMin").val(), $("#endMax").val()].join(" - ") ].join('<br/>') + '</td>';
             result += '<td>'+ [ $("#referenceBases").val(), $("#alternateBases").val(), $("#variantType").val() ].join("<br/>") +'</td>';
-            result += '<td>'+ bioontologies +'</td>';
+            result += '<td>'+ bioontologies.split(",").join(", ") +'</td>';
             result += '<td>'+ data.datasetAlleleResponses[i].variantCount +'<br/>' + data.datasetAlleleResponses[i].callCount +'<br/>' + data.datasetAlleleResponses[i].sampleCount +'</td>';
             result += '<td>' + data.datasetAlleleResponses[i].frequency + '</td>';
             result += '<td><a href="' + BEACONRESPONSE + '?' + query +'" title="' + BEACONRESPONSE + '?' + query + '" target="_BLANK">JSON</a><br/><a href="http://www.genome.ucsc.edu/cgi-bin/hgTracks?db=' + ucscgenome + '&position=chr' + $("#referenceName").val() + '%3A' + ucscstart + '%2D' + ucscend + '" target="_blank">UCSC</a>';
