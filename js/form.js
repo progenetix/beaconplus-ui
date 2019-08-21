@@ -5,8 +5,8 @@ $.getJSON( "/api/progenetix/biosubsets/mappings/shortlabel,ncit:/", function( da
 }, 'json');
 
 $.getJSON( "/cgi-bin/beaconinfo.cgi/?querytype=get_datasetids", function( data ) {
-  $.each(data, function(index, value) {
-    $('#datasetIds').append( $('<option></option>').val(value).html(value) );
+  $.each(data.datasets, function(index, value) {
+    $('#datasetIds').append( $('<option></option>').val(value.datasetId).html(value.datasetId) );
   });
 }, 'json');
 
