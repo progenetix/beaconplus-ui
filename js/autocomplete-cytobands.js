@@ -1,27 +1,25 @@
 $(function() {
 
-  $( "#" + geneinput_field ).autocomplete({
+  $( "#" + cytoinput_field ).autocomplete({
     source: function( request, response ) {
       $.ajax({
-        url: "/cgi-bin/genespans.cgi",
+        url: "/cgi-bin/bycon/bin/cytomapper.py",
         dataType: "jsonp",
         data: {
           featureClass:  "P",
-          maxRows:    12,
-          db: "progenetix",
-          collection: "genespans",
-          querytext:  request.term,
+          maxRows:    2,
+          cytoBands:  request.term
         },
         success: function( data ) {
-          response( $.map( data.genes, function( item ) {
+          response( $.map( data.data, function( item ) {
             return [
             {
-              label: "[" + item.gene_symbol + "]" + " " + item.reference_name + ":" + item.cds_start_min + "-" + item.cds_end_max,
-              referenceName: item.reference_name,
-              startMin: item.cds_start_min - 2000000,
-              startMax: item.cds_end_max - 1,
-              endMin: item.cds_start_min,
-              endMax: item.cds_end_max + 2000000
+              label: item.referenceName + ":" + item.start + "-" + item.end,
+              referenceName: item.referenceName,
+              startMin: item.start,
+              startMax: item.end - 1,
+              endMin: item.start + 1,
+              endMax: item.end
             }
             ]
           }));
@@ -30,6 +28,7 @@ $(function() {
     },
     minLength: 2,
     select: function( event, ui ) {
+        $("#geneinputField").empty();
         $("#referenceName").val(ui.item.referenceName);
         $("#startMin").val(ui.item.startMin);
         $("#startMax").val(ui.item.startMax);

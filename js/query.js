@@ -1,6 +1,6 @@
 /**
  * Created by sduvaud on 12/05/17.
- * Last modification by Michael Baudis 2018-11-16
+ * Last modification by Michael Baudis 2019-12-05
 */
 
 // Endpoint (URL) for Beacon backend implementing a query API to access data
@@ -33,59 +33,70 @@ $( "#beacon-form" ).submit(function( event ) {
           $("#noResult").hide();
           $("#result").show();
 
-          // this already implements the responses for multiple datasets
-          var dataset_no = data.datasetAlleleResponses.length;
-    			for (var i = 0; i < dataset_no; i++) {
+          var result = '';
 
-            var ucscgenome = $("#assemblyId").val();
-            if (ucscgenome == 'GRCh36' ) {
-              ucscgenome = 'hg18';
-            } else if (ucscgenome == 'GRCh37' ) {
-              ucscgenome = 'hg19';
-            } else if (ucscgenome == 'GRCh38' ) {
-              ucscgenome = 'hg38';
-            }
+          if(typeof data.datasetAlleleResponses == 'undefined'){
+            result = '<tr><td colspan=9>exists: '+ data.exists +'</td></tr>';
+          } else {
 
-            var ucscstart = $("#startMin").val();
-            var ucscend = $("#endMax").val();
+            var dataset_no = data.datasetAlleleResponses.length;
+            for (var i = 0; i < dataset_no; i++) {
 
-            if ($("#start").val() > 0) {
-              ucscstart = $("#start").val();
-              ucscend = $("#start").val();
-            }
+              result += '<tr>';
 
-            // UCSC browser is 1 based
-            ucscstart = + ucscstart + +1;
-            ucscend = + ucscend + +1;
+              var ucscgenome = $("#assemblyId").val();
+              if (ucscgenome == 'GRCh36' ) {
+                ucscgenome = 'hg18';
+              } else if (ucscgenome == 'GRCh37' ) {
+                ucscgenome = 'hg19';
+              } else if (ucscgenome == 'GRCh38' ) {
+                ucscgenome = 'hg38';
+              }
 
-            // capture the "null is not an object" exception if nothing selected
-            var bioontologies = "";
-            if ( $('#bioontology').val() ){
-              bioontologies = $("#bioontology").val().join("<br/>");
-            }
-            if ( $('#materialtype').val() ){
-              bioontologies =  bioontologies + "<br/>" + $('#materialtype').val();
+              var ucscstart = $("#startMin").val();
+              var ucscend = $("#endMax").val();
+
+              if ($("#start").val() > 0) {
+                ucscstart = $("#start").val();
+                ucscend = $("#start").val();
+              }
+
+              // UCSC browser is 1 based
+
+              // capture the "null is not an object" exception if nothing selected
+              var filters = "";
+              if ( $('#bioontology').val() ){
+                filters = $("#bioontology").val().join("<br/>");
+              }
+              if ( $('#materialtype').val() ){
+                filters =  filters + "," + $('#materialtype').val();
+              }
+              if ( $('#freeFilters').val() ){
+                filters =  filters + "," + $('#freeFilters').val();
+              }
+            
+              result += '<td>'+ data.datasetAlleleResponses[i].datasetId +'</td>';
+              result += '<td>'+ $("#assemblyId").val() +'</td>';
+              result += '<td>'+ $("#referenceName").val() +'</td>';
+              result += '<td>'+ [ $("#start").val(), [ $("#startMin").val(), $("#startMax").val()].join(" - "), [$("#endMin").val(), $("#endMax").val()].join(" - ") ].join('<br/>') + '</td>';
+              result += '<td>'+ [ $("#referenceBases").val(), $("#alternateBases").val(), $("#variantType").val() ].join("<br/>") +'</td>';
+              result += '<td>'+ filters.split(",").join("<br/>") +'</td>';
+              result += '<td>'+ data.datasetAlleleResponses[i].variantCount +'<br/>' + data.datasetAlleleResponses[i].callCount +'<br/>' + data.datasetAlleleResponses[i].sampleCount +'</td>';
+              result += '<td>' + data.datasetAlleleResponses[i].frequency + '</td>';
+              result += '<td><a href="' + BEACONRESPONSE + '?' + query +'" title="' + BEACONRESPONSE + '?' + query + '" target="_BLANK">JSON</a><br/><a href="http://www.genome.ucsc.edu/cgi-bin/hgTracks?db='+ucscgenome+'&position=chr'+$("#referenceName").val()+'%3A'+ucscstart+'%2D'+ucscend+'" target="_blank">UCSC region</a>';
+              
+              var handover_no = data.datasetAlleleResponses[i].datasetHandover.length;
+              for (var h = 0; h < handover_no; h++) {
+                if (data.datasetAlleleResponses[i].datasetHandover[h].url.match(/http/)) {
+                  result += '<br/><a href="' + data.datasetAlleleResponses[i].datasetHandover[h].url + '" target="_blank" title="' + data.datasetAlleleResponses[i].datasetHandover[h].description + '">[H-&gt;O] ' + data.datasetAlleleResponses[i].datasetHandover[h].handoverType.label + '</a>';
+                }
+              }
+
+              result += '</td></tr>';
+
             }
             
-            var result = '';
-            result += '<td>'+ $("#datasetIds").val() +'</td>';
-            result += '<td>'+ $("#assemblyId").val() +'</td>';
-            result += '<td>'+ $("#referenceName").val() +'</td>';
-            result += '<td>'+ [ $("#start").val(), [ $("#startMin").val(), $("#startMax").val()].join(" - "), [$("#endMin").val(), $("#endMax").val()].join(" - ") ].join('<br/>') + '</td>';
-            result += '<td>'+ [ $("#referenceBases").val(), $("#alternateBases").val(), $("#variantType").val() ].join("<br/>") +'</td>';
-            result += '<td>'+ bioontologies.split(",").join(", ") +'</td>';
-            result += '<td>'+ data.datasetAlleleResponses[i].variantCount +'<br/>' + data.datasetAlleleResponses[i].callCount +'<br/>' + data.datasetAlleleResponses[i].sampleCount +'</td>';
-            result += '<td>' + data.datasetAlleleResponses[i].frequency + '</td>';
-            result += '<td><a href="' + BEACONRESPONSE + '?' + query +'" title="' + BEACONRESPONSE + '?' + query + '" target="_BLANK">JSON</a><br/><a href="http://www.genome.ucsc.edu/cgi-bin/hgTracks?db=' + ucscgenome + '&position=chr' + $("#referenceName").val() + '%3A' + ucscstart + '%2D' + ucscend + '" target="_blank">UCSC</a>';
-
-            var handover_no = data.datasetAlleleResponses[i].datasetHandover.length;
-    			  for (var h = 0; h < handover_no; h++) {
-              result += '<br/><a href="' + data.datasetAlleleResponses[i].datasetHandover[h].url + '" target="_blank" title="' + data.datasetAlleleResponses[i].datasetHandover[h].description + '">[H-&gt;O] ' + data.datasetAlleleResponses[i].datasetHandover[h].handoverType.label + '</a>';
-            }
-
-            result += '</td>';
-
-    				$("#resultTable").append('<tr>' + result + '</tr>');
+    				$("#resultTable").append(result);
 
           }
         })
@@ -110,6 +121,7 @@ function buildQuery(params) {
   var query = '';
   var paramName2Url = {
       "datasetIds": "datasetIds",
+      "includeDatasetResponses": "includeDatasetResponses",
       "referenceName": "referenceName",
       "assemblyId": "assemblyId",
       "startMin": "startMin",
@@ -124,7 +136,8 @@ function buildQuery(params) {
 //       "materialtype": "biosamples.provenance.material.type.id",
       "materialtype": "filters",
 //      "bioontology": "biosamples.biocharacteristics.type.id"
-      "bioontology": "filters"
+      "bioontology": "filters",
+      "freeFilters": "filters"
  };
 
   var paramName, paramValue = null;
@@ -133,8 +146,16 @@ function buildQuery(params) {
       paramName = val.name;
       paramValue = val.value;
 
+/*podmd
+Since the browser interface uses 1-based coordinates, start positions have to be
+left-shifted.
+*/
+
       if (paramValue != '' && paramName != '') {
-          query += paramName2Url[paramName] + '=' + encodeURIComponent(paramValue) + '&';
+        if (paramName.startsWith("start")) {
+          paramValue  = paramValue - 1;
+        }
+        query += paramName2Url[paramName] + '=' + encodeURIComponent(paramValue) + '&';
       }
   });
 
@@ -143,19 +164,18 @@ function buildQuery(params) {
 
 function checkParameters(params) {
 
-    var referenceName, start, startMin, referenceBases, alternateBases, variantType = null;
-    var startMax = endMin = endMax = -1;
+    var referenceName, start, startMin, startMax, end, endMin, endMax, referenceBases, alternateBases, variantType, filters = null;
 
     $.each(params, function (i, val) {
         if (val.name == 'referenceName') {
             referenceName = val.value;
         }
 
-        if (val.name == 'start') {
-            startMin = Math.abs(parseInt(val.value));
+        if (val.name == 'start' && val.value != '') {
+            start = Math.abs(parseInt(val.value));
         }
 
-        if (val.name == 'startMin') {
+        if (val.name == 'startMin' && val.value != '') {
             startMin = Math.abs(parseInt(val.value));
         }
 
@@ -163,6 +183,10 @@ function checkParameters(params) {
             startMax = Math.abs(parseInt(val.value));
         }
 
+        if (val.name == 'end' && val.value != '') {
+            end = Math.abs(parseInt(val.value));
+        }
+        
         if (val.name == 'endMin' && val.value != '') {
             endMin = Math.abs(parseInt(val.value));
         }
@@ -224,8 +248,8 @@ function checkParameters(params) {
     // ###############################################################
     // Rule #4: Chromosome name (1-23 or X or Y)
     // ###############################################################
-    var chromosme = getChromosome(referenceName);
-    if (chromosme == 'ERR') {
+    var chromosome = getChromosome(referenceName);
+    if (chromosome == 'ERR') {
         return "reference name incorrect!";
     }
 

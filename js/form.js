@@ -1,14 +1,33 @@
-$.getJSON( "/api/progenetix/biosubsets/mappings/shortlabel,ncit:/", function( data ) {
+/*
+$(document).ready(function() {
+    var results = new RegExp('[\?&]accessid=([^&#]*)').exec(window.location.search);
+    return (results !== null) ? $('#accessid').val( value.title ) || 0 : false
+});
+*/
+
+$.getJSON( "/api/progenetix/biosubsets/mappings/shortlabel,NCIT:/", function( data ) {
   $.each(data, function(index, value) {
     $('#bioontology').append( $('<option></option>').val(value.child_terms.join(",")).html(value.id + ": " + value.label + " (" + value.count + ")") );
   });
 }, 'json');
 
-$.getJSON( "/cgi-bin/beaconinfo.cgi/?querytype=get_datasetids", function( data ) {
+/*
+using the emerging "bycon" API ...
+*/
+
+$.getJSON( window.location.origin.replace("beacon.", "bycon.")+"/get-datasetids/", function( data ) {
   $.each(data.datasets, function(index, value) {
-    $('#datasetIds').append( $('<option></option>').val(value.datasetId).html(value.datasetId) );
+    $('#datasetIds').append( $('<option></option>').val(value.id).html(value.name) );
   });
 }, 'json');
+
+/*
+$.getJSON( "/cgi-bin/beaconinfo.cgi/?querytype=get_datasetids", function( data ) {
+  $.each(data.datasets, function(index, value) {
+    $('#datasetIds').append( $('<option></option>').val(value.id).html(value.name) );
+  });
+}, 'json');
+*/
 
 $( "#toggle_intro" ).click(function() {
   $( "#intro" ).toggle( "slow", function() {});

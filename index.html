@@ -8,13 +8,15 @@
   <meta name="google-site-verification" content="D_DC_Zxy3cCmrst5uaScIDD7daZ2_HO7Vhq2ZjfSIMo" />
   <meta name="google-site-verification" content="is7-_LmgwVxd7M4_XIn6psLPjlZyk58QuP-DN7FC44g" />
   <link rel="stylesheet" href="css/bootstrap/css/bootstrap.min.css">
+<!--
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+-->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" type="text/css" href="./js/jquery-ui.css" />
-  <script src="./js/jquery.js"></script>
-  <script src="./js/jquery-ui.js"></script>
+  <script src="js/jquery.js"></script>
+  <script src="js/jquery-ui.js"></script>
   <!-- See https://github.com/jeremyfa/yaml.js -->
-  <script type="text/javascript" src="./js/yaml.js"></script>
+  <script type="text/javascript" src="js/yaml.js"></script>
 
 </head>
 
@@ -23,7 +25,6 @@
 <script type="text/javascript">
   var formExamples = YAML.load('./config/examples.yaml');
 </script>
-
 
 <div class="container">
 
@@ -43,6 +44,7 @@
   <div class="panel panel-default" style="min-height: 260px">
     <div class="panel-heading" id="query_example_group" style="float: left; width: 100%;">
     &nbsp;
+		<div id="help-button" class="btn btn-info" style="float: right; background-color: #c3c3c3; margin: -7px 0px 0px 5px;"><a href="https://info.progenetix.org/tags/Beacon.html" target="_BLANK">Beacon Help</a></div>
     </div>
 
     <div class="panel-body" style="clear: both;">
@@ -52,9 +54,31 @@
         <div class="form-group">
             <label for="datasetIds" class="col-sm-2 control-label">Dataset<span class="compulsory">*</span></label>
             <div class="col-sm-4">
-              <select id="datasetIds" name="datasetIds" class="form-control">
+              <select id="datasetIds" name="datasetIds"  multiple size="6" class="form-control">
               </select>
             </div>
+        </div>
+
+        <div class="form-group" id="assemblyId_group">
+          <label for="assemblyId" class="col-sm-2 control-label">Genome Assembly<span class="compulsory">*</span></label>
+          <div class="col-sm-4">
+            <select id="assemblyId" name="assemblyId" class="form-control">
+<!--          <option value="GRCh36">GRCh36 / hg18</option>
+              <option value="GRCh37">GRCh37 / hg19</option>                  -->
+              <option value="GRCh38">GRCh38 / hg38</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="datasetAlleleResponses" class="col-sm-2 control-label">Dataset Responses</label>
+          <div class="col-sm-4">
+            <select id="includeDatasetResponses" name="includeDatasetResponses" class="form-control">
+              <option value="HIT">Datasets With Hits</option>
+              <option value="ALL" selected="selected">All Selected Datasets</option>
+              <option value="MISS">Datasets Without Hits</option>
+            </select>
+          </div>
         </div>
 
         <div class="form-group">
@@ -89,21 +113,11 @@
           </div>
         </div>
 
-        <div class="form-group" id="assemblyId_group">
-          <label for="assemblyId" class="col-sm-2 control-label">Genome Assembly<span class="compulsory">*</span></label>
-          <div class="col-sm-4">
-            <select id="assemblyId" name="assemblyId" class="form-control">
-<!--          <option value="GRCh36">GRCh36 / hg18</option>
-              <option value="GRCh37">GRCh37 / hg19</option>                  -->
-              <option value="GRCh38">GRCh38 / hg38</option>
-            </select>
-          </div>
-        </div>
         <div class="form-group" id="variantType_group">
           <label for="variantType" class="col-sm-2 control-label">(structural) variantType</label>
           <div class="col-sm-4">
             <select id="variantType" name="variantType" class="form-control">
-              <option value="">Please Select Structutral Alteration</option>
+              <option value="">Please Select Structural Alteration</option>
               <option value="">Not a structural variant</option>
               <option value="DEL">DEL (Deletion)</option>
               <option value="DUP">DUP (Duplication)</option>
@@ -115,6 +129,12 @@
           <label for="geneinputField" class="col-sm-2 control-label">Gene Coordinates</label>
           <div class="col-sm-4">
             <input type="text" class="form-control" id="geneinputField" placeholder="CDKN2A" />
+          </div>
+        </div>
+        <div class="form-group" id="cytoinputField_group" >
+          <label for="cytoinputField" class="col-sm-2 control-label">Cytoband(s)</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="cytoinputField" placeholder="8q24.1" />
           </div>
         </div>
         <div class="form-group" id="startMin_group">
@@ -184,8 +204,24 @@ Biosample parameter(s)
           </div>
         </div>
 
+        <div id="filters_group" class="form-group">
+          <label for="freeFilters" class="col-sm-2 control-label">Other Filters</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" name="freeFilters" id="freeFilters" placeholder="additional comma-separated, prefixed filters" />
+          </div>
+        </div>
+
 <!--
 End of biosample parameter(s)
+-->
+
+<!--
+        <div class="form-group" id="accessid_group">
+          <label for="accessid" class="col-sm-2 control-label">Aggregate on Accessid</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" name="accessid" id="accessid" placeholder="id of previously matched samples" />
+          </div>
+        </div>
 -->
 
 <!--
@@ -220,7 +256,7 @@ TODO: A second submit should open a new page with the raw return from the server
             <th style="vertical-align: middle;">Chro</th>
             <th style="vertical-align: middle;">Position<br/>Start Range<br/>End Range</th>
             <th style="vertical-align: middle;">Ref<br/>Alt<br/>Type</th>
-            <th style="vertical-align: middle;">Bio Query</th>
+            <th style="vertical-align: middle;">Filters</th>
             <th style="vertical-align: middle;">Variants<br/>Calls<br/>Samples</th>
             <th style="vertical-align: middle;"><i>f</i><sub>alleles</sub></th>
             <th style="vertical-align: middle;">Response<br/>Context</th>
@@ -252,9 +288,13 @@ TODO: A second submit should open a new page with the raw return from the server
 <script type="text/javascript" src="js/query.js"></script>
 <script type="text/javascript" src="js/form.js"></script>
 <script type="text/javascript">
+  var cytoinput_field = "cytoinputField";
+</script>
+<script type="text/javascript">
   var geneinput_field = "geneinputField";
 </script>
 <script type="text/javascript" src="js/autocomplete-genecoordinates.js"></script>
+<script type="text/javascript" src="js/autocomplete-cytobands.js"></script>
 
 
 <!-- Google -->
