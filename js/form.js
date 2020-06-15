@@ -5,11 +5,11 @@ $(document).ready(function() {
 });
 */
 
-$.getJSON( "/api/progenetix/biosubsets/mappings/shortlabel,NCIT:/", function( data ) {
-  $.each(data, function(index, value) {
-    $('#bioontology').append( $('<option></option>').val(value.child_terms.join(",")).html(value.id + ": " + value.label + " (" + value.count + ")") );
-  });
-}, 'json');
+// $.getJSON( "/api/progenetix/biosubsets/mappings/shortlabel,NCIT:/", function( data ) {
+//   $.each(data, function(index, value) {
+//     $('#bioontology').append( $('<option></option>').val(value.child_terms.join(",")).html(value.id + ": " + value.label + " (" + value.count + ")") );
+//   });
+// }, 'json');
 
 /*
 using the emerging "bycon" API ...
@@ -20,6 +20,13 @@ $.getJSON( window.location.origin.replace("beacon.", "bycon.")+"/get-datasetids/
     $('#datasetIds').append( $('<option></option>').val(value.id).html(value.name) );
   });
 }, 'json');
+
+$.getJSON( window.location.origin.replace("beacon.", "bycon.")+"/filtering_terms/prefixes=NCIT/", function( data ) {
+  $.each(data.filteringTerms, function(index, value) {
+    $('#bioontology').append( $('<option></option>').val(value.id).html(value.id + ": " + value.label + " (" + value.count + ")") );
+  });
+}, 'json');
+
 
 /*
 $.getJSON( "/cgi-bin/beaconinfo.cgi/?querytype=get_datasetids", function( data ) {
@@ -44,10 +51,13 @@ $.each( formExamples, function( key, value ) {
     $('#intro-info').html(exampledata.description);
     $('#intro-info').show();
     $('#bioontology').find('option').remove().end().append( $('<option></option>').val("").html("no selection") );
-    var ontoquery = "/api/"+exampledata.parameters.datasetIds.examplevalue+"/biosubsets/mappings/shortlabel,";
+/*    var ontoquery = "/api/"+exampledata.parameters.datasetIds.examplevalue+"/biosubsets/mappings/shortlabel,"; */
+    var ontoquery = window.location.origin.replace("beacon.", "bycon.")+"/filtering_terms/datasetId="+exampledata.parameters.datasetIds.examplevalue+"/filters=";
+    
     $.each(exampledata.ontology_queries, function(index, value) {
       var queryvalue  = value;
       $.getJSON( ontoquery + queryvalue, function( data ) {
+/*
         $.each(data, function(index, value) {
           if (index == 0 && /\d/.test(queryvalue)) {
             $('#bioontology').append( $('<option selected="selected"></option>').val(value.child_terms.join(",")).html(value.id + ": " + value.label + " (" + value.count + ")") );
@@ -55,6 +65,16 @@ $.each( formExamples, function( key, value ) {
             $('#bioontology').append( $('<option></option>').val(value.child_terms.join(",")).html(value.id + ": " + value.label + " (" + value.count + ")") );       
           }
         });
+*/
+        $.each(data.filteringTerms, function(index, value) {
+          if (index == 0 && /\d/.test(queryvalue)) {
+            $('#bioontology').append( $('<option selected="selected"></option>').val(value.id).html(value.id + ": " + value.label + " (" + value.count + ")") );
+          } else {
+            $('#bioontology').append( $('<option></option>').val(value.id).html(value.id + ": " + value.label + " (" + value.count + ")") );       
+          }
+        });
+        
+        
       }, 'json');
     });   
 

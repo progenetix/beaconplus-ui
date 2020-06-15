@@ -6,7 +6,8 @@
 // Endpoint (URL) for Beacon backend implementing a query API to access data
 
 var host = window.location.hostname;
-const BEACONRESPONSE = "/cgi-bin/beaconresponse.cgi";
+/* const BEACONRESPONSE = "/cgi-bin/beaconresponse.cgi"; */
+const BEACONRESPONSE = "/cgi-bin/bycon/bin/byconplus.py";
 
 $( "#beacon-form" ).submit(function( event ) {
 
