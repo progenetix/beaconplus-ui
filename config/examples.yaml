@@ -25,13 +25,13 @@ exampleValuesCNV:
     end: 
       examplevalue: ""
     startMin: 
-      examplevalue: 20000001
+      examplevalue: 19000001
     startMax: 
       examplevalue: 21975098
     endMin: 
       examplevalue: 21967753
     endMax: 
-      examplevalue: 23000000
+      examplevalue: 24000000
     variantType: 
       examplevalue: "DEL"
     alternateBases: 

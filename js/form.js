@@ -56,7 +56,7 @@ $.each( formExamples, function( key, value ) {
     $('#intro-info').show();
     $('#bioontology').find('option').remove().end().append( $('<option></option>').val("").html("no selection") );
 /*    var ontoquery = "/api/"+exampledata.parameters.datasetIds.examplevalue+"/biosubsets/mappings/shortlabel,"; */
-    var ontoquery = bycon+"/filtering_terms?datasetId="+exampledata.parameters.datasetIds.examplevalue+"&filters=";
+    var ontoquery = bycon+"/filtering_terms?datasetIds="+exampledata.parameters.datasetIds.examplevalue+"&filters=";
     
     $.each(exampledata.ontology_queries, function(index, value) {
       var queryvalue  = value;
