@@ -13,15 +13,19 @@ $(document).ready(function() {
 
 /*
 using the emerging "bycon" API ...
+Using the shortcut through the "bycon.progenetix.org" subdomain would violate CORS
+  => absolute web path rooted in "cgi" (or "cgi-bin)
 */
 
-$.getJSON( window.location.origin.replace("beacon.", "bycon.")+"/get-datasetids/", function( data ) {
+var bycon =  window.location.origin+"/cgi/bycon/bin/byconplus.py"
+
+$.getJSON( bycon+"/get-datasetids/", function( data ) {
   $.each(data.datasets, function(index, value) {
     $('#datasetIds').append( $('<option></option>').val(value.id).html(value.name) );
   });
 }, 'json');
 
-$.getJSON( window.location.origin.replace("beacon.", "bycon.")+"/filtering_terms/prefixes=NCIT/", function( data ) {
+$.getJSON( bycon+"/filtering_terms?prefixes=NCIT", function( data ) {
   $.each(data.filteringTerms, function(index, value) {
     $('#bioontology').append( $('<option></option>').val(value.id).html(value.id + ": " + value.label + " (" + value.count + ")") );
   });
@@ -52,7 +56,7 @@ $.each( formExamples, function( key, value ) {
     $('#intro-info').show();
     $('#bioontology').find('option').remove().end().append( $('<option></option>').val("").html("no selection") );
 /*    var ontoquery = "/api/"+exampledata.parameters.datasetIds.examplevalue+"/biosubsets/mappings/shortlabel,"; */
-    var ontoquery = window.location.origin.replace("beacon.", "bycon.")+"/filtering_terms/datasetId="+exampledata.parameters.datasetIds.examplevalue+"/filters=";
+    var ontoquery = bycon+"/filtering_terms?datasetId="+exampledata.parameters.datasetIds.examplevalue+"&filters=";
     
     $.each(exampledata.ontology_queries, function(index, value) {
       var queryvalue  = value;
