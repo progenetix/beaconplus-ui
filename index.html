@@ -80,6 +80,18 @@
         </div>
 
         <div class="form-group">
+          <label for="requestType" class="col-sm-2 control-label">Variant Request Type</label>
+          <div class="col-sm-4">
+            <select id="requestType" name="requestType" class="form-control">
+              <option value="variantAlleleRequest">variantAlleleRequest</option>
+              <option value="variantCNVrequest" selected="selected">variantCNVrequest</option>
+              <option value="variantRangeRequest">variantRangeRequest</option>
+              <option value="variantFusionRequest">variantFusionRequest</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
           <label for="referenceName" class="col-sm-2 control-label">Reference name<span class="compulsory">*</span></label>
           <div class="col-sm-4">
               <select id="referenceName" name="referenceName" class="form-control">
@@ -135,12 +147,12 @@
             <input type="text" class="form-control" id="cytoinputField" placeholder="8q24.1" />
           </div>
         </div>
-        <div class="form-group" id="startMin_group">
-            <label for="startMin" class="col-sm-2 control-label">Start <i>min</i> Position<span class="compulsory">*</span></label>
-            <div class="col-sm-4">
-              <input type="text" class="form-control col-sm-4" name="startMin" id="startMin" placeholder="begin of match start interval, e.g: 20000000" />
-            </div>
+        <div class="form-group" id="start_group">
+          <label for="start" class="col-sm-2 control-label">Start</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" name="start" id="start" placeholder="exact position or start of interval" />
           </div>
+        </div>
         <div class="form-group" id="startMax_group">
             <label for="startMax" class="col-sm-2 control-label">Start <i>max</i> Position</label>
             <div class="col-sm-4">
@@ -153,18 +165,12 @@
               <input type="text" class="form-control" id="endMin" name="endMin" placeholder="begin of match end interval, e.g: 21984490" />
             </div>
           </div>
-        <div class="form-group" id="endMax_group">
-            <label for="endMax" class="col-sm-2 control-label">End <i>max</i> Position</label>
+        <div class="form-group" id="end_group" >
+            <label for="end" class="col-sm-2 control-label">End Position</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="endMax" name="endMax" placeholder="end of match end interval, e.g: 25000000" />
+              <input type="text" class="form-control" id="end" name="end" placeholder="end of range or end interval" />
             </div>
           </div>
-        <div class="form-group" id="start_group">
-          <label for="start" class="col-sm-2 control-label">Start</label>
-          <div class="col-sm-4">
-            <input type="text" class="form-control" name="start" id="start" placeholder="position for exact allelic variant, e.g. 7577121" />
-          </div>
-        </div>
         <div class="form-group"  id="referenceBases_group">
           <label for="referenceBases" class="col-sm-2 control-label">Ref. Base(s)</label>
           <div class="col-sm-4">

@@ -13,7 +13,9 @@ exampleValuesCNV:
       examplevalue: "arraymap"
     includeDatasetResponses:
       examplevalue: "ALL"
-      visibility: "hide"    
+      visibility: "hide"
+    requestType:
+      examplevalue: "variantCNVrequest"    
     assemblyId: 
       examplevalue: "GRCh38"
     geneinputField: 
@@ -21,16 +23,12 @@ exampleValuesCNV:
     referenceName: 
       examplevalue: 9
     start: 
-      examplevalue: ""
-    end: 
-      examplevalue: ""
-    startMin: 
       examplevalue: 19000001
     startMax: 
       examplevalue: 21975098
     endMin: 
       examplevalue: 21967753
-    endMax: 
+    end: 
       examplevalue: 24000000
     variantType: 
       examplevalue: "DEL"
@@ -68,6 +66,8 @@ exampleValuesSNVrange:
     includeDatasetResponses:
       examplevalue: "ALL"
       visibility: "hide"    
+    requestType:
+      examplevalue: "variantRangeRequest"    
     assemblyId: 
       examplevalue: "GRCh38"
     geneinputField: 
@@ -75,16 +75,12 @@ exampleValuesSNVrange:
     referenceName: 
       examplevalue: 17
     start: 
-      examplevalue: ""
-    end: 
-      examplevalue: ""
-    startMin: 
       examplevalue: 7572826
     startMax: 
       examplevalue: ""
     endMin: 
       examplevalue: ""
-    endMax: 
+    end: 
       examplevalue: 7579005
     variantType: 
       examplevalue: ""
@@ -109,6 +105,8 @@ exampleValuesSNV:
     includeDatasetResponses:
       examplevalue: "ALL"
       visibility: "hide"    
+    requestType:
+      examplevalue: "variantAlleleRequest"    
     assemblyId: 
       examplevalue: "GRCh38"
     geneinputField: 
@@ -120,15 +118,11 @@ exampleValuesSNV:
       examplevalue: 17
     start: 
       examplevalue: 7577121
-    end: 
-      examplevalue: ""
-    startMin: 
-      examplevalue: ""
     startMax: 
       examplevalue: ""
     endMin: 
       examplevalue: ""
-    endMax: 
+    end: 
       examplevalue: ""
     variantType: 
       examplevalue: ""
@@ -160,6 +154,8 @@ exampleValuesClinVar:
     includeDatasetResponses:
       examplevalue: "ALL"
       visibility: "hide"    
+    requestType:
+      examplevalue: "variantAlleleRequest"    
     assemblyId: 
       examplevalue: "GRCh38"
     geneinputField: 
@@ -170,15 +166,11 @@ exampleValuesClinVar:
       examplevalue: 17
     start: 
       examplevalue: 7673767
-    end: 
-      examplevalue: ""
-    startMin: 
-      examplevalue: ""
     startMax: 
       examplevalue: ""
     endMin: 
       examplevalue: ""
-    endMax: 
+    end: 
       examplevalue: ""
     variantType: 
       examplevalue: ""
@@ -195,47 +187,4 @@ exampleValuesClinVar:
   ontology_queries:
     - "NCIT"
       
-#exampleValuesBND:
-#  note: "Breakpoint Queries (e.g. BND or CNV edges)."
-#  label: "BND Example"
-#  description: |
-#    For this example the arrayMap collection is queried for samples
-#    with a breakpoint/fusion event around the MYC gene.
-#    Additionally to "BND" annotations, also the ends of "DUP" and "DEL"
-#    events are being considered internally.
-#  parameters:
-#    datasetIds: 
-#      examplevalue: "arraymap"
-#    assemblyId: 
-#      examplevalue: "GRCh38"
-#    geneinputField: 
-#      examplevalue: ""
-#    referenceName: 
-#      examplevalue: 8
-#    start: 
-#      examplevalue: ""
-#    end: 
-#      examplevalue: ""
-#    startMin: 
-#      examplevalue: 127500000
-#    startMax: 
-#      examplevalue: 127900000
-#    endMin: 
-#      examplevalue: ""
-#    endMax: 
-#      examplevalue: ""
-#    variantType: 
-#      examplevalue: "BND"
-#    alternateBases: 
-#      examplevalue: ""
-#      visibility: "hide"
-#    referenceBases: 
-#      examplevalue: "N"
-#      visibility: "hide"
-#  ontology_queries:
-#    - "icdom-80703"
-#    - "NCIT"
-#    - "icdom"
-#    - "icdot"
-
 

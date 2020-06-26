@@ -18,102 +18,92 @@ $( "#beacon-form" ).submit(function( event ) {
     var formParam = $('#beacon-form').serializeArray();
     var message = checkParameters(formParam);
 
-    if (message == 'OK') {
+  var query = buildQuery(formParam);
+  var params = {
+	type: 'GET',
+	url: BEACONRESPONSE + '?' + query
+  };
 
-      $('#error').hide();
+  $.ajax(params)
+	.done(function (data) {
+	  $("#spinner").hide();
+	  $("#noResult").hide();
+	  $("#result").show();
 
-      var query = buildQuery(formParam);
-      var params = {
-        type: 'GET',
-        url: BEACONRESPONSE + '?' + query
-      };
+	  var result = '';
 
-      $.ajax(params)
-        .done(function (data) {
-          $("#spinner").hide();
-          $("#noResult").hide();
-          $("#result").show();
+	  if(typeof data.datasetAlleleResponses == 'undefined'){
+		result = '<tr><td colspan=9>exists: '+ data.exists +'</td></tr>';
+	  } else {
 
-          var result = '';
+		var dataset_no = data.datasetAlleleResponses.length;
+		for (var i = 0; i < dataset_no; i++) {
 
-          if(typeof data.datasetAlleleResponses == 'undefined'){
-            result = '<tr><td colspan=9>exists: '+ data.exists +'</td></tr>';
-          } else {
+		  result += '<tr>';
 
-            var dataset_no = data.datasetAlleleResponses.length;
-            for (var i = 0; i < dataset_no; i++) {
+		  var ucscgenome = $("#assemblyId").val();
+		  if (ucscgenome == 'GRCh36' ) {
+			ucscgenome = 'hg18';
+		  } else if (ucscgenome == 'GRCh37' ) {
+			ucscgenome = 'hg19';
+		  } else if (ucscgenome == 'GRCh38' ) {
+			ucscgenome = 'hg38';
+		  }
 
-              result += '<tr>';
+		  var ucscstart = $("#start").val();
+		  var ucscend = $("#end").val();
 
-              var ucscgenome = $("#assemblyId").val();
-              if (ucscgenome == 'GRCh36' ) {
-                ucscgenome = 'hg18';
-              } else if (ucscgenome == 'GRCh37' ) {
-                ucscgenome = 'hg19';
-              } else if (ucscgenome == 'GRCh38' ) {
-                ucscgenome = 'hg38';
-              }
+		  if ($("#start").val() > 0) {
+			ucscstart = $("#start").val();
+			ucscend = $("#start").val();
+		  }
 
-              var ucscstart = $("#startMin").val();
-              var ucscend = $("#endMax").val();
+		  // UCSC browser is 1 based
 
-              if ($("#start").val() > 0) {
-                ucscstart = $("#start").val();
-                ucscend = $("#start").val();
-              }
+		  // capture the "null is not an object" exception if nothing selected
+		  var filters = "";
+		  if ( $('#bioontology').val() ){
+			filters = $("#bioontology").val().join("<br/>");
+		  }
+		  if ( $('#materialtype').val() ){
+			filters =  filters + "," + $('#materialtype').val();
+		  }
+		  if ( $('#freeFilters').val() ){
+			filters =  filters + "," + $('#freeFilters').val();
+		  }
+		
+		  result += '<td>'+ data.datasetAlleleResponses[i].datasetId +'</td>';
+		  result += '<td>'+ $("#assemblyId").val() +'</td>';
+		  result += '<td>'+ $("#referenceName").val() +'</td>';
+		  result += '<td>'+ [ $("#start").val(), [ $("#start").val(), $("#startMax").val()].join(" - "), [$("#endMin").val(), $("#end").val()].join(" - ") ].join('<br/>') + '</td>';
+		  result += '<td>'+ [ $("#referenceBases").val(), $("#alternateBases").val(), $("#variantType").val() ].join("<br/>") +'</td>';
+		  result += '<td>'+ filters.split(",").join("<br/>") +'</td>';
+		  result += '<td>'+ data.datasetAlleleResponses[i].variantCount +'<br/>' + data.datasetAlleleResponses[i].callCount +'<br/>' + data.datasetAlleleResponses[i].sampleCount +'</td>';
+		  result += '<td>' + data.datasetAlleleResponses[i].frequency + '</td>';
+		  result += '<td><a href="' + BEACONRESPONSE + '?' + query +'" title="' + BEACONRESPONSE + '?' + query + '" target="_BLANK">JSON</a><br/><a href="http://www.genome.ucsc.edu/cgi-bin/hgTracks?db='+ucscgenome+'&position=chr'+$("#referenceName").val()+'%3A'+ucscstart+'%2D'+ucscend+'" target="_blank">UCSC region</a>';
+		  
+		  var handover_no = data.datasetAlleleResponses[i].datasetHandover.length;
+		  for (var h = 0; h < handover_no; h++) {
+			if (data.datasetAlleleResponses[i].datasetHandover[h].url.match(/http/)) {
+			  result += '<br/><a href="' + data.datasetAlleleResponses[i].datasetHandover[h].url + '" target="_blank" title="' + data.datasetAlleleResponses[i].datasetHandover[h].description + '">[H-&gt;O] ' + data.datasetAlleleResponses[i].datasetHandover[h].handoverType.label + '</a>';
+			}
+		  }
 
-              // UCSC browser is 1 based
+		  result += '</td></tr>';
 
-              // capture the "null is not an object" exception if nothing selected
-              var filters = "";
-              if ( $('#bioontology').val() ){
-                filters = $("#bioontology").val().join("<br/>");
-              }
-              if ( $('#materialtype').val() ){
-                filters =  filters + "," + $('#materialtype').val();
-              }
-              if ( $('#freeFilters').val() ){
-                filters =  filters + "," + $('#freeFilters').val();
-              }
-            
-              result += '<td>'+ data.datasetAlleleResponses[i].datasetId +'</td>';
-              result += '<td>'+ $("#assemblyId").val() +'</td>';
-              result += '<td>'+ $("#referenceName").val() +'</td>';
-              result += '<td>'+ [ $("#start").val(), [ $("#startMin").val(), $("#startMax").val()].join(" - "), [$("#endMin").val(), $("#endMax").val()].join(" - ") ].join('<br/>') + '</td>';
-              result += '<td>'+ [ $("#referenceBases").val(), $("#alternateBases").val(), $("#variantType").val() ].join("<br/>") +'</td>';
-              result += '<td>'+ filters.split(",").join("<br/>") +'</td>';
-              result += '<td>'+ data.datasetAlleleResponses[i].variantCount +'<br/>' + data.datasetAlleleResponses[i].callCount +'<br/>' + data.datasetAlleleResponses[i].sampleCount +'</td>';
-              result += '<td>' + data.datasetAlleleResponses[i].frequency + '</td>';
-              result += '<td><a href="' + BEACONRESPONSE + '?' + query +'" title="' + BEACONRESPONSE + '?' + query + '" target="_BLANK">JSON</a><br/><a href="http://www.genome.ucsc.edu/cgi-bin/hgTracks?db='+ucscgenome+'&position=chr'+$("#referenceName").val()+'%3A'+ucscstart+'%2D'+ucscend+'" target="_blank">UCSC region</a>';
-              
-              var handover_no = data.datasetAlleleResponses[i].datasetHandover.length;
-              for (var h = 0; h < handover_no; h++) {
-                if (data.datasetAlleleResponses[i].datasetHandover[h].url.match(/http/)) {
-                  result += '<br/><a href="' + data.datasetAlleleResponses[i].datasetHandover[h].url + '" target="_blank" title="' + data.datasetAlleleResponses[i].datasetHandover[h].description + '">[H-&gt;O] ' + data.datasetAlleleResponses[i].datasetHandover[h].handoverType.label + '</a>';
-                }
-              }
+		}
+		
+				$("#resultTable").append(result);
 
-              result += '</td></tr>';
+	  }
+	})
+	.fail(function (jqXHR, textStatus, error) {
+	  $("#spinner").hide();
+	  $('#message').remove();
+	  $('#error').show();
+	  $('#error').append('<span id="message" class="compulsory">Error on '+ query +'</span>');
+	});
 
-            }
-            
-    				$("#resultTable").append(result);
-
-          }
-        })
-        .fail(function (jqXHR, textStatus, error) {
-          $("#spinner").hide();
-          $('#message').remove();
-          $('#error').show();
-          $('#error').append('<span id="message" class="compulsory">Error on '+ query +'</span>');
-        });
-    }
-    else {
-        $("#spinner").hide();
-        $('#message').remove();
-        $('#error').show();
-        $('#error').append('<span id="message" class="compulsory">' + message + '</span>');
-    }
 });
 
 
@@ -123,17 +113,16 @@ function buildQuery(params) {
   var paramName2Url = {
       "datasetIds": "datasetIds",
       "includeDatasetResponses": "includeDatasetResponses",
+      "requestType": "requestType",
       "referenceName": "referenceName",
       "assemblyId": "assemblyId",
-      "startMin": "startMin",
-      "startMax": "startMax",
-      "endMin": "endMin",
-      "endMax": "endMax",
+      "start": "start",
+      "startMax": "start",
+      "endMin": "end",
+      "end": "end",
       "referenceBases": "referenceBases",
       "alternateBases": "alternateBases",
       "variantType": "variantType",
-      "start": "start",
-      "end": "end",
 //       "materialtype": "biosamples.provenance.material.type.id",
       "materialtype": "filters",
 //      "bioontology": "biosamples.biocharacteristics.type.id"
