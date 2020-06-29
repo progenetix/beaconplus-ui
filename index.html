@@ -22,6 +22,7 @@
 
 <script type="text/javascript">
   var formExamples = YAML.load('./config/examples.yaml');
+  var requestTypes = YAML.load('./config/requestTypes.yaml');
 </script>
 
 <div class="container">
@@ -40,9 +41,12 @@
   </div>
 
   <div class="panel panel-default" style="min-height: 260px">
-    <div class="panel-heading" id="query_example_group" style="float: left; width: 100%;">
+    <div class="panel-heading" id="request_type_group" style="float: left; width: 100%;">
     &nbsp;
 		<div id="help-button" class="btn btn-info" style="float: right; background-color: #c3c3c3; margin: -7px 0px 0px 5px;"><a href="https://info.progenetix.org/tags/Beacon.html" target="_BLANK">Beacon Help</a></div>
+    </div>
+    <div class="panel-heading" id="query_example_group" style="float: left; width: 100%;">
+    &nbsp;
     </div>
 
     <div class="panel-body" style="clear: both;">
@@ -68,7 +72,7 @@
           </div>
         </div>
         
-        <div class="form-group">
+        <div class="form-group" id="includeDatasetResponses_group">
           <label for="datasetAlleleResponses" class="col-sm-2 control-label">Dataset Responses</label>
           <div class="col-sm-4">
             <select id="includeDatasetResponses" name="includeDatasetResponses" class="form-control">
@@ -79,7 +83,7 @@
           </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" id="requestType_group">
           <label for="requestType" class="col-sm-2 control-label">Variant Request Type</label>
           <div class="col-sm-4">
             <select id="requestType" name="requestType" class="form-control">
@@ -91,7 +95,7 @@
           </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" id="referenceName_group">
           <label for="referenceName" class="col-sm-2 control-label">Reference name<span class="compulsory">*</span></label>
           <div class="col-sm-4">
               <select id="referenceName" name="referenceName" class="form-control">

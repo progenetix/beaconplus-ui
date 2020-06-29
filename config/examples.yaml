@@ -15,7 +15,7 @@ exampleValuesCNV:
       examplevalue: "ALL"
       visibility: "hide"
     requestType:
-      examplevalue: "variantCNVrequest"    
+      examplevalue: "variantCNVrequest"
     assemblyId: 
       examplevalue: "GRCh38"
     geneinputField: 

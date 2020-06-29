@@ -5,6 +5,37 @@ $(document).ready(function() {
 });
 */
 
+$( "#toggle_intro" ).click(function() {
+  $( "#intro" ).toggle( "slow", function() {});
+});
+
+$.each( requestTypes, function( key, value ) {
+  var rType = key;
+  var rParameters = value;
+
+  $( "#request_type_group" ).append( '<div id="' + rType + '" class="btn btn-info" style="float: left; background-color: #6699ff; margin: -7px 5px 0px 0px;">' + rParameters.label + '</div>');
+
+  $('#' + rType).click(function(){
+    $('#beacon-form').trigger("reset");
+    $('#intro-info').html(rParameters.description);
+    $('#intro-info').show();
+
+    $.each( rParameters.parameters, function( key, value ) {
+      var parameter = key;
+      if (parameter === "requestType") {
+      	$('#requestType').val(value.value);
+      } else {
+      	$('#' + parameter).attr("placeholder", "example: "+value.placeholder);
+      }
+      if (value.visibility === 'hide') {
+        $('#' + parameter + '_group').hide();
+      } else {
+        $('#' + parameter + '_group').show();
+      }
+    });
+  });
+});
+
 // $.getJSON( "/api/progenetix/biosubsets/mappings/shortlabel,NCIT:/", function( data ) {
 //   $.each(data, function(index, value) {
 //     $('#bioontology').append( $('<option></option>').val(value.child_terms.join(",")).html(value.id + ": " + value.label + " (" + value.count + ")") );
@@ -31,7 +62,6 @@ $.getJSON( bycon+"/filtering_terms?prefixes=NCIT", function( data ) {
   });
 }, 'json');
 
-
 /*
 $.getJSON( "/cgi-bin/beaconinfo.cgi/?querytype=get_datasetids", function( data ) {
   $.each(data.datasets, function(index, value) {
@@ -39,10 +69,6 @@ $.getJSON( "/cgi-bin/beaconinfo.cgi/?querytype=get_datasetids", function( data )
   });
 }, 'json');
 */
-
-$( "#toggle_intro" ).click(function() {
-  $( "#intro" ).toggle( "slow", function() {});
-});
 
 $.each( formExamples, function( key, value ) {
   var example = key;
